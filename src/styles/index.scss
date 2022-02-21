@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  color: #fff;
 //   text-shadow: -1px -1px 0 #000;
 }
 
@@ -126,3 +127,5 @@ div:focus {
 
 .plan .el-table__body-wrapper{max-height: 600px; overflow-y: auto;}
 
+.nav .el-submenu__title{display: inline-block !important;background-color: rgb(0, 12, 23) !important;}
+.el-menu.el-menu--horizontal{border: none;}

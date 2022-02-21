@@ -1,6 +1,23 @@
 <template>
     <div class="base">
-        111
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-purple-dark">1</div>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="24">
+                <div class="grid-content bg-purple-dark">2</div>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col :span="12">
+                <div class="grid-content bg-purple">1</div>
+            </el-col>
+            <el-col :span="12">
+                <div class="grid-content bg-purple-light">2</div>
+            </el-col>
+        </el-row>
     </div>
 </template>
 

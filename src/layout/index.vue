@@ -6,7 +6,7 @@
                 <sidebar class="sidebar-container" />
             </el-col>
             <el-col :xs="16" :sm="18" :md="20" :lg="21" :xl="23" class="main-container">
-                <app-main class="rightMain" />
+                <router-view />
             </el-col>
         </el-row>
     </div>
@@ -83,6 +83,6 @@ width: 100%;
 .copyright{position: fixed;right: 20px;bottom:5px;z-index: 999999999;}
 #app .main-container{margin-left: 0;width: calc(100% - 208px);}
 .rightMain{padding:20px;background-color: #F4F7FC;}
-.left{height: 100vh;background: #192038;width: 208px;color: #fff;text-align: center;padding: 15px 0;}
+.left{height: calc(100vh - 60px);background: #192038;width: 208px;color: #fff;text-align: center;padding: 15px 0;}
 .left h2{font-size: 20px;padding-bottom: 15px;}
 </style>

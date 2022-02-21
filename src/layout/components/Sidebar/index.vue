@@ -67,4 +67,5 @@ export default {
 #app .sidebar-container .el-menu,#app .sidebar-container .el-submenu .el-menu-item{background-color: #000 !important;}
 #app .sidebar-container .el-submenu .el-menu-item:hover,#app .sidebar-container .el-submenu .el-menu-item.is-active{background-color: #121626 !important;border:1px solid #29304D;border-left: 4px solid #333FFF;border-radius: 0 4px 4px 0;}
 #app .sidebar-container .el-submenu .el-menu-item{min-width: 0px !important;height: 42px;margin: 7px 0;line-height: 38px;border:1px solid #000;border-left: 4px solid #000;font-size: 16px;}
+#app .sidebar-container{height: calc(100vh - 120px);}
 </style>

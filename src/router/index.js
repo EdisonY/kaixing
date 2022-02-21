@@ -17,10 +17,9 @@ import Layout from '@/layout'
 
 export const constantRoutes = [
     {
-        path: '/proramme',
-        component: Layout,
+        path: '/programme',
+        component: () => import('@/layout'),
         name:'开行方案编制',
-        alwaysShow: false,
         meta: { title: '开行方案编制', icon: 'form' },
         children: [
             {
@@ -50,16 +49,49 @@ export const constantRoutes = [
         ]
     },
     {
+        path: '/emergency',
+        component: () => import('@/layout/empty'),
+        name:'应急会商指挥',
+        meta: { title: '应急会商指挥', icon: 'form' },
+        hidden: true,
+        children: [
+            {
+                path: 'rainstorm',
+                name: '暴雨机场大面积航延',
+                component: () => import('@/views/emergency/rainstorm'),
+                meta: { title: '暴雨机场大面积航延'}
+            }
+        ]
+    },
+    {
+        path: '/monitor',
+        name:'开行方案编制',
+        component: () => import('@/views/monitor'),
+        hidden: true
+    },
+    {
+        path: '/analysis',
+        name:'历史数据分析',
+        component: () => import('@/views/analysis'),
+        hidden: true
+    },
+    {
+        path: '/setting',
+        name:'系统参数设置',
+        component: () => import('@/views/setting'),
+        hidden: true
+    },
+    {
         path: '/404',
         component: () => import('@/views/404'),
         hidden: true
-    },
+    }
 ]
 
 
 let routes = [...constantRoutes]
+console.log(routes);
 const createRouter = () => new Router({
-    // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
     mode:'history',
     // base: BASEROUTER,
@@ -70,44 +102,23 @@ const router = createRouter()
 
 
 router.beforeEach((to, from, next) => {
-    if(localStorage.getItem('token') && localStorage.getItem('token') != ''){
-        if(to.path == '/login'){
-            next('/')
-        }else{
-            next()
-        }
-    }else{
-        if(to.path == '/login'){
-            next()
-        }else{
-            next('/login')
-        }
-    }
-    // next()
-
-
-
-    // if(to.path == '/rungraph' || to.path == '/pfbasic' || to.path == '/simulation' || to.path == '/indicator'){
-    //     store.state.app.sidebar.opened = false
-    // }else{
-    //     store.state.app.sidebar.opened = true
-    // }
-    // if(kg){
-    //     kg = false
-    //     if(sessionStorage.getItem('line') != '' && typeof(sessionStorage.getItem('line')) == 'string'){
+    // if(localStorage.getItem('token') && localStorage.getItem('token') != ''){
+    //     if(to.path == '/login'){
+    //         next('/')
+    //     }else{
     //         next()
-    //     }else if(to.path == '/choseline' || to.path == '/login'){
+    //     }
+    // }else{
+    //     if(to.path == '/login'){
     //         next()
     //     }else{
-    //         Vue.prototype.$message.error('请先选择线路！')
-    //         next('/choseline')
+    //         next('/login')
     //     }
-    //     setTimeout(()=>{
-    //         kg = true
-    //     })
     // }
+    next()
 
-    // next()
+
+
 })
 
 Vue.prototype.$resetRoute = function(){
