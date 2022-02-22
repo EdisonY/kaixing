@@ -27,7 +27,7 @@
                 <h3>交路方案选择</h3>
             </el-col>
             <el-col :span="21" style="text-align:right;padding-top:15px;">
-                <el-button size="medium">历史交路铺设方式</el-button>
+                <el-button size="medium" @click="sc('历史交路铺设方式查询成功！')">历史交路铺设方式</el-button>
             </el-col>
         </el-row>
         <div class="chose">
@@ -35,11 +35,6 @@
             :data="tableData"
             border
             style="width: 100%">
-                <el-table-column type="expand">
-                    <template slot-scope="props">
-                        <span>{{ props.row.name }}</span>
-                    </template>
-                </el-table-column>
                 <el-table-column
                     label="起止时间"
                     align="center"
@@ -57,11 +52,21 @@
                     header-align="center"
                     prop="name">
                 </el-table-column>
+                <el-table-column
+                    fixed="right"
+                    label="操作"
+                    align="center"
+                    width="200">
+                    <template slot-scope="scope">
+                        <el-button @click="handleClick(scope.row)" type="primary" size="small">查看</el-button>
+                        <el-button @click="open()" type="danger" size="small">删除</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
         </div>
         <div style="margin: 0 0 0 20px">
             <el-button @click="addTime()">添加条数</el-button>
-            <el-button type="primary">生成开行方案</el-button>
+            <el-button @click="sc('开行方案生成成功')" type="primary">生成开行方案</el-button>
         </div>
         <el-dialog
             title="添加条数"
@@ -92,6 +97,57 @@
                 <el-button type="primary" @click="dialogVisible = false" size="medium">确 定</el-button>
             </span>
         </el-dialog>
+        <el-dialog
+        title="选择交路方案详情"
+        :visible.sync="dialogVisible1"
+        width="40%"
+        class="detailDia"
+        :before-close="handleClose">
+            <el-table
+                ref="singleTable"
+                :data="detailsData"
+                highlight-current-row
+                border
+                @current-change="handleCurrentChange"
+                style="width: 100%">
+                <el-table-column
+                property="date"
+                label="方案单选"
+                align="center"
+                width="100">
+                </el-table-column>
+                <el-table-column
+                property="name"
+                label="序号"
+                align="center"
+                width="50">
+                </el-table-column>
+                <el-table-column
+                property="address"
+                align="center"
+                label="交路选择">
+                </el-table-column>
+                <el-table-column
+                property="station"
+                align="center"
+                label="跳停车站">
+                </el-table-column>
+                <el-table-column
+                property="message"
+                align="center"
+                label="编组信息">
+                </el-table-column>
+                <el-table-column
+                property="bili"
+                align="center"
+                label="交路比例">
+                </el-table-column>
+            </el-table>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible1 = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -107,19 +163,47 @@ export default {
             startTime: '',
             endTime: '',
             dialogVisible:false,
+            dialogVisible1:false,
             tableData: [{
-                id: '12987122',
-                name: '好滋好味鸡蛋仔',
+                id: '05:00:00 - 07:00:00',
+                name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L 交路比例：无',
             }, {
-                id: '12987123',
-                name: '好滋好味鸡蛋仔',
+                id: '07:00:00 - 09:00:00',
+                name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L 交路比例：无',
             }, {
-                id: '12987125',
-                name: '好滋好味鸡蛋仔',
-            }, {
-                id: '12987126',
-                name: '好滋好味鸡蛋仔',
-            }]
+                id: '09:00:00 - 11:00:00',
+                name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L 交路比例：无',
+            }],
+            detailsData:[{
+                date:'方案一',
+                name:'1',
+                address:'3号航站楼-东直门',
+                station:'无',
+                message:'4L',
+                bili:'无'
+            },{
+                date:'方案二',
+                name:'1',
+                address:'3号航站楼-东直门',
+                station:'无',
+                message:'4L',
+                bili:'无'
+            },{
+                date:'方案三',
+                name:'1',
+                address:'3号航站楼-东直门',
+                station:'无',
+                message:'4L',
+                bili:'无'
+            },{
+                date:'方案一',
+                name:'1',
+                address:'3号航站楼-东直门',
+                station:'无',
+                message:'4L',
+                bili:'无'
+            }],
+            currentRow: null
         }
     },
     created () {
@@ -137,6 +221,39 @@ export default {
         },
         handleClose(){
             this.dialogVisible = false
+            this.dialogVisible1 = false
+        },
+        handleClick(){
+            this.dialogVisible1 = true
+        },
+        setCurrent(row) {
+            this.$refs.singleTable.setCurrentRow(row);
+        },
+        handleCurrentChange(val) {
+            this.currentRow = val;
+        },
+        open() {
+            this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                });
+            }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消删除'
+                });          
+            });
+        },
+        sc(msg){
+            this.$message({
+                type: 'success',
+                message: msg
+            });
         }
     },
     destroyed() {
@@ -150,4 +267,7 @@ export default {
 .routescheme .el-row{padding: 10px 20px;}
 .chose{padding: 0 20px 20px 20px ;}
 .el-dialog__body{text-align: center;}
+.el-table tr{cursor:pointer}
+.detailDia .el-table th.is-leaf{background: #409eff;color: #fff;}
+.detailDia .el-table__body tr.current-row>td{background: #fed24b;}
 </style>

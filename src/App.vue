@@ -14,7 +14,9 @@
                     <el-menu-item index="1-1">
                         <router-link to="/choseline">开行方案</router-link>
                     </el-menu-item>
-                    <el-menu-item index="1-2">离线方案对比</el-menu-item>
+                    <el-menu-item index="1-2">
+                        <router-link to="/offlinescheme">离线方案对比</router-link>
+                    </el-menu-item>
                 </el-submenu>
                 <el-menu-item index="2"><router-link to="/monitor">日常监控</router-link></el-menu-item>
                 <el-submenu index="3">
