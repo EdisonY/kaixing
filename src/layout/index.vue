@@ -2,7 +2,7 @@
     <div class="app-wrapper">
         <el-row :span="24">
             <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" class="left">
-                <h2>开行方案编制</h2>
+                <!-- <h2>开行方案编制</h2> -->
                 <sidebar class="sidebar-container" />
             </el-col>
             <el-col :xs="16" :sm="18" :md="20" :lg="21" :xl="23" class="main-container">

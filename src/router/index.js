@@ -49,6 +49,13 @@ export const constantRoutes = [
         ]
     },
     {
+        path: '/choseline',
+        name: '线路选择',
+        hidden: true,
+        component: () => import('@/views/programme/choseLine'),
+        meta: { title: '线路选择'}
+    },
+    {
         path: '/emergency',
         component: () => import('@/layout/empty'),
         name:'应急会商指挥',

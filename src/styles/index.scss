@@ -89,7 +89,7 @@ div:focus {
 .el-timeline-item__timestamp{color: #fff;}
 .el-submenu__title{font-size: 16px;}
 .el-tag{font-weight: bold;background-color: transparent !important;}
-.el-col-7{width: 35%;}
+// .el-col-7{width: 35%;}
 .el-input__icon{line-height: 32px;}
 .el-table--border, .el-table--group{border-left:1px solid #D7DBEC;border-top:1px solid #D7DBEC}
 
@@ -129,3 +129,11 @@ div:focus {
 
 .nav .el-submenu__title{display: inline-block !important;background-color: rgb(0, 12, 23) !important;}
 .el-menu.el-menu--horizontal{border: none;}
+.el-menu-item a{display: block;}
+
+.choseLine .radioMain .el-radio__input{display: none !important;}
+.choseLine .el-radio.is-bordered.is-checked{background: #ff9d04;border-color: #ff9d04;}
+.choseLine .el-radio__input.is-checked+.el-radio__label{color: #fff;}
+
+
+.yl{width: 100%;min-height: 150px;background-color: #ccc;display: inline-block;margin: 20px 0;text-align: center;line-height: 100px;color: #000;}
