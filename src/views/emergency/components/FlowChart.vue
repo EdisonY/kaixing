@@ -4,46 +4,56 @@
         <div ref="inner"
             class="inner-flow-page">
             <img :src="bg">
-            <div class="diy done"
-                id="d1">
+            <div class="diy"
+                id="d1"
+                @click="click('开始')">
                 开始
             </div>
-            <div class="diy done"
-                id="d2">
+            <div class="diy"
+                id="d2"
+                @click="click('启动预案')">
                 启动预案
             </div>
-            <div class="diy done"
-                id="d3">
+            <div class="diy"
+                id="d3"
+                @click="click('客流监视')">
                 客流监视
             </div>
-            <div class="diy done"
-                id="d4">
+            <div class="diy"
+                id="d4"
+                @click="click('列车资源')">
                 列车资源
             </div>
             <div class="diy"
-                id="d5">
+                id="d5"
+                @click="click('应急通知')">
                 应急通知
             </div>
             <div class="diy"
-                id="d6">
+                id="d6"
+                @click="click('上报交委状态')">
                 上报交委状态
             </div>
             <div class="diy"
-                id="d7">
+                id="d7"
+                @click="click('应急会商')">
                 应急会商
             </div>
             <div class="diy"
-                id="d8">
+                id="d8"
+                @click="click('确认初步方案')">
                 确认初步方案
             </div>
             <div class="diy"
-                id="d9">
+                id="d9"
+                @click="click('调整运行图')">
                 调整运行图
             </div>
 
             <div id="d10"
                 class="diy2">
-                <div class="lingxing"></div>
+                <div id="d10-inner" class="lingxing"
+                    @click="click('评价运行图')"></div>
                 <div class="lingxing-text">
                     <p>评价运行图</p>
                     <p>是否满足</p>
@@ -51,31 +61,37 @@
                 </div>
             </div>
             <div class="diy"
-                id="d11">
+                id="d11"
+                @click="click('应急处置')">
                 应急处置
             </div>
             <div class="diy"
-                id="d12">
+                id="d12"
+                @click="click('上报交委运行方案')">
                 上报交委运行方案
             </div>
 
             <div id="d13"
                 class="diy2">
-                <div class="lingxing"></div>
+                <div id="d13-inner" class="lingxing done"
+                    @click="click('方案终止判断')"></div>
                 <div class="lingxing-text">
                     <p>方案终止判断</p>
                 </div>
             </div>
             <div class="diy"
-                id="d14">
+                id="d14"
+                @click="click('恢复正常运营')">
                 恢复正常运营
             </div>
             <div class="diy"
-                id="d15">
+                id="d15"
+                @click="click('统计数据撰写简报')">
                 统计数据撰写简报
             </div>
             <div class="diy"
-                id="d16">
+                id="d16"
+                @click="click('结束')">
                 结束
             </div>
 
@@ -126,7 +142,72 @@ export default {
     },
     methods: {
         click(key) {
-            console.log(key);
+            if (key == "开始") {
+                $(function () {
+                    $("#d1").addClass("done");
+                });
+            } else if (key == "启动预案") {
+                $(function () {
+                    $("#d2").addClass("done");
+                });
+            } else if (key == "客流监视") {
+                $(function () {
+                    $("#d3").addClass("done");
+                });
+            } else if (key == "列车资源") {
+                $(function () {
+                    $("#d4").addClass("done");
+                });
+            } else if (key == "应急通知") {
+                $(function () {
+                    $("#d5").addClass("done");
+                });
+            } else if (key == "上报交委状态") {
+                $(function () {
+                    $("#d6").addClass("done");
+                });
+            } else if (key == "应急会商") {
+                $(function () {
+                    $("#d7").addClass("done");
+                });
+            } else if (key == "确认初步方案") {
+                $(function () {
+                    $("#d8").addClass("done");
+                });
+            } else if (key == "调整运行图") {
+                $(function () {
+                    $("#d9").addClass("done");
+                });
+            } else if (key == "评价运行图") {
+                $(function () {
+                    $("#d10-inner").addClass("done");
+                });
+            } else if (key == "应急处置") {
+                $(function () {
+                    $("#d11").addClass("done");
+                });
+            } else if (key == "上报交委运行方案") {
+                $(function () {
+                    $("#d12").addClass("done");
+                });
+            } else if (key == "方案终止判断") {
+                $(function () {
+                    $("#d13-inner").addClass("done");
+                });
+            } else if (key == "恢复正常运营") {
+                $(function () {
+                    $("#d14").addClass("done");
+                });
+            } else if (key == "统计数据撰写简报") {
+                $(function () {
+                    $("#d15").addClass("done");
+                });
+            } else if (key == "结束") {
+                $(function () {
+                    $("#d16").addClass("done");
+                });
+            } else if (key == "---") {
+            }
             this.$emit("click", key);
         },
     },
@@ -185,6 +266,9 @@ export default {
     transform: rotateZ(45deg) skew(-10deg, -10deg);
     cursor: pointer;
     caret-color: transparent;
+}
+.diy2:hover .lingxing{
+    background: orange;
 }
 .lingxing-text {
     width: 100%;

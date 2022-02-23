@@ -28,26 +28,9 @@
             <div class="innerpanel">
                 <p class="innertitle">应急预案</p>
                 <div class="divline"></div>
-                <div class="planitem"
-                    v-for="(item,index) in planlist"
-                    :key="index">
-                    <div class="planitem-btn"
-                        style="text-align:left;">
-                        <el-button style="background:#FFF3"
-                            type="warning"
-                            size="mini"
-                            plain>启动预案</el-button>
-                        <el-button style="float:right;"
-                            type="primary"
-                            size="mini"
-                            round>确认</el-button>
-                    </div>
-                    <p class="plantext">预案名称: <span>{{item.name}}</span></p>
-                    <p class="plantext">预案版本: <span>{{item.version}}</span></p>
-                    <!-- <p class="plantext">启动条件:</p>
-                    <p class="plantext condition">{{item.condition}}</p> -->
-                    <p class="plantext">启动条件: <span>{{item.condition}}</span></p>
-                </div>
+                <plan-list v-if="currentKey == '启动预案' || currentKey == '开始'" />
+                <train-and-passenger style="height:100%"
+                    v-if="currentKey == '客流监视' || currentKey == '列车资源'" />
             </div>
         </div>
         <div class="page pageright">
@@ -60,34 +43,20 @@
 <script>
 import FlowChart from "./components/FlowChart.vue";
 import MessagePanel from "./components/MessagePanel.vue";
+import PlanList from "./components/mid/PlanList.vue";
+import TrainAndPassenger from "./components/mid/TrainAndPassenger.vue";
 
 export default {
     components: {
         FlowChart,
         MessagePanel,
+        PlanList,
+        TrainAndPassenger,
     },
     data() {
         return {
-            planlist: [
-                {
-                    name: "xx市地铁大客流数字化应急预案2016",
-                    version: "2016版",
-                    condition:
-                        "在满足xxxx的前提下,需要xxxx就绪,如果xxxx方可启动",
-                },
-                {
-                    name: "xx市地铁大客流数字化应急预案2017",
-                    version: "2017版",
-                    condition:
-                        "在满足xxxx的前提下,需要xxxx就绪,如果xxxx方可启动",
-                },
-                {
-                    name: "xx市地铁大客流数字化应急预案2020",
-                    version: "2020版",
-                    condition:
-                        "在满足xxxx的前提下,需要xxxx就绪,如果xxxx方可启动",
-                },
-            ],
+            keyList: [],
+            currentKey: "",
             messagelist: [
                 {
                     name: "交委",
@@ -170,7 +139,17 @@ export default {
     },
     methods: {
         flowClick(key) {
-            alert(key);
+            if (this.keyList.indexOf(key) == -1) {
+                this.keyList.push(key);
+            }
+            this.currentKey = key;
+
+            if (key == "上报交委状态") {
+                this.$message({
+                    message: "上报交委状态成功",
+                    type: "success",
+                });
+            }
         },
     },
 };
