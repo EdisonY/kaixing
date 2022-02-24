@@ -37,8 +37,15 @@
                 <meeting class="mid-content"
                     v-if="currentKey == '应急会商'" />
                 <adjust-plan class="mid-content"
-                    v-if="currentKey == '确认初步方案' || currentKey == '调整运行图'" />
-                    <!-- http://172.51.216.61:1662/thing/dtwin/index.html?name=北京城区 -->
+                    v-if="currentKey == '确认初步方案' || currentKey == '调整运行图' || currentKey == '评价运行图'" />
+                <chu-zhi class="mid-content"
+                    v-if="currentKey == '应急处置'" />
+                <iframe class="mid-content"
+                    src="http://172.51.216.61:8100/seabed/preview/a665e5ceac0c400fbfd33a38c56a8369"
+                    v-if="currentKey == '方案终止判断'" />
+                <img class="img-test"
+                    v-if="currentKey == '恢复正常运营' || currentKey == '统计数据撰写简报'"
+                    src="../../assets/tmp/report.png">
             </div>
         </div>
         <div class="page pageright">
@@ -56,6 +63,7 @@ import TrainAndPassenger from "./components/mid/TrainAndPassenger.vue";
 import Notify from "./components/mid/Notify.vue";
 import Meeting from "./components/mid/Meeting.vue";
 import AdjustPlan from "./components/mid/AdjustPlan.vue";
+import ChuZhi from "./components/mid/ChuZhi.vue";
 
 export default {
     components: {
@@ -66,6 +74,7 @@ export default {
         Notify,
         Meeting,
         AdjustPlan,
+        ChuZhi,
     },
     data() {
         return {
@@ -167,6 +176,11 @@ export default {
                     message: "上报交委运行方案成功",
                     type: "success",
                 });
+            } else if (key == "结束") {
+                this.$message({
+                    message: "暴雨应急已结束",
+                    type: "success",
+                });
             } else {
                 this.currentKey = key;
             }
@@ -256,6 +270,12 @@ export default {
 }
 .mid-content {
     height: 100%;
+    overflow: hidden;
+}
+.img-test {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
     overflow: hidden;
 }
 </style>

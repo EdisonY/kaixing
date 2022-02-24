@@ -51,9 +51,10 @@
             </div>
 
             <div id="d10"
-                class="diy2">
-                <div id="d10-inner" class="lingxing"
-                    @click="click('评价运行图')"></div>
+                class="diy2"
+                @click="click('评价运行图')">
+                <div id="d10-inner"
+                    class="lingxing"></div>
                 <div class="lingxing-text">
                     <p>评价运行图</p>
                     <p>是否满足</p>
@@ -72,9 +73,10 @@
             </div>
 
             <div id="d13"
-                class="diy2">
-                <div id="d13-inner" class="lingxing done"
-                    @click="click('方案终止判断')"></div>
+                class="diy2"
+                @click="click('方案终止判断')">
+                <div id="d13-inner"
+                    class="lingxing done"></div>
                 <div class="lingxing-text">
                     <p>方案终止判断</p>
                 </div>
@@ -267,7 +269,7 @@ export default {
     cursor: pointer;
     caret-color: transparent;
 }
-.diy2:hover .lingxing{
+.diy2:hover .lingxing {
     background: orange;
 }
 .lingxing-text {
