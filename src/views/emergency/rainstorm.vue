@@ -36,6 +36,9 @@
                     v-if="currentKey == '应急通知'" />
                 <meeting class="mid-content"
                     v-if="currentKey == '应急会商'" />
+                <adjust-plan class="mid-content"
+                    v-if="currentKey == '确认初步方案' || currentKey == '调整运行图'" />
+                    <!-- http://172.51.216.61:1662/thing/dtwin/index.html?name=北京城区 -->
             </div>
         </div>
         <div class="page pageright">
@@ -52,6 +55,7 @@ import PlanList from "./components/mid/PlanList.vue";
 import TrainAndPassenger from "./components/mid/TrainAndPassenger.vue";
 import Notify from "./components/mid/Notify.vue";
 import Meeting from "./components/mid/Meeting.vue";
+import AdjustPlan from "./components/mid/AdjustPlan.vue";
 
 export default {
     components: {
@@ -61,6 +65,7 @@ export default {
         TrainAndPassenger,
         Notify,
         Meeting,
+        AdjustPlan,
     },
     data() {
         return {
@@ -155,6 +160,11 @@ export default {
             if (key == "上报交委状态") {
                 this.$message({
                     message: "上报交委状态成功",
+                    type: "success",
+                });
+            } else if (key == "上报交委运行方案") {
+                this.$message({
+                    message: "上报交委运行方案成功",
                     type: "success",
                 });
             } else {
