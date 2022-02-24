@@ -44,7 +44,7 @@ export default {
     overflow: auto;
     height: 100%;
     width: 100%;
-    background: #eee;
+    background: #172230;
 }
 .message-list-item-panel{
     width: 100%;
@@ -58,16 +58,16 @@ export default {
     justify-content: flex-end;
 }
 .message-right p {
-    background: #4e9feb55;
+    background: #fff2;
 }
 .message-list-item {
     width: 70%;
     margin: 5px;
     padding: 3px;
-    color: #222;
+    color: #cecece;
     font-size: 1rem;
     text-align: left;
-    border:solid 1px #222;
+    border:solid 1px #666;
     border-radius: 5px;
 }
 .message-list-item > .name {
@@ -76,7 +76,7 @@ export default {
     font-weight: bold;
 }
 .message-list-item > .time {
-    color: #686868;
+    color: #6db9f7;
     text-decoration: underline;
 }
 </style>

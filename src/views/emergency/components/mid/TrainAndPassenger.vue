@@ -21,8 +21,9 @@
             </el-table>
         </div>
         <div class="div-row">
-            <iframe src="https://cn.bing.com"
-                frameborder="0"></iframe>
+            <!-- <iframe src="https://cn.bing.com"
+                frameborder="0"></iframe> -->
+            <img :src="img">
         </div>
     </div>
 </template>
@@ -32,10 +33,14 @@ export default {
     components: {},
     data() {
         return {
+            timerCounter: 0,
+            timer: null,
+            img: require("../../../../assets/tmp/0.jpg"),
             passengerData: [],
         };
     },
     mounted() {
+        let self = this;
         this.$nextTick(() => {
             this.passengerData = [
                 {
@@ -110,8 +115,17 @@ export default {
                 },
             ];
         });
+        this.timer = setInterval(() => {
+            self.img = require(`../../../../assets/tmp/${
+                self.timerCounter++ % 5
+            }.jpg`);
+        }, 5000);
     },
     methods: {},
+    beforeDestroy() {
+        clearInterval(this.timer);
+        this.timer = null;
+    },
 };
 </script>
 
@@ -126,7 +140,14 @@ export default {
 
 .div-row {
     flex: 1;
+    height: 0;
     padding: 3px;
+}
+
+.div-row img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 iframe {

@@ -235,8 +235,8 @@ export default {
     font-size: 1.1rem;
 }
 
-.members {
-}
+/* .members {
+} */
 .members > div {
     display: inline-block;
     margin: 10px;

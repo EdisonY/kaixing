@@ -28,10 +28,14 @@
             <div class="innerpanel">
                 <p class="innertitle">应急预案</p>
                 <div class="divline"></div>
-                <plan-list v-if="currentKey == '启动预案' || currentKey == '开始'" />
-                <train-and-passenger v-if="currentKey == '客流监视' || currentKey == '列车资源'" />
-                <notify style="height:100%;overflow:hidden"
+                <plan-list class="mid-content"
+                    v-if="currentKey == '启动预案' || currentKey == '开始'" />
+                <train-and-passenger class="mid-content"
+                    v-if="currentKey == '客流监视' || currentKey == '列车资源'" />
+                <notify class="mid-content"
                     v-if="currentKey == '应急通知'" />
+                <meeting class="mid-content"
+                    v-if="currentKey == '应急会商'" />
             </div>
         </div>
         <div class="page pageright">
@@ -47,6 +51,7 @@ import MessagePanel from "./components/MessagePanel.vue";
 import PlanList from "./components/mid/PlanList.vue";
 import TrainAndPassenger from "./components/mid/TrainAndPassenger.vue";
 import Notify from "./components/mid/Notify.vue";
+import Meeting from "./components/mid/Meeting.vue";
 
 export default {
     components: {
@@ -55,6 +60,7 @@ export default {
         PlanList,
         TrainAndPassenger,
         Notify,
+        Meeting,
     },
     data() {
         return {
@@ -238,29 +244,8 @@ export default {
     font-size: 1rem;
     color: #cecece;
 }
-/* .layout-ud {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-.iframe {
-    box-sizing: border-box;
-    flex: 1;
-    width: 100%;
-    background: cadetblue;
-}
-
-iframe{
+.mid-content {
     height: 100%;
-    width: 100%;
+    overflow: hidden;
 }
-
-.menu-bar {
-    box-sizing: border-box;
-    padding: 10px;
-}
-
-.btn {
-    margin: 5px;
-} */
 </style>
