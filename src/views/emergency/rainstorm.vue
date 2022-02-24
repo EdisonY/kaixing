@@ -29,8 +29,9 @@
                 <p class="innertitle">应急预案</p>
                 <div class="divline"></div>
                 <plan-list v-if="currentKey == '启动预案' || currentKey == '开始'" />
-                <train-and-passenger style="height:100%"
-                    v-if="currentKey == '客流监视' || currentKey == '列车资源'" />
+                <train-and-passenger v-if="currentKey == '客流监视' || currentKey == '列车资源'" />
+                <notify style="height:100%;overflow:hidden"
+                    v-if="currentKey == '应急通知'" />
             </div>
         </div>
         <div class="page pageright">
@@ -45,6 +46,7 @@ import FlowChart from "./components/FlowChart.vue";
 import MessagePanel from "./components/MessagePanel.vue";
 import PlanList from "./components/mid/PlanList.vue";
 import TrainAndPassenger from "./components/mid/TrainAndPassenger.vue";
+import Notify from "./components/mid/Notify.vue";
 
 export default {
     components: {
@@ -52,6 +54,7 @@ export default {
         MessagePanel,
         PlanList,
         TrainAndPassenger,
+        Notify,
     },
     data() {
         return {
@@ -142,13 +145,14 @@ export default {
             if (this.keyList.indexOf(key) == -1) {
                 this.keyList.push(key);
             }
-            this.currentKey = key;
 
             if (key == "上报交委状态") {
                 this.$message({
                     message: "上报交委状态成功",
                     type: "success",
                 });
+            } else {
+                this.currentKey = key;
             }
         },
     },

@@ -121,7 +121,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height: 100vh;
+    height: 100%;
 }
 
 .div-row {
