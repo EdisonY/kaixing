@@ -52,10 +52,16 @@ export const constantRoutes = [
         path: '/offlinescheme',
         name: '离线方案对比',
         hidden: true,
-        component: () => import('@/views/offlinescheme'),
+        component: () => import('@/views/offlin/offlinescheme'),
         meta: { title: '离线方案对比'}
     },
-
+    {
+        path: '/offlineresult',
+        name: '离线方案对比结果',
+        hidden: true,
+        component: () => import('@/views/offlin/offlineresult'),
+        meta: { title: '离线方案对比结果'}
+    },
     {
         path: '/choseline',
         name: '线路选择',
