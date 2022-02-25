@@ -66,6 +66,56 @@
                 @click="click('应急处置')">
                 应急处置
             </div>
+            <div class="d11-line">
+            </div>
+            <div class="d11-panel">
+                <div>总调</div>
+                <div class="btnMsg"
+                    @click="click('线网监控重点线路')">
+                    线网监控重点线路
+                </div>
+                <div class="btnMsg"
+                    @click="click('单线ATS站场图')">
+                    单线ATS站场图
+                </div>
+                <div class="btnMsg"
+                    @click="click('站内客流监控')">
+                    站内客流监控
+                </div>
+                <div class="btnMsg"
+                    @click="click('站外视频')">
+                    站外视频
+                </div>
+                <div>行调</div>
+                <div class="btnMsg"
+                    @click="click('执行延长运营')">
+                    执行延长运营
+                </div>
+                <div>客流调</div>
+                <div class="btnMsg"
+                    @click="click('客流监控')">
+                    客流监控
+                </div>
+                <div>客服调</div>
+                <div class="btnMsg"
+                    @click="click('乘客信息发布')">
+                    乘客信息发布
+                </div>
+                <div class="btnMsg"
+                    @click="click('舆情监控')">
+                    舆情监控
+                </div>
+                <div>设备调</div>
+                <div class="btnMsg"
+                    @click="click('设备状态监控')">
+                    设备状态监控
+                </div>
+                <div>维护调</div>
+                <div class="btnMsg"
+                    @click="click('取消施工计划')">
+                    取消施工计划
+                </div>
+            </div>
             <div class="diy"
                 id="d12"
                 @click="click('上报交委运行方案')">
@@ -209,6 +259,12 @@ export default {
                     $("#d16").addClass("done");
                 });
             } else if (key == "---") {
+            } else {
+                this.$message({
+                    message: `${key} 发送成功`,
+                    type: "success",
+                });
+                return;
             }
             this.$emit("click", key);
         },
@@ -249,6 +305,34 @@ export default {
 }
 .diy:hover {
     background: orange;
+}
+.btnMsg {
+    width: 90px;
+    text-align: center;
+    padding: 5px 0;
+    margin: 2px;
+    background: #666666;
+    display: inline-block;
+    cursor: pointer;
+    caret-color: transparent;
+}
+.btnMsg:hover {
+    background: orange;
+}
+.d11-line {
+    position: absolute;
+    left: calc(30% + 90px);
+    top: 575px;
+    width: 70px;
+    border: solid 2px #666666;
+}
+.d11-panel {
+    position: absolute;
+    left: calc(30% + 160px);
+    top: 545px;
+    width: 305px;
+    padding: 5px;
+    border: solid 2px #666666;
 }
 .done {
     background: #2281da;
