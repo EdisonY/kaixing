@@ -1,10 +1,9 @@
 <template>
     <div class="train-passenger-panel">
-        <div class="div-row">
+        <div style="padding:20px 0">
             <el-table :data="passengerData"
                 border
-                height="100%"
-                style="width: 100%;">
+                style="width: 100%;background">
                 <el-table-column type="index"
                     width="50"> </el-table-column>
                 <el-table-column prop="info"
@@ -25,6 +24,27 @@
                 frameborder="0"></iframe> -->
             <img :src="img">
         </div>
+        <div style="padding:20px 0">
+            <el-table :data="configList"
+                border
+                height="100%"
+                header-cell-style="text-align:center"
+                cell-style="text-align:center"
+                style="width: 100%;">
+                <el-table-column prop="v1"
+                    label="总车辆数">
+                </el-table-column>
+                <el-table-column prop="v2"
+                    label="上线列车数">
+                </el-table-column>
+                <el-table-column prop="v3"
+                    label="备用列车数">
+                </el-table-column>
+                <el-table-column prop="v4"
+                    label="备用">
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 
@@ -37,6 +57,7 @@ export default {
             timer: null,
             img: require("@/assets/tmp/0.jpg"),
             passengerData: [],
+            configList: [],
         };
     },
     mounted() {
@@ -47,78 +68,19 @@ export default {
                     info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
                     position: "机场",
                     time: "2022-03-05 22:30:34",
-                },
+                }
+            ];
+            this.configList = [
                 {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
-                },
-                {
-                    info: "东航大型客机航班C2203，预计23点34分到达首都机场，客流预计300人，航班上有位年迈的乘客。",
-                    position: "机场",
-                    time: "2022-03-05 22:30:34",
+                    v1: 32,
+                    v2: 18,
+                    v3: 14,
+                    v4: "",
                 },
             ];
         });
         this.timer = setInterval(() => {
-            self.img = require(`@/assets/tmp/${
-                self.timerCounter++ % 5
-            }.jpg`);
+            self.img = require(`@/assets/tmp/${self.timerCounter++ % 5}.jpg`);
         }, 5000);
     },
     methods: {},
