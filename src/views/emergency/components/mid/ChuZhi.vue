@@ -15,7 +15,7 @@ export default {
     components: {},
     data() {
         return {
-            img: require("../../../../assets/tmp/chuzhi.png"),
+            img: require("@/assets/tmp/chuzhi.png"),
         };
     },
     mounted() {},

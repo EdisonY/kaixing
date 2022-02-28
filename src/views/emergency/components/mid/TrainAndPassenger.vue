@@ -35,7 +35,7 @@ export default {
         return {
             timerCounter: 0,
             timer: null,
-            img: require("../../../../assets/tmp/0.jpg"),
+            img: require("@/assets/tmp/0.jpg"),
             passengerData: [],
         };
     },
@@ -116,7 +116,7 @@ export default {
             ];
         });
         this.timer = setInterval(() => {
-            self.img = require(`../../../../assets/tmp/${
+            self.img = require(`@/assets/tmp/${
                 self.timerCounter++ % 5
             }.jpg`);
         }, 5000);

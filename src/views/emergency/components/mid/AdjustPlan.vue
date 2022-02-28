@@ -40,8 +40,8 @@ export default {
     components: {},
     data() {
         return {
-            img: require("../../../../assets/tmp/加车后3.png"),
-            imgMeeting: require("../../../../assets/tmp/plan.png"),
+            img: require("@/assets/tmp/加车后3.png"),
+            imgMeeting: require("@/assets/tmp/plan.png"),
             passengerData: [],
         };
     },

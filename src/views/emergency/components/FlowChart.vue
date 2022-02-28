@@ -165,7 +165,7 @@
 export default {
     data() {
         return {
-            bg: require("../../../assets/tmp/t1.png"),
+            bg: require("@/assets/tmp/t1.png"),
             allLine: [],
         };
     },
