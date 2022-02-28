@@ -206,7 +206,13 @@ export default {
                 $(function () {
                     $("#d3").addClass("done");
                 });
+                $(function () {
+                    $("#d4").addClass("done");
+                });
             } else if (key == "列车资源") {
+                $(function () {
+                    $("#d3").addClass("done");
+                });
                 $(function () {
                     $("#d4").addClass("done");
                 });

@@ -164,6 +164,11 @@ export default {
         flowClick(key) {
             if (this.keyList.indexOf(key) == -1) {
                 this.keyList.push(key);
+                if (key == "列车资源") {
+                    this.flowClick("客流监视");
+                } else if (key == "客流监视") {
+                    this.flowClick("列车资源");
+                }
             }
 
             if (key == "上报交委状态") {
