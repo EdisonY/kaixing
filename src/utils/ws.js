@@ -215,4 +215,18 @@ Vue.prototype.$getCurrentDate = function getCurrentDate(time) {
     return Y + M + D + h + m + s;
 };
 
+Vue.prototype.$getCurrentDate2 = function getCurrentDate(time) {
+    let date = time ? new Date(time) : new Date();
+    let Y = date.getFullYear() + "-";
+    let M =
+        (date.getMonth() + 1 < 10
+        ? "0" + (date.getMonth() + 1)
+        : date.getMonth() + 1) + "-";
+    let D = ("0" + date.getDate()).slice(-2) + " ";
+    let h = ("0" + date.getHours()).slice(-2) + ":";
+    let m = ("0" + date.getMinutes()).slice(-2) + ":";
+    let s = ("0" + date.getSeconds()).slice(-2);
+    return h + m + s;
+};
+
 export{ sendSock,initWebSocket,close,getSock }

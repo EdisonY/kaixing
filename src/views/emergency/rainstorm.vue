@@ -84,96 +84,22 @@ export default {
         return {
             keyList: [],
             currentKey: "",
-            messagelist: [
-                {
-                    name: "交委",
-                    content: "请简要汇报当前状况,并全员应急到岗",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "总调",
-                    content:
-                        "当前暴雨已经持续15分钟,车站已经开始进水,现在已经紧急断电,并启用应急电源。各岗位人员加急到岗,目前到岗率98%",
-                    time: "16:23",
-                    right: true,
-                },
-                {
-                    name: "交委",
-                    content: "请发送应急通知,并迅速组织应急会商",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "交委",
-                    content: "请简要汇报当前状况,并全员应急到岗",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "总调",
-                    content:
-                        "当前暴雨已经持续15分钟,车站已经开始进水,现在已经紧急断电,并启用应急电源。各岗位人员加急到岗,目前到岗率98%",
-                    time: "16:23",
-                    right: true,
-                },
-                {
-                    name: "交委",
-                    content: "请发送应急通知,并迅速组织应急会商",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "交委",
-                    content: "请简要汇报当前状况,并全员应急到岗",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "总调",
-                    content:
-                        "当前暴雨已经持续15分钟,车站已经开始进水,现在已经紧急断电,并启用应急电源。各岗位人员加急到岗,目前到岗率98%",
-                    time: "16:23",
-                    right: true,
-                },
-                {
-                    name: "交委",
-                    content: "请发送应急通知,并迅速组织应急会商",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "交委",
-                    content: "请简要汇报当前状况,并全员应急到岗",
-                    time: "16:22",
-                    right: false,
-                },
-                {
-                    name: "总调",
-                    content:
-                        "当前暴雨已经持续15分钟,车站已经开始进水,现在已经紧急断电,并启用应急电源。各岗位人员加急到岗,目前到岗率98%",
-                    time: "16:23",
-                    right: true,
-                },
-                {
-                    name: "交委",
-                    content: "请发送应急通知,并迅速组织应急会商",
-                    time: "16:22",
-                    right: false,
-                },
-            ],
+            messagelist: [],
             czPage: "线网监控重点线路",
         };
     },
     methods: {
-        flowClick(key) {
+        flowClick(key, flag) {
             if (this.keyList.indexOf(key) == -1) {
                 this.keyList.push(key);
                 if (key == "列车资源") {
-                    this.flowClick("客流监视");
+                    this.flowClick("客流监视", 1);
                 } else if (key == "客流监视") {
-                    this.flowClick("列车资源");
+                    this.flowClick("列车资源", 1);
                 }
+            }
+            if (!flag) {
+                this._mockMsg(key);
             }
 
             if (key == "上报交委状态") {
@@ -197,6 +123,112 @@ export default {
         },
         otherClick(key) {
             this.czPage = key;
+        },
+        _mockMsg(key) {
+            if (key == "开始") {
+                this.messagelist = [];
+                this.messagelist.push({
+                    name: "交委",
+                    content: "航班大面积延误，首都机场地铁配合延长运营时间",
+                    time: this.$getCurrentDate2(),
+                    right: false,
+                });
+            } else if (key == "启动预案") {
+                this.messagelist.push({
+                    name: "总调",
+                    content: "通知各岗位，准备延长运营",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            } else if (key == "客流监视") {
+                this.messagelist.push({
+                    name: "机场",
+                    content: "降落航班C2009次，到港旅客600人",
+                    time: this.$getCurrentDate2(),
+                    right: false,
+                });
+            } else if (key == "列车资源") {
+                this.messagelist.push({
+                    name: "行调",
+                    content:
+                        "首都机场线可使用列车数为8，10号线可使用列车数为16",
+                    time: this.$getCurrentDate2(),
+                    right: false,
+                });
+            } else if (key == "应急通知") {
+                this.messagelist.push({
+                    name: "总调 -> 交委",
+                    content: "现有可调配列车车辆",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            } else if (key == "确认初步方案") {
+                this.messagelist.push({
+                    name: "总调 -> 行调",
+                    content: "延长运营时间 23:00-24:00",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            } else if (key == "调整运行图") {
+                this.messagelist.push({
+                    name: "行调",
+                    content: "调整运行图为......",
+                    time: this.$getCurrentDate2(),
+                    right: false,
+                });
+            } else if (key == "评价运行图") {
+                this.messagelist.push({
+                    name: "总调 -> 行调",
+                    content: "调整运行图为......",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            } else if (key == "应急处置") {
+                this.messagelist.push({
+                    name: "总调 -> 交委/各岗位",
+                    content: "延长运营方案为......",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+                this.messagelist.push({
+                    name: "总调 -> 行调",
+                    content: "调图满足可运需求，执行延长运营",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+                this.messagelist.push({
+                    name: "总调 -> 客流调",
+                    content: "配合延长运营，执行延长运营",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+                this.messagelist.push({
+                    name: "总调 -> 设备调",
+                    content: "取消施工计划，监控设备状态",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+                this.messagelist.push({
+                    name: "总调 -> 维护调",
+                    content: "取消施工计划",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            } else if (key == "方案终止判断") {
+                this.messagelist.push({
+                    name: "总调 -> 交委/各岗位",
+                    content: "恢复正常运营......",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            } else if (key == "统计数据撰写简报") {
+                this.messagelist.push({
+                    name: "总调 -> 各岗位",
+                    content: "统计数据，撰写运营简报......",
+                    time: this.$getCurrentDate2(),
+                    right: true,
+                });
+            }
         },
     },
 };
