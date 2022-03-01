@@ -6,7 +6,8 @@
                 <p class="innertitle">应急流程</p>
                 <div class="divline"></div>
                 <flow-chart class="flow"
-                    v-on:click="flowClick" />
+                    v-on:click="flowClick"
+                    v-on:otherClick="otherClick" />
             </div>
         </div>
         <div class="page pagemiddle">
@@ -39,10 +40,11 @@
                 <adjust-plan class="mid-content"
                     v-if="currentKey == '确认初步方案' || currentKey == '调整运行图' || currentKey == '评价运行图'" />
                 <chu-zhi class="mid-content"
-                    v-if="currentKey == '应急处置'" />
-                <iframe class="mid-content"
-                    src="http://172.51.216.61:8100/seabed/preview/a665e5ceac0c400fbfd33a38c56a8369"
+                    v-show="currentKey == '应急处置'"
+                    :cur="czPage" />
+                <stop class="mid-content"
                     v-if="currentKey == '方案终止判断'" />
+
                 <img class="img-test"
                     v-if="currentKey == '恢复正常运营' || currentKey == '统计数据撰写简报'"
                     src="../../assets/tmp/report.png">
@@ -64,6 +66,7 @@ import Notify from "./components/mid/Notify.vue";
 import Meeting from "./components/mid/Meeting.vue";
 import AdjustPlan from "./components/mid/AdjustPlan.vue";
 import ChuZhi from "./components/mid/ChuZhi.vue";
+import Stop from "./components/mid/Stop.vue";
 
 export default {
     components: {
@@ -75,6 +78,7 @@ export default {
         Meeting,
         AdjustPlan,
         ChuZhi,
+        Stop,
     },
     data() {
         return {
@@ -158,6 +162,7 @@ export default {
                     right: false,
                 },
             ],
+            czPage: "线网监控重点线路",
         };
     },
     methods: {
@@ -189,6 +194,9 @@ export default {
             } else {
                 this.currentKey = key;
             }
+        },
+        otherClick(key) {
+            this.czPage = key;
         },
     },
 };

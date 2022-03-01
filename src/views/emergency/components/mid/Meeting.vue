@@ -1,7 +1,16 @@
 <template>
     <div class="train-passenger-panel">
-        <div class="div-row">
-            <el-table :data="passengerData"
+        <el-radio-group v-model="curPage" style="margin:10px;">
+            <el-radio-button label="线网图"></el-radio-button>
+            <el-radio-button label="场段图"></el-radio-button>
+            <el-radio-button label="运行图"></el-radio-button>
+            <el-radio-button label="客流监视"></el-radio-button>
+            <el-radio-button label="单兵" disabled></el-radio-button>
+            <el-radio-button label="聊天记录" disabled></el-radio-button>
+        </el-radio-group>
+        <div class="div-row"  style="margin:10px 0;">
+            <el-table v-if="false"
+                :data="passengerData"
                 border
                 height="100%"
                 style="width: 100%;">
@@ -19,14 +28,13 @@
                     label="时间">
                 </el-table-column>
             </el-table>
-        </div>
-        <div class="div-row">
-            <!-- <iframe src="https://cn.bing.com"
-                frameborder="0"></iframe> -->
-            <img :src="img">
-        </div>
-        <div class="meeting">
-            <img class="meeting-test-img"
+            <img v-show="curPage == '线网图'"
+                :src="require('@/assets/tmp/net.png')">
+            <img v-show="curPage == '场段图'"
+                :src="img">
+            <img v-show="curPage == '运行图'"
+                :src="require('@/assets/tmp/加车后.png')">
+            <img v-show="curPage == '客流监视'"
                 :src="imgMeeting">
         </div>
     </div>
@@ -37,6 +45,7 @@ export default {
     components: {},
     data() {
         return {
+            curPage: "线网图",
             timerCounter: 0,
             timer: null,
             img: require("@/assets/tmp/0.jpg"),
@@ -121,10 +130,8 @@ export default {
             ];
         });
         this.timer = setInterval(() => {
-            self.img = require(`@/assets/tmp/${
-                self.timerCounter++ % 5
-            }.jpg`);
-        }, 5000);
+            self.img = require(`@/assets/tmp/${self.timerCounter++ % 5}.jpg`);
+        }, 3000);
     },
     methods: {},
     beforeDestroy() {

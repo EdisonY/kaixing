@@ -2,8 +2,7 @@
     <div class="train-passenger-panel">
         <div style="padding:20px 0">
             <el-table :data="passengerData"
-                border
-                style="width: 100%;background">
+                border>
                 <el-table-column type="index"
                     width="50"> </el-table-column>
                 <el-table-column prop="info"
@@ -28,8 +27,8 @@
             <el-table :data="configList"
                 border
                 height="100%"
-                header-cell-style="text-align:center"
-                cell-style="text-align:center"
+                :header-cell-style="{'text-align':'center'}"
+                :cell-style="{'text-align':'center'}"
                 style="width: 100%;">
                 <el-table-column prop="v1"
                     label="总车辆数">

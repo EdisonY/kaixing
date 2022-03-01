@@ -266,10 +266,21 @@ export default {
                 });
             } else if (key == "---") {
             } else {
-                this.$message({
-                    message: `${key} 发送成功`,
-                    type: "success",
-                });
+                if (
+                    [
+                        "线网监控重点线路",
+                        "站外视频",
+                        "单线ATS站场图",
+                        "站内客流监控",
+                    ].indexOf(key) > -1
+                ) {
+                    this.$emit("otherClick", key);
+                } else {
+                    this.$message({
+                        message: `${key} 发送成功`,
+                        type: "success",
+                    });
+                }
                 return;
             }
             this.$emit("click", key);
