@@ -221,7 +221,7 @@ export default {
 .verunning h3{padding: 15px 0;color: #fff;font-weight: bold;}
 .verunning .el-row{padding: 10px 20px;}
 .verunning .yl{margin: 0;}
-.verunning .el-dialog__body ul{text-align: left;margin: -25px 0 10px 0;font-size: 14px;font-weight: bold;}
+.verunning .el-dialog__body ul{text-align: left;margin: -15px 0 20px 0;font-size: 14px;font-weight: bold;}
 .verunning .selfTable{width: 100%;border-left: 1px solid #ebeef5;border-bottom: 1px solid #ebeef5;border-spacing: 0;}
 .verunning .selfTable tr{line-height: 40px;}
 .verunning .selfTable tr:hover,.verunning .selfTable .thead{background-color: #f5f7fa;}
