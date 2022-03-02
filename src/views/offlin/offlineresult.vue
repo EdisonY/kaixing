@@ -49,7 +49,9 @@
                     <div class="titleButton"><span>方案一</span>7号线工作日<br>正常图</div>
                 </el-col>
                 <el-col :span="22">
-                    <div class="yl">运行图预留</div>
+                    <div class="yl">
+                        <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                    </div>
                 </el-col>
             </el-row>
             
@@ -60,11 +62,13 @@
                     <div class="titleButton titleButtonSec"><span>方案二</span>7号线工作日<br>双超图</div>
                 </el-col>
                 <el-col :span="22">
-                    <div class="yl">运行图预留</div>
+                    <div class="yl">
+                        <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                    </div>
                 </el-col>
             </el-row>
         </div>
-        <el-button type="success" icon="el-icon-view" class="db">方案对比</el-button>
+        <!-- <el-button type="success" icon="el-icon-view" class="db">方案对比</el-button> -->
     </div>
 </template>
 

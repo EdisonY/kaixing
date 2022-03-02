@@ -33,8 +33,7 @@
                     <el-table-column
                         prop="name"
                         label="交路方式"
-                        align="center"
-                        width="180">
+                        align="center">
                     </el-table-column>
                     <el-table-column
                         prop="address"
@@ -66,7 +65,9 @@
         </el-row>
         <el-row style="padding:0 20px">
             <el-col :span="24" style="text-align:center;">
-                <div class="yl">运行图预留</div>
+                <div class="yl">
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                </div>
             </el-col>
             <p style="text-align:right;padding:15px 0 0 0;">
                  <el-button type="success" @click="ph('运行图校验成功！')">启动运行图校验</el-button>

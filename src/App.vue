@@ -12,7 +12,7 @@
                 <el-submenu index="1">
                     <template slot="title">运输计划管理</template>
                     <el-menu-item index="1-1">
-                        <router-link to="/choseline">开行方案</router-link>
+                        <router-link to="/programme/base">开行方案</router-link>
                     </el-menu-item>
                     <el-menu-item index="1-2">
                         <router-link to="/offlinescheme">离线方案对比</router-link>

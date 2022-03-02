@@ -42,12 +42,14 @@
                     </el-table>
                 </el-col>
             </el-row>
-            <div class="yl">运行图预留</div>
+            <div class="yl">
+                <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+            </div>
         </div>
         <div class="programme">
             <el-row>
                 <el-col :span="2">
-                    <div class="titleButton">方案一</div>
+                    <div class="titleButton">方案二</div>
                 </el-col>
                 <el-col :span="22">
                     <el-table
@@ -85,7 +87,9 @@
                     </el-table>
                 </el-col>
             </el-row>
-            <div class="yl">运行图预留</div>
+            <div class="yl">
+                <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+            </div>
         </div>
         <el-button type="success" icon="el-icon-view" class="db">
             <router-link to="/offlineresult">方案对比</router-link>
