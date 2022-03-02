@@ -5,8 +5,9 @@
                 src="http://172.51.216.61:8100/seabed/preview/a665e5ceac0c400fbfd33a38c56a8369" />
         </div>
         <div class="div-row">
-            <img :src="require('@/assets/tmp/video.png')"
-                alt="">
+            <!-- <img :src="require('@/assets/tmp/video.png')"
+                alt=""> -->
+            <video src="http://172.51.216.52:11000/video1" autoplay='autoplay' loop></video>
         </div>
     </div>
 </template>
@@ -15,11 +16,9 @@
 export default {
     components: {},
     data() {
-        return {
-        };
+        return {};
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {},
 };
 </script>
@@ -39,7 +38,7 @@ export default {
     padding: 3px;
 }
 
-.div-row img {
+.div-row img,video {
     width: 100%;
     height: 100%;
     object-fit: fill;
