@@ -8,18 +8,27 @@
             </el-col>
         </el-row>
         <el-row style="border-bottom:3px solid #ccc">
-            <el-col :span="3" style="text-align:center;">
+            <!-- <el-col :span="3" style="text-align:center;">
                 <h3>客流信息</h3>
                 <el-button type="primary">客流加载</el-button>
             </el-col>
             <el-col :span="7">
                 <div class="yl">断面客流预留</div>
+            </el-col> -->
+            <el-col :span="10">
+                <div class="yl">
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/f2d12fd36204481a8af5f3b1f3ab4a54"></iframe>
+                </div>
             </el-col>
             <el-col :span="7">
-                <div class="yl">OD量预留</div>
+                <div class="yl">
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/d0899ec7fb054de6b72b5ced886e714e"></iframe>
+                </div>
             </el-col>
             <el-col :span="7">
-                <div class="yl">断面客流TOP5预留</div>
+                <div class="yl">
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/0cc0a57ec0f648c88120827b762b2fcf"></iframe>
+                </div>
             </el-col>
         </el-row>
          <el-row>
