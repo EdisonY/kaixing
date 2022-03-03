@@ -3,17 +3,17 @@
         <el-row style="border-bottom:3px solid #ccc">
             <el-col :span="10">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/f2d12fd36204481a8af5f3b1f3ab4a54"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/70986fa19c404915accccfef982c9ce0"></iframe>
                 </div>
             </el-col>
             <el-col :span="7">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/d0899ec7fb054de6b72b5ced886e714e"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/130263dd57a6419fb41e94a72bc14586"></iframe>
                 </div>
             </el-col>
             <el-col :span="7">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/0cc0a57ec0f648c88120827b762b2fcf"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/dc7cc8eeeb3b451293a227733723271e"></iframe>
                 </div>
             </el-col>
         </el-row>
@@ -68,7 +68,8 @@
         <el-row style="padding:0 20px">
             <el-col :span="24" style="text-align:center;">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                    <img :src="require('@/assets/tmp/kaixing.png')">
+                    <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
                 </div>
             </el-col>
             <p style="text-align:right;padding:15px 0 0 0;">

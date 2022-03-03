@@ -27,10 +27,10 @@
             <img :src="img">
         </div>
         <div class="meeting">
-            <img class="meeting-test-img"
-                :src="imgMeeting">
-            <!-- <iframe src="http://172.51.216.61:8100/seabed/preview/a665e5ceac0c400fbfd33a38c56a8369"
-                frameborder="0"></iframe> -->
+            <!-- <img class="meeting-test-img"
+                :src="imgMeeting"> -->
+            <iframe src="http://172.51.216.61:8011/seabed/preview/293175fd5c594ba792f797b3b30bb908"
+                frameborder="0"></iframe>
         </div>
     </div>
 </template>

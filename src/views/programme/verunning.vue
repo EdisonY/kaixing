@@ -14,7 +14,7 @@
                         align="center"
                         width="180">
                         <template slot-scope="scope">
-                            <el-link v-if="scope.row.date == '车站滞留人数告警'" type="danger" @click="showAlert(scope.row)">{{ scope.row.date }}</el-link>
+                            <el-link v-if="scope.row.date == '站台滞留人数告警'" type="danger" @click="showAlert(scope.row)">{{ scope.row.date }}</el-link>
                             <span v-else>{{ scope.row.date }}</span>
                         </template>
                     </el-table-column>
@@ -46,11 +46,12 @@
                 <h3>方案详情</h3>
             </el-col>
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                    <img :src="require('@/assets/tmp/kaixing.png')" style="width:100%">
             </div>
         </el-row>
         <el-dialog
-        title="车站滞留人数告警"
+        title="站台滞留人数告警"
         :visible.sync="dialogVisible1"
         width="40%"
         class="detailDia"
@@ -100,31 +101,37 @@ export default {
                 name: '1',
                 address: '5min',
                 xinxi:'2号航站楼',
-                duishu:'22:43-22:56'
+                duishu:'22:53-22:58'
             },{
-                date: '车站滞留人数告警',
+                date: '站台滞留人数告警',
                 name: '2',
                 address: '9min',
                 xinxi:'2号航站楼',
-                duishu:'22:43-22:56'
+                duishu:'22:56-22:05'
             },{
                 date: '站台滞留超过一次告警',
                 name: '17',
                 address: '5min',
                 xinxi:'3号航站楼',
-                duishu:'22:43-22:56'
+                duishu:'22:53-22:58'
             },{
                 date: '分方向换成预测预警',
                 name: '1',
                 address: '3min',
                 xinxi:'三元桥',
-                duishu:'22:43-22:56'
+                duishu:'22:53-22:56'
             },{
                 date: '区间满载率',
                 name: '1',
                 address: '5min',
                 xinxi:'L1001',
-                duishu:'22:43-22:56'
+                duishu:'22:53-22:58'
+            },{
+                date: '列车满载率',
+                name: '1',
+                address: '5min',
+                xinxi:'L1001',
+                duishu:'22:53-22:58'
             }],
             detailsData:[{
                 gangwei:'OCC行车调度',

@@ -15,15 +15,18 @@
                 <el-button type="primary"
                     size="mini"
                     class="menubtn"
+                    @click="topClick('应急通知')"
                     round>应急通知</el-button>
                 <el-button type="primary"
                     size="mini"
                     class="menubtn"
+                    @click="topClick('应急会商')"
                     round>应急会商</el-button>
                 <el-button type="primary"
                     size="mini"
                     class="menubtn"
-                    round>机场客流监控</el-button>
+                    @click="topClick('客流监视')"
+                    round>客流监视</el-button>
             </div>
 
             <div class="innerpanel">
@@ -138,6 +141,9 @@ export default {
                     dataType: "json",
                 });
             }
+        },
+        topClick(key){
+            this.flowClick(key);
         },
         otherClick(key) {
             this.czPage = key;

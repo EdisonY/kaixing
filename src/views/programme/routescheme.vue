@@ -17,17 +17,17 @@
             </el-col> -->
             <el-col :span="10">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/f2d12fd36204481a8af5f3b1f3ab4a54"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/70986fa19c404915accccfef982c9ce0"></iframe>
                 </div>
             </el-col>
             <el-col :span="7">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/d0899ec7fb054de6b72b5ced886e714e"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/130263dd57a6419fb41e94a72bc14586"></iframe>
                 </div>
             </el-col>
             <el-col :span="7">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/0cc0a57ec0f648c88120827b762b2fcf"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/dc7cc8eeeb3b451293a227733723271e"></iframe>
                 </div>
             </el-col>
         </el-row>
@@ -76,6 +76,7 @@
         <div style="margin: 0 0 0 20px">
             <el-button @click="addTime()">添加条数</el-button>
             <el-button @click="sc('开行方案生成成功')" type="primary">生成开行方案</el-button>
+            <el-button type="primary">导入历史方案</el-button>
         </div>
         <el-dialog
             title="添加条数"
