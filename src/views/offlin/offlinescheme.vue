@@ -43,7 +43,8 @@
                 </el-col>
             </el-row>
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                <img src="@/assets/tmp/addafter.png">
             </div>
         </div>
         <div class="programme">
@@ -88,7 +89,8 @@
                 </el-col>
             </el-row>
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                <img src="@/assets/tmp/addafter.png">
             </div>
         </div>
         <el-button type="success" icon="el-icon-view" class="db">
@@ -120,19 +122,19 @@ export default {
     },
     methods: {
         objectSpanMethod({ row, column, rowIndex, columnIndex }) {
-        if (columnIndex === 0) {
-          if (rowIndex % 2 === 0) {
-            return {
-              rowspan: 2,
-              colspan: 1
-            };
-          } else {
-            return {
-              rowspan: 0,
-              colspan: 0
-            };
-          }
-        }
+            if (columnIndex === 0) {
+            if (rowIndex % 2 === 0) {
+                return {
+                rowspan: 2,
+                colspan: 1
+                };
+            } else {
+                return {
+                rowspan: 0,
+                colspan: 0
+                };
+            }
+            }
         }
     }
 }

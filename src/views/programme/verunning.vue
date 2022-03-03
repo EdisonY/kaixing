@@ -46,7 +46,8 @@
                 <h3>方案详情</h3>
             </el-col>
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                <img src="@/assets/tmp/addafter.png">
             </div>
         </el-row>
         <el-dialog

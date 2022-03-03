@@ -112,7 +112,7 @@
         width="40%"
         class="detailDia"
         :before-close="handleClose">
-            <el-table
+            <!-- <el-table
                 ref="singleTable"
                 :data="detailsData"
                 highlight-current-row
@@ -151,7 +151,49 @@
                 align="center"
                 label="交路比例">
                 </el-table-column>
-            </el-table>
+            </el-table> -->
+
+            <div class="imitate">
+                <h2>
+                    <strong>方案单选</strong>
+                    <strong>序号</strong>
+                    <strong style="width:28%">交路选择</strong>
+                    <strong>跳停车站</strong>
+                    <strong>编组信息</strong>
+                    <strong>交路比例</strong>
+                </h2>
+
+                <p v-for="item in detailsData" :key="item.data">
+                    <strong v-if="item.name">
+                        <el-radio v-model="radio" :label="item.date"></el-radio>
+                        <!-- {{item.date}} -->
+                    </strong>
+                    <strong v-if="item.name">{{item.name}}</strong>
+                    <strong v-if="item.name" style="width:28%">{{item.address}}</strong>
+                    <strong v-if="item.name">{{item.station}}</strong>
+                    <strong v-if="item.name">{{item.message}}</strong>
+                    <strong v-if="item.name">{{item.bili}}</strong>
+
+                    <strong v-if="item.children">
+                        <el-radio v-model="radio" :label="item.date"></el-radio>
+                        <!-- {{item.date}} -->
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.name}}</b>
+                    </strong>
+                    <strong v-if="item.children" style="width:28%">
+                        <b v-for="items in item.children" :key="items">{{items.address}}</b>
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.station}}</b>
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.message}}</b>
+                    </strong>
+                    <strong v-if="item.children" style="line-height:25px">{{item.bili}}</strong>
+                </p>
+            </div>
+
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible1 = false">取 消</el-button>
                 <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
@@ -171,6 +213,7 @@ export default {
         return {
             startTime: '',
             endTime: '',
+            radio:'',
             dialogVisible:false,
             dialogVisible1:false,
             tableData: [{
@@ -178,10 +221,10 @@ export default {
                 name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L 交路比例：无',
             }, {
                 id: '07:00:00 - 09:00:00',
-                name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L 交路比例：无',
+                name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L ',
             }, {
                 id: '09:00:00 - 11:00:00',
-                name: '交路1：3号航站楼-东直门 跳停车站：无 编组信息：4L 交路比例：无',
+                name: '交路1：3号航站楼-东直门 跳停车站：三元桥 编组信息：4L 交路比例：3:1',
             }],
             detailsData:[{
                 date:'方案一',
@@ -192,25 +235,34 @@ export default {
                 bili:'无'
             },{
                 date:'方案二',
-                name:'1',
-                address:'3号航站楼-东直门',
-                station:'无',
-                message:'4L',
-                bili:'无'
+                children:[{
+                    name:'1',
+                    address:'3号航站楼-东直门',
+                    station:'三元桥',
+                    message:'4L'
+                },{
+                    name:'2',
+                    address:'2号航站楼-东直门',
+                    station:'无',
+                    message:'4L',
+                    
+                }],
+                bili:'交路1：交路2 3:1',
             },{
                 date:'方案三',
-                name:'1',
-                address:'3号航站楼-东直门',
-                station:'无',
-                message:'4L',
-                bili:'无'
-            },{
-                date:'方案一',
-                name:'1',
-                address:'3号航站楼-东直门',
-                station:'无',
-                message:'4L',
-                bili:'无'
+                children:[{
+                    name:'1',
+                    address:'3号航站楼-东直门',
+                    station:'三元桥',
+                    message:'4L'
+                },{
+                    name:'2',
+                    address:'2号航站楼-东直门',
+                    station:'无',
+                    message:'4L',
+                    
+                }],
+                bili:'交路1：交路2 3:1',
             }],
             currentRow: null
         }
@@ -263,6 +315,9 @@ export default {
                 type: 'success',
                 message: msg
             });
+        },
+        chose(data){
+
         }
     },
     destroyed() {
@@ -277,6 +332,14 @@ export default {
 .chose{padding: 0 20px 20px 20px ;}
 .el-dialog__body{text-align: center;}
 .el-table tr{cursor:pointer}
-.detailDia .el-table th.is-leaf{background: #409eff;color: #fff;}
+/* .detailDia .el-table th.is-leaf{background: #409eff;color: #fff;} */
 .detailDia .el-table__body tr.current-row>td{background: #fed24b;}
+
+.imitate{border-right: 1px solid #EBEEF5;border-top: 1px solid #EBEEF5;}
+.imitate p,.imitate h2{width: 100%;min-height: 51px;display: block;}
+.imitate p{cursor: pointer;}
+.imitate p:hover,.imitate p:nth-child(odd){background-color: #F5F7FA;}
+.imitate strong{display: inline-block;border-left: 1px solid #EBEEF5;border-bottom: 1px solid #EBEEF5;width: 14.4%;line-height: 50px;float: left;}
+.imitate strong b{height: 25px;line-height: 25px;width: 100%;display: block;border-bottom: 1px solid #EBEEF5;font-weight: normal;}
+.imitate strong b:last-child{border:none}
 </style>
