@@ -62,14 +62,14 @@
                         </template>
                     </el-table-column>
                 </el-table>
-                <p style="text-align:right;padding:15px 0 0 0;"><el-button type="primary" @click="ph('运行图铺画成功！')">铺画运行图</el-button></p>
+                <p style="text-align:right;padding:15px 0 0 0;"><el-button type="primary" @click="showrungrap = true,ph('运行图铺画成功！')">铺画运行图</el-button></p>
             </div>
         </el-row>
-        <el-row style="padding:0 20px">
+        <el-row style="padding:0 20px" v-if="showrungrap">
             <el-col :span="24" style="text-align:center;">
                 <div class="yl">
-                    <img :src="require('@/assets/tmp/kaixing.png')">
                     <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                    <img src="@/assets/tmp/addafter.png">
                 </div>
             </el-col>
             <p style="text-align:right;padding:15px 0 0 0;">
@@ -154,6 +154,7 @@ export default {
     data () {
         return {
             dialogVisible:false,
+            showrungrap:false,
             tableData: [{
                 date: '05:00:00-07:00:00',
                 name: '3号航站楼-东直门',
@@ -168,22 +169,22 @@ export default {
                 duishu:'15对'
             },{
                 date: '05:00:00-07:00:00',
-                name: '3号航站楼-东直门',
-                address: '无',
+                name: '2号航站楼-东直门',
+                address: '三元桥',
                 xinxi:'4L',
-                duishu:'15对'
+                duishu:'5对'
             },{
                 date: '05:00:00-07:00:00',
                 name: '3号航站楼-东直门',
-                address: '无',
+                address: '三元桥',
                 xinxi:'4L',
-                duishu:'15对'
+                duishu:'10对'
             },{
                 date: '05:00:00-07:00:00',
-                name: '3号航站楼-东直门',
+                name: '2号航站楼-东直门',
                 address: '无',
                 xinxi:'4L',
-                duishu:'15对'
+                duishu:'5对'
             }],
             tmp:[],
             options:[{

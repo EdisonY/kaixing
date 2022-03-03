@@ -47,7 +47,7 @@
             </el-col>
             <div class="yl">
                 <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
-                    <img :src="require('@/assets/tmp/kaixing.png')" style="width:100%">
+                <img src="@/assets/tmp/addafter.png">
             </div>
         </el-row>
         <el-dialog

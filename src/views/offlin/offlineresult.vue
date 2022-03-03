@@ -50,7 +50,8 @@
                 </el-col>
                 <el-col :span="22">
                     <div class="yl">
-                        <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                        <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                        <img src="@/assets/tmp/addafter.png">
                     </div>
                 </el-col>
             </el-row>
@@ -63,7 +64,8 @@
                 </el-col>
                 <el-col :span="22">
                     <div class="yl">
-                        <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe>
+                        <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
+                        <img src="@/assets/tmp/addafter.png">
                     </div>
                 </el-col>
             </el-row>
@@ -122,6 +124,6 @@ export default {
 .titleButton span{display: block;font-size: 20px;font-weight: bold;}
 .titleButtonSec{background: #ccc;}
 .db{position: fixed;right: 20px;bottom: 20px;}
-.offlineresult .el-divider__text{background: #000;color: #409eff;font-size: 20px;font-weight: bold;}
+.offlineresult .el-divider__text{background: #192038;color: #409eff;font-size: 20px;font-weight: bold;}
 .offlineresult .el-divider{background-color: #409eff;}
 </style>
