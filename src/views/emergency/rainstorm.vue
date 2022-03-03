@@ -86,6 +86,8 @@ export default {
             currentKey: "",
             messagelist: [],
             czPage: "线网监控重点线路",
+            yn: ["CLOSE", "OPEN"],
+            ynIndex: 0,
         };
     },
     methods: {
@@ -119,6 +121,22 @@ export default {
                 });
             } else {
                 this.currentKey = key;
+            }
+
+            if (key == "客流监视") {
+                let self = this;
+                this.ynIndex++;
+                $.ajax({
+                    contentType: "application/json",
+                    type: "POST",
+                    url: "http://172.51.216.61:1995/customer/terminal/chart",
+                    data: JSON.stringify({
+                        module: "CHART",
+                        key: "TRIGGER_1",
+                        keyStatus: this.yn[this.ynIndex % 2],
+                    }),
+                    dataType: "json",
+                });
             }
         },
         otherClick(key) {

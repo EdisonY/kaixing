@@ -1,8 +1,9 @@
 <template>
     <div class="train-passenger-panel">
         <div class="div-row">
-            <iframe class="mid-content"
-                src="http://172.51.216.61:8100/seabed/preview/a665e5ceac0c400fbfd33a38c56a8369" />
+            <img :src="require('@/assets/tmp/tmp.png')">
+            <!-- <iframe class="mid-content"
+                src="http://172.51.216.61:8100/seabed/preview/a665e5ceac0c400fbfd33a38c56a8369" /> -->
         </div>
         <div class="div-row">
             <!-- <img :src="require('@/assets/tmp/video.png')"
