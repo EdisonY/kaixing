@@ -22,12 +22,10 @@
             <div class="divline"></div>
             <p class="plantext">启动条件: <span>{{item.condition}}</span></p>
         </div>
-        <el-dialog title="提示"
+        <el-dialog title="北京市首都机场夜间大客流应急预案"
             :visible.sync="pdfDialogVisible"
             width="30%">
-            <pdf ref="pdf"
-                :src="url">
-            </pdf>
+            <pdf :src="url"></pdf>
             <span slot="footer"
                 class="dialog-footer">
                 <el-button @click="pdfDialogVisible = false">取 消</el-button>
@@ -49,10 +47,10 @@ export default {
             url: "http://172.51.216.72:41004/北京市首都机场夜间大客流应急预案.pdf",
             data: [
                 {
-                    name: "xx市地铁大客流数字化应急预案2016",
-                    version: "2016版",
+                    name: "北京市首都机场夜间大客流应急预案",
+                    version: "2021版",
                     condition:
-                        "在满足xxxx的前提下,需要xxxx就绪,如果xxxx方可启动",
+                        "恶劣天气可能带来能见度低、温差过大、水位超高、设施设备损坏",
                 },
             ],
         };

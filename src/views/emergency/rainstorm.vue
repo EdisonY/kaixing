@@ -267,6 +267,7 @@ export default {
     flex-direction: row;
     justify-content: flex-start;
     padding: 3px;
+    background: #000;
 }
 
 .pageleft {
