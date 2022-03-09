@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style>
-.choseLine{margin: 40px;}
+.choseLine{padding: 40px;height: calc(100vh - 60px);}
 .choseLine h2{font-size: 20px;font-weight: bold;padding-bottom: 20px;}
 .choseLine .radioMain{padding: 10px 0 20px 0;}
 .choseLine .radioMain label{margin: 0 10px 10px 10px;background: #fff;}

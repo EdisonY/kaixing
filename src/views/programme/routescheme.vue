@@ -269,7 +269,12 @@ export default {
         }
     },
     created () {
-        
+        // this.$api.get('/api/op/lines').then(res => { 
+        //     console.log(res);
+        // })
+        this.$api.post('/api/op/plan',{"flowId":1,"routeData":{"a":1}}).then(res => {
+            console.log(res);
+        })
     },
     computed: {
         
