@@ -1,14 +1,18 @@
 <template>
     <div class="train-passenger-panel">
-        <el-radio-group v-model="curPage" style="margin:10px;">
+        <el-radio-group v-model="curPage"
+            style="margin:10px;">
             <el-radio-button label="线网图"></el-radio-button>
             <el-radio-button label="场段图"></el-radio-button>
             <el-radio-button label="运行图"></el-radio-button>
             <el-radio-button label="客流监视"></el-radio-button>
-            <el-radio-button label="单兵" disabled></el-radio-button>
-            <el-radio-button label="聊天记录" disabled></el-radio-button>
+            <el-radio-button label="单兵"
+                disabled></el-radio-button>
+            <el-radio-button label="聊天记录"
+                disabled></el-radio-button>
         </el-radio-group>
-        <div class="div-row"  style="margin:10px 0;">
+        <div class="div-row"
+            style="margin:10px 0;">
             <el-table v-if="false"
                 :data="passengerData"
                 border
@@ -32,8 +36,9 @@
                 :src="require('@/assets/tmp/net.png')">
             <img v-show="curPage == '场段图'"
                 :src="img">
-            <img v-show="curPage == '运行图'"
-                :src="require('@/assets/tmp/加车后.png')">
+            <iframe v-show="curPage == '运行图'"
+                style="height:100vh;background:#FFF;"
+                src="http://172.51.216.72:41003/#/common?rowHeight=100&viewTime=25200"></iframe>
             <img v-show="curPage == '客流监视'"
                 :src="imgMeeting">
         </div>
