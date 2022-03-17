@@ -24,8 +24,12 @@
         </div>
         <el-dialog title="北京市首都机场夜间大客流应急预案"
             :visible.sync="pdfDialogVisible"
-            width="30%">
-            <pdf :src="url"></pdf>
+            width="50%">
+            <pdf v-for="i in numPages"
+                :key="i"
+                :src="url"
+                :page="i"></pdf>
+
             <span slot="footer"
                 class="dialog-footer">
                 <el-button @click="pdfDialogVisible = false">取 消</el-button>
@@ -44,7 +48,8 @@ export default {
     data() {
         return {
             pdfDialogVisible: false,
-            url: "http://172.51.216.72:41004/北京市首都机场夜间大客流应急预案.pdf",
+            url: "",
+            numPages: 1,
             data: [
                 {
                     name: "北京市首都机场夜间大客流应急预案",
@@ -57,7 +62,17 @@ export default {
     },
     methods: {
         showPdf() {
+            this.getNumPages(
+                "http://172.51.216.72:41004/北京市首都机场夜间大客流应急预案.pdf"
+            );
             this.pdfDialogVisible = true;
+        },
+        getNumPages(url) {
+            let loadingTask = pdf.createLoadingTask(url);
+            this.url = loadingTask;
+            this.url.promise.then((pdf) => {
+                this.numPages = pdf.numPages;
+            });
         },
     },
 };
@@ -86,5 +101,8 @@ export default {
 .divline {
     border: solid 1px #222;
     margin: 20px 0;
+}
+.el-dialog__body {
+    overflow-y: auto;
 }
 </style>
