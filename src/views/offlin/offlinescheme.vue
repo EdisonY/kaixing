@@ -43,8 +43,8 @@
                 </el-col>
             </el-row>
             <div class="yl">
-                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
-                <img src="@/assets/tmp/addafter.png">
+                <iframe frameborder="0" width="100%" height="380" src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
+                <!-- <img src="@/assets/tmp/addafter.png"> -->
             </div>
         </div>
         <div class="programme">
@@ -89,8 +89,8 @@
                 </el-col>
             </el-row>
             <div class="yl">
-                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
-                <img src="@/assets/tmp/addafter.png">
+                <iframe frameborder="0" width="100%" height="380" src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
+                <!-- <img src="@/assets/tmp/addafter.png"> -->
             </div>
         </div>
         <el-button type="success" icon="el-icon-view" class="db">
@@ -144,6 +144,6 @@ export default {
 .offline{padding: 20px;}
 .programme{padding: 10px 0;}
 .programme .yl{margin-top: 5px;}
-.titleButton{color: #fff;background: #409eff;display: flex;width: 90%;margin: 0 auto;border-radius: 4px;min-height: 146px;align-items: center;justify-content: center;flex-direction: column;text-align: center;}
+.titleButton{color: #fff;background: #409eff;display: flex;width: 94%;border-radius: 4px;min-height: 146px;align-items: center;justify-content: center;flex-direction: column;text-align: center;}
 .db{position: fixed;right: 20px;bottom: 20px;}
 </style>

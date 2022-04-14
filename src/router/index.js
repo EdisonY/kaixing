@@ -85,6 +85,27 @@ export const constantRoutes = [
         ]
     },
     {
+        path: '/cctv',
+        component: () => import('@/layout/empty'),
+        name:'CCTV监控',
+        meta: { title: 'CCTV监控', icon: 'form' },
+        hidden: true,
+        children: [
+            {
+                path: 'marshalling',
+                name: 'CCTV编组',
+                component: () => import('@/views/cctv/marshalling'),
+                meta: { title: 'CCTV编组'}
+            },
+            {
+                path: 'preview',
+                name: 'CCTV实时监控',
+                component: () => import('@/views/cctv/preview'),
+                meta: { title: 'CCTV实时监控'}
+            }
+        ]
+    },
+    {
         path: '/monitor',
         name:'开行方案编制',
         component: () => import('@/views/monitor'),

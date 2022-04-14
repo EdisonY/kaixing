@@ -38,6 +38,19 @@ Vue.prototype.$echarts = echarts;
 
 Vue.prototype.$EventBus = new Vue();
 
+Vue.prototype.formatTime = function (time){
+    let hour = parseInt(time / 3600)
+        .toString()
+        .padStart(2, "0");
+    let minute = parseInt((time % 3600) / 60)
+        .toString()
+        .padStart(2, "0");
+    let second = parseInt(time % 60)
+        .toString()
+        .padStart(2, "0");
+    return `${hour}:${minute}:${second}`;
+}
+
 const eventbus = new Vue();
 
 /**

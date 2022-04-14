@@ -155,5 +155,17 @@ module.exports = {
             config.optimization.runtimeChunk('single')
             }
         )
+
+        config.module
+        .rule('swf')
+        .test(/\.swf$/)
+        .use('url-loader')
+        .loader('url-loader')
+        .options({
+        limit: 1024,
+        name: 'file/[path][name].[hash:7].[ext]'
+        })
+        .end()
+
     }
 }

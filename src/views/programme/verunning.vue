@@ -5,49 +5,49 @@
                 <h3>校验结果</h3>
             </el-col>
             <el-table
-                    :data="tableData"
-                    border
-                    style="width: 100%">
-                    <el-table-column
-                        prop="date"
-                        label="对比指标"
-                        align="center"
-                        width="180">
-                        <template slot-scope="scope">
-                            <el-link v-if="scope.row.date == '站台滞留人数告警'" type="danger" @click="showAlert(scope.row)">{{ scope.row.date }}</el-link>
-                            <span v-else>{{ scope.row.date }}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="告警数量"
-                        align="center"
-                        width="180">
-                    </el-table-column>
-                    <el-table-column
-                        prop="address"
-                        align="center"
-                        label="告警持续时长">
-                    </el-table-column>
-                    <el-table-column
-                        prop="xinxi"
-                        align="center"
-                        label="告警位置">
-                    </el-table-column>
-                    <el-table-column
-                        prop="duishu"
-                        align="center"
-                        label="告警持续时间">
-                    </el-table-column>
-                </el-table>
+                :data="tableData"
+                border
+                style="width: 100%">
+                <el-table-column
+                    prop="date"
+                    label="对比指标"
+                    align="center"
+                    width="180">
+                    <template slot-scope="scope">
+                        <el-link v-if="scope.row.date == '站台滞留人数告警'" type="danger" @click="showAlert(scope.row)">{{ scope.row.date }}</el-link>
+                        <span v-else>{{ scope.row.date }}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    prop="name"
+                    label="告警数量"
+                    align="center"
+                    width="180">
+                </el-table-column>
+                <el-table-column
+                    prop="address"
+                    align="center"
+                    label="告警持续时长">
+                </el-table-column>
+                <el-table-column
+                    prop="xinxi"
+                    align="center"
+                    label="告警位置">
+                </el-table-column>
+                <el-table-column
+                    prop="duishu"
+                    align="center"
+                    label="告警持续时间">
+                </el-table-column>
+            </el-table>
         </el-row>
         <el-row>
             <el-col :span="2" style="text-align:center;">
                 <h3>方案详情</h3>
             </el-col>
             <div class="yl">
-                <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
-                <img src="@/assets/tmp/addafter.png">
+                <iframe frameborder="0" width="100%" height="380" src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
+                <!-- <img src="@/assets/tmp/addafter.png"> -->
             </div>
         </el-row>
         <el-dialog

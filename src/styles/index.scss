@@ -89,6 +89,7 @@ div:focus {
 .el-timeline-item__timestamp{color: #fff;}
 .el-submenu__title{font-size: 16px;}
 .el-tag{font-weight: bold;background-color: transparent !important;}
+.cctv .el-tag{background-color: #ecf5ff !important;}
 // .el-col-7{width: 35%;}
 .el-input__icon{line-height: 32px;}
 .el-table--border, .el-table--group{border-left:1px solid #D7DBEC;border-top:1px solid #D7DBEC}
@@ -136,7 +137,15 @@ div:focus {
 .choseLine .el-radio__input.is-checked+.el-radio__label{color: #fff;}
 
 
-.yl{width: 100%;min-height: 150px;background-color: #ccc;display: inline-block;margin: 20px 0;text-align: center;line-height:0;color: #000;}
+.yl{width: 100%;min-height: 300px;background-color: #fff;display: inline-block;margin: 20px 0;text-align: center;line-height:0;color: #000;}
 .yl img{width: 100%;}
 
 .subMain{background: #192038;}
+
+.selfTable{width: 100%;border-left: 1px solid #ebeef5;border-bottom: 1px solid #ebeef5;border-spacing: 0;color: #606266;background: #fff;}
+.selfTable tr{line-height: 40px;}
+.selfTable tr:hover,.selfTable .thead{background-color: #f5f7fa;}
+.selfTable tr td,.selfTable tr th{border-right: 1px solid #ebeef5;border-top: 1px solid #ebeef5;text-align: center;position: relative;}
+
+.cctv .el-input__inner,.cctv .el-textarea__inner{color: #666 !important;}
+.cctv .el-input__inner::-webkit-input-placeholder{color: #666;}

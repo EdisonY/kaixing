@@ -22,54 +22,52 @@
                 <h3>开行方案</h3>
             </el-col>
             <div class="drawTable">
-                <el-table
-                    :data="tableData"
-                    border
-                    style="width: 100%">
-                    <el-table-column
-                        prop="date"
-                        align="center"
-                        label="起止时间"
-                        width="180">
-                    </el-table-column>
-                    <el-table-column
-                        prop="name"
-                        label="交路方式"
-                        align="center">
-                    </el-table-column>
-                    <el-table-column
-                        prop="address"
-                        align="center"
-                        label="跳停车站">
-                    </el-table-column>
-                    <el-table-column
-                        prop="xinxi"
-                        align="center"
-                        label="编组信息">
-                    </el-table-column>
-                    <el-table-column
-                        prop="duishu"
-                        align="center"
-                        label="开行对数">
-                    </el-table-column>
-                    <el-table-column
-                    fixed="right"
-                    align="center"
-                    label="操作"
-                    width="100">
-                        <template slot-scope="scope">
-                            <el-button type="primary" @click="edit(scope.row)" size="small">编辑</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <table class="selfTable">
+                    <tr class="thead">
+                        <th colspan="2" style="width:100px">起止时间</th>
+                        <th>交路方式</th>
+                        <th>跳停车站</th>
+                        <th>编组信息</th>
+                        <th>开行对数</th>
+                    </tr>
+                    <tbody v-for="item in tableData" :key="item.label">
+                        <tr v-for="(items,index) in item.crossRouteList">
+                            <td style="width:100px" v-if="index == 0 && item.crossRouteList.length > 1" :colspan="item.crossRouteList.length > 1 ? item.crossRouteList.length : 0" :rowspan="item.crossRouteList.length">{{formatTime(item.startTime)}} - {{formatTime(item.endTime)}}</td>
+                            <td>
+                                <el-select v-model="items.tmpRout" placeholder="请选择">
+                                    <el-option
+                                        v-for="item in tmpRoute"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>
+                                <el-select v-model="items.stopOrNotList1" placeholder="请选择">
+                                    <el-option
+                                         v-for="items in stations"
+                                        :key="items.stationId"
+                                        :label="items.stationName"
+                                        :value="items.stationId">
+                                    </el-option>
+                                </el-select>
+                            </td>
+                            <td>{{items.trainTypeGroup}}</td>
+                            <td>{{items.onLineTrainCount}}</td>
+                        </tr>
+                    </tbody>
+                    
+                </table>
+
                 <p style="text-align:right;padding:15px 0 0 0;"><el-button type="primary" @click="showrungrap = true,ph('运行图铺画成功！')">铺画运行图</el-button></p>
             </div>
         </el-row>
         <el-row style="padding:0 20px" v-if="showrungrap">
             <el-col :span="24" style="text-align:center;">
                 <div class="yl">
-                    <!-- <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.62:41002/apps/hello-change/#/program/rungraph1"></iframe> -->
-                    <img src="@/assets/tmp/addafter.png">
+                    <iframe frameborder="0" width="100%" height="380" src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
+                    <!-- <img src="@/assets/tmp/addafter.png"> -->
                 </div>
             </el-col>
             <p style="text-align:right;padding:15px 0 0 0;">
@@ -77,70 +75,6 @@
                  <el-button type="primary" @click="ph('运行图保存成功！')">保存运行图</el-button>
             </p>
         </el-row>
-        <el-dialog
-        title="开行方案修改"
-        class="drawEdit"
-        :visible.sync="dialogVisible"
-        width="30%"
-        :before-close="handleClose">
-            <ul>
-                <li>
-                    <strong>起止时间</strong>
-                    <div class="diaMain">
-                        {{tmp.date}}
-                    </div>
-                </li>
-                <li>
-                    <strong>交路方式</strong>
-                    <div class="diaMain">
-                        <el-select v-model="value" placeholder="请选择">
-                            <el-option
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
-                </li>
-                <li>
-                    <strong>跳停车站</strong>
-                    <div class="diaMain">
-                        <el-select v-model="value1" placeholder="请选择">
-                            <el-option
-                            v-for="item in options1"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
-                </li>
-                <li>
-                    <strong>编组信息</strong>
-                    <div class="diaMain">
-                        {{tmp.xinxi}}
-                    </div>
-                </li>
-                <li>
-                    <strong>开行对数</strong>
-                    <div class="diaMain">
-                        <el-select v-model="value2" placeholder="请选择">
-                            <el-option
-                            v-for="item in options2"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </div>
-                </li>
-            </ul>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false" size="medium">取 消</el-button>
-                <el-button type="primary" @click="ph('修改成功！'),dialogVisible = false" size="medium">确 定</el-button>
-            </span>
-        </el-dialog>
     </div>
 </template>
 
@@ -155,66 +89,16 @@ export default {
         return {
             dialogVisible:false,
             showrungrap:false,
-            tableData: [{
-                date: '05:00:00-07:00:00',
-                name: '3号航站楼-东直门',
-                address: '无',
-                xinxi:'4L',
-                duishu:'15对'
-            },{
-                date: '05:00:00-07:00:00',
-                name: '3号航站楼-东直门',
-                address: '无',
-                xinxi:'4L',
-                duishu:'15对'
-            },{
-                date: '05:00:00-07:00:00',
-                name: '2号航站楼-东直门',
-                address: '三元桥',
-                xinxi:'4L',
-                duishu:'5对'
-            },{
-                date: '05:00:00-07:00:00',
-                name: '3号航站楼-东直门',
-                address: '三元桥',
-                xinxi:'4L',
-                duishu:'10对'
-            },{
-                date: '05:00:00-07:00:00',
-                name: '2号航站楼-东直门',
-                address: '无',
-                xinxi:'4L',
-                duishu:'5对'
-            }],
+            tableData: [],
             tmp:[],
-            options:[{
-                value: '选项1',
-                label: '3号航站楼-东直门'
-                }, {
-                value: '选项2',
-                label: '2号航站楼-东直门'
-            }],
-            options1:[{
-                value: '选项1',
-                label: '无'
-                }, {
-                value: '选项2',
-                label: '三元桥'
-            }],
-            options2:[{
-                value: '选项1',
-                label: '15对'
-                }, {
-                value: '选项2',
-                label: '20对'
-            }],
-            value:'选项1',
-            value1:'选项1',
-            value2:'选项1',
+            stations:JSON.parse(localStorage.getItem('stations')),
+            tmpRoute:JSON.parse(localStorage.getItem('tmpRoute')),
         }
     },
     created () {
-        
+        this.$api.post('/api/op/plan',{"flowId":1,"routeData":{"a":1}}).then(res => {
+            this.tableData = res.data.timeSectionList
+        })
     },
     computed: {
         
@@ -229,13 +113,18 @@ export default {
                 message: msg
             });
         },
-        edit(data){
-            this.tmp = JSON.parse(JSON.stringify(data))
-            this.dialogVisible = true
+        formatTime(time) {
+            let hour = parseInt(time / 3600)
+                .toString()
+                .padStart(2, "0");
+            let minute = parseInt((time % 3600) / 60)
+                .toString()
+                .padStart(2, "0");
+            let second = parseInt(time % 60)
+                .toString()
+                .padStart(2, "0");
+            return `${hour}:${minute}:${second}`;
         },
-        handleClose(){
-            this.dialogVisible = false
-        }
     },
     destroyed() {
     }

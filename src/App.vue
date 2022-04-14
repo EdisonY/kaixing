@@ -27,6 +27,15 @@
                 </el-submenu>
                 <el-menu-item index="4"><router-link to="/analysis">历史数据分析</router-link></el-menu-item>
                 <el-menu-item index="5"><router-link to="/setting">系统参数设置</router-link></el-menu-item>
+                <el-submenu index="6">
+                    <template slot="title">CCTV监控</template>
+                    <el-menu-item index="6-1">
+                        <router-link to="/cctv/marshalling">CCTV编组</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="6-2">
+                        <router-link to="/cctv/preview">CCTV实时监控</router-link>
+                    </el-menu-item>
+                </el-submenu>
             </el-menu>
         </div>
         <div class="subMain">
@@ -50,8 +59,8 @@ export default {
     },
     methods: {
         handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-    }
+            console.log(key, keyPath);
+        }
     }
 }
 </script>
