@@ -89,16 +89,212 @@ export default {
         return {
             dialogVisible:false,
             showrungrap:false,
-            tableData: [],
+            tableData: [{
+                "startTime": 25200,
+                "endTime": 32400,
+                "crossRouteCount": 2,
+                "crossRouteList": [{
+                    "crossRouteId": 1,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 37,
+                    "tmpRout":0,
+                    "startStationId": 2101,
+                    "endStationId": 2103,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2103,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": false
+                    }],
+                    "stopOrNotList1":2104
+                }, {
+                    "crossRouteId": 2,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 65526,
+                    "tmpRout":1,
+                    "startStationId": 2104,
+                    "endStationId": 2101,
+                    "onLineTrainCount": 10,
+                    "stopOrNotList": [{
+                        "stationId": 2103,
+                        "stopOrNot": false
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }],
+                    "stopOrNotList1":2103
+                }]
+            }, {
+                "startTime": 32400,
+                "endTime": 61200,
+                "crossRouteCount": 2,
+                "crossRouteList": [{
+                    "crossRouteId": 1,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 11,
+                    "tmpRout":0,
+                    "startStationId": 2101,
+                    "endStationId": 2103,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2103,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": false
+                    }],
+                    "stopOrNotList1":2104
+                }, {
+                    "crossRouteId": 2,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 65526,
+                    "tmpRout":1,
+                    "startStationId": 2104,
+                    "endStationId": 2101,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2103,
+                        "stopOrNot": false
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }],
+                    "stopOrNotList1":2103
+                }]
+            }, {
+                "startTime": 61200,
+                "endTime": 68400,
+                "crossRouteCount": 2,
+                "crossRouteList": [{
+                    "crossRouteId": 1,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 37,
+                    "tmpRout":0,
+                    "startStationId": 2101,
+                    "endStationId": 2103,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2103,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": false
+                    }],
+                    "stopOrNotList1":2104
+                }, {
+                    "crossRouteId": 2,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 65526,
+                    "tmpRout":1,
+                    "startStationId": 2104,
+                    "endStationId": 2101,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2103,
+                        "stopOrNot": false
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }],
+                    "stopOrNotList1":2103
+                }]
+            }, {
+                "startTime": 68400,
+                "endTime": 79200,
+                "crossRouteCount": 2,
+                "crossRouteList": [{
+                    "crossRouteId": 1,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 37,
+                    "tmpRout":0,
+                    "startStationId": 2101,
+                    "endStationId": 2103,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2103,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": false
+                    }],
+                    "stopOrNotList1":2104
+                }, {
+                    "crossRouteId": 2,
+                    "trainTypeGroup": "4A",
+                    "lineWayId": 65526,
+                    "tmpRout":1 ,
+                    "startStationId": 2104,
+                    "endStationId": 2101,
+                    "onLineTrainCount": 20,
+                    "stopOrNotList": [{
+                        "stationId": 2103,
+                        "stopOrNot": false
+                    }, {
+                        "stationId": 2104,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2102,
+                        "stopOrNot": true
+                    }, {
+                        "stationId": 2101,
+                        "stopOrNot": true
+                    }],
+                    "stopOrNotList1":2103
+                }]
+            }],
             tmp:[],
             stations:JSON.parse(localStorage.getItem('stations')),
             tmpRoute:JSON.parse(localStorage.getItem('tmpRoute')),
         }
     },
     created () {
-        this.$api.post('/api/op/plan',{"flowId":1,"routeData":{"a":1}}).then(res => {
-            this.tableData = res.data.timeSectionList
-        })
+        // this.$api.post('/api/op/plan',{"flowId":1,"routeData":{"a":1}}).then(res => {
+        //     this.tableData = res.data.timeSectionList
+        // })
     },
     computed: {
         
