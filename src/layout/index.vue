@@ -84,7 +84,7 @@ width: 100%;
 #app .main-container{margin-left: 0;width: calc(100% - 208px);background: #000;}
 .rightMain{padding:20px;background-color: #F4F7FC;}
 .left{height: calc(100vh - 60px);width: 208px;color: #fff;text-align: center;padding: 15px 0;position: relative;}
-.left::after{content: '';width: 208px;height: calc(100vh - 60px);background: #192038;z-index: 1;position: absolute;left: 0;top: 0;}
+.left::after{content: '';width: 208px;height: calc(100vh - 60px);background: #192038;z-index: 1;position: fixed;left: 0;top: 60px;}
 #app .sidebar-container{position: relative;z-index: 2;}
 .left h2{font-size: 20px;padding-bottom: 15px;}
 </style>
