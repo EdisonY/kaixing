@@ -142,7 +142,7 @@ export default {
                 });
             }
         },
-        topClick(key){
+        topClick(key) {
             this.flowClick(key);
         },
         otherClick(key) {
