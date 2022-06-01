@@ -124,6 +124,165 @@ export const constantRoutes = [
         hidden: true
     },
     {
+        path: '/line/comprehensive',
+        name:'线网综合图',
+        component: () => import('@/views/line/comprehensive'),
+        hidden: true
+    },
+    {
+        path: '/line/passengerflow',
+        name:'客流信息',
+        component: () => import('@/views/line/passengerflow'),
+        hidden: true
+    },
+    {
+        path: '/line/driving',
+        name:'行车信息',
+        component: () => import('@/views/line/driving'),
+        hidden: true
+    },
+    {
+        path: '/line/energy',
+        name:'能耗信息',
+        component: () => import('@/views/line/energy'),
+        hidden: true
+    },
+    {
+        path: '/line/monitor',
+        name:'设备监视',
+        component: () => import('@/views/line/monitor'),
+        hidden: true
+    },
+    {
+        path: '/line/alarm',
+        name:'报警信息',
+        component: () => import('@/views/line/alarm'),
+        hidden: true
+    },
+    {
+        path: '/line/plane',
+        name:'车站平面图',
+        component: () => import('@/views/line/plane'),
+        hidden: true
+    },
+    {
+        path: '/situation/detailed',
+        name:'专业性指标详细展示',
+        component: () => import('@/views/situation/detailed'),
+        hidden: true
+    },
+    {
+        path: '/situation/trend',
+        name:'指标趋势分析',
+        component: () => import('@/views/situation/trend'),
+        hidden: true
+    },
+
+
+    {
+        path: '/policy/driving',
+        name:'行车辅助决策',
+        component: () => import('@/views/policy/driving'),
+        hidden: true
+    },
+    {
+        path: '/policy/passengerflow',
+        name:'客流辅助决策',
+        component: () => import('@/views/policy/passengerflow'),
+        hidden: true
+    },
+    {
+        path: '/policy/people',
+        name:'人员物资辅助',
+        component: () => import('@/views/policy/people'),
+        hidden: true
+    },
+    {
+        path: '/policy/assessment',
+        name:'重大事件后评估',
+        component: () => import('@/views/policy/assessment'),
+        hidden: true
+    },
+
+    {
+        path: '/consultation/management',
+        name:'应急处置',
+        component: () => import('@/views/consultation/management'),
+        hidden: true
+    },
+    {
+        path: '/consultation/soldier',
+        name:'应急单兵接入',
+        component: () => import('@/views/consultation/soldier'),
+        hidden: true
+    },
+
+
+    {
+        path: '/tool/command',
+        name:'信息与命令',
+        component: () => import('@/views/tool/command'),
+        hidden: true
+    },
+    {
+        path: '/tool/alarm',
+        name:'报警',
+        component: () => import('@/views/tool/alarm'),
+        hidden: true
+    },
+    {
+        path: '/tool/message',
+        name:'消息',
+        component: () => import('@/views/tool/message'),
+        hidden: true
+    },
+    {
+        path: '/tool/important',
+        name:'重要活动',
+        component: () => import('@/views/tool/important'),
+        hidden: true
+    },
+    {
+        path: '/tool/report',
+        name:'报表',
+        component: () => import('@/views/tool/report'),
+        hidden: true
+    },
+
+    {
+        path: '/system/indicator',
+        name:'指标配置管理',
+        component: () => import('@/views/system/indicator'),
+        hidden: true
+    },
+    {
+        path: '/system/role',
+        name:'角色权限管理',
+        component: () => import('@/views/system/role'),
+        hidden: true
+    },
+    {
+        path: '/system/function',
+        name:'系统功能',
+        component: () => import('@/views/system/function'),
+        hidden: true
+    },
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+    {
         path: '/404',
         component: () => import('@/views/404'),
         hidden: true

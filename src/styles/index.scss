@@ -149,3 +149,24 @@ div:focus {
 
 .cctv .el-input__inner,.cctv .el-textarea__inner{color: #666 !important;}
 .cctv .el-input__inner::-webkit-input-placeholder{color: #666;}
+
+.soldier .time .el-timeline-item__content{color: #ffd04b;}
+
+.submainnew{padding: 10px;}
+.submainnew .box-card{margin-bottom: 10px;}
+.submainnew .el-card{background: none;color: #fff;border-color: #ababab;}
+.submainnew .el-card__header{padding: 5px 20px 0 10px;border-bottom: none;font-weight: bold;font-size: 20px;color: #ffd04b;}
+.submainnew .el-card__header p{float: right;}
+.submainnew .el-card__body{padding: 5px 0;height: calc(100% - 45px);}
+.submainnew .el-card__body .item{height: 100%;}
+.submainnew .echarts{height: 100%;}
+.submainnew .grid-content,.submainnew .grid-content .el-card{margin-bottom: 10px;height: calc(100vh - 80px);}
+.submainnew .grid-content-3,.submainnew .grid-content-3 .el-card{height:calc((100vh - 110px) / 3)}
+.submainnew .grid-content-2,.submainnew .grid-content-2 .el-card{height:calc((100vh - 90px) / 2)}
+.submainnew .grid-content-22,.submainnew .grid-content-22 .el-card{height:calc((100vh - 90px) / 2.5)}
+.submainnew .grid-content-4,.submainnew .grid-content-4 .el-card{height:calc((100vh - 110px) / 4)}
+.submainnew .grid-content-5,.submainnew .grid-content-5 .el-card{height:calc((100vh - 110px) / 10)}
+.submainnew .grid-content img{width: 100%;height: 100%;}
+
+.submainnew .el-table tr,.submainnew .el-table th.el-table__cell,.submainnew .el-table,.submainnew .el-table .el-table__cell{background: none;color: #fff;text-align: center;}
+.submainnew .el-table--enable-row-hover .el-table__body tr:hover>td.el-table__cell{color: #000;}
