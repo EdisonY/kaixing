@@ -1,6 +1,6 @@
 ;(function(global, undefined) {
     "use strict"
-    var _global,panZoom,state,time,func = [],arrowHref = 'http://172.51.217.207/subway/arrow.png',turnHref= 'http://172.51.217.207/subway/turn.png';
+    var _global,panZoom,state,time,func = [],arrowHref = 'http://43.138.106.240/subway/arrow.png',turnHref= 'http://43.138.106.240/subway/turn.png';
 
     function loadJS( url, callback ){
         var script = document.createElement('script'),
@@ -26,7 +26,7 @@
 
     function tct_subway(opt){
         var self = this
-        // loadJS('http://172.51.217.207/subway/jquery.min.js',function(){
+        // loadJS('http://43.138.106.240/subway/jquery.min.js',function(){
             loadJS('http://localhost:9528/subway/svg-pan-zoom.min.js',function(){
                 self._initial(opt);
             })
@@ -113,10 +113,10 @@
                     }
                 }
             })
-            this._generate('image',{'href':'http://172.51.217.207/subway/tam.png','width':85,'height':26,'x':908,'y':758},'image')
-            this._generate('image',{'href':'http://172.51.217.207/subway/north.png','width':50,'height':100,'x':1710,'y':250},'image')
-            this._generate('image',{'href':'http://172.51.217.207/subway/airport.png','width':40,'height':40,'x':1510,'y':355},'image')
-            this._generate('image',{'href':'http://172.51.217.207/subway/airport.png','width':40,'height':40,'x':1000,'y':1228},'image')
+            this._generate('image',{'href':'http://43.138.106.240/subway/tam.png','width':85,'height':26,'x':908,'y':758},'image')
+            this._generate('image',{'href':'http://43.138.106.240/subway/north.png','width':50,'height':100,'x':1710,'y':250},'image')
+            this._generate('image',{'href':'http://43.138.106.240/subway/airport.png','width':40,'height':40,'x':1510,'y':355},'image')
+            this._generate('image',{'href':'http://43.138.106.240/subway/airport.png','width':40,'height':40,'x':1000,'y':1228},'image')
             panZoom = svgPanZoom('#subway',{zoomEnabled: true,dblClickZoomEnabled:false,minZoom:.4,maxZoom:4,fit:false});
             // panZoom.pan({x: -950 + window.innerWidth/2, y: -770 + window.innerHeight/2});
             panZoom.pan({x:-window.innerWidth/4,y:-window.innerHeight/2})
@@ -179,11 +179,11 @@
                 var arr = data[index].attributes.arc.value.split(',')[0].split(':')
                 var urc = data[index].attributes.uoarc.value.split(',')[0].split(':')
                 var drc = data[index].attributes.doarc.value.split(',')[0].split(':')
-                this._generate('path',{'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
-                this._generate('path',{'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
             }else{
-                this._generate('line',{'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
-                this._generate('line',{'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
             }
             for (let i = index + 1; i < data.length; i++) {
                 if(data[i].attributes.acc.value == ''){
@@ -197,12 +197,12 @@
                         var arr = data[i].attributes.arc.value.split(',')[0].split(':')
                         var urc = data[i].attributes.uoarc.value.split(',')[0].split(':')
                         var drc = data[i].attributes.doarc.value.split(',')[0].split(':')
-                        self._generate('path',{'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
-                        self._generate('path',{'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
         
                     }else{
-                        self._generate('line',{'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
-                        self._generate('line',{'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':3,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
                     }
                 }else{
                     break
@@ -615,6 +615,7 @@
 
                 }
             }
+            $('#normal').hide()
         },
         getPosition:function(id){
             // var p = new Promise(function(resolve,reject){
