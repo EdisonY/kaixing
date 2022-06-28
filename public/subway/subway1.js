@@ -1,6 +1,6 @@
 ;(function(global, undefined) {
     "use strict"
-    var _global,panZoom,state,time,func = [],arrowHref = 'http://43.138.106.240/subway/arrow.png',turnHref= 'http://43.138.106.240/subway/turn.png';
+    var _global,panZoom,state,time,func = [],arrowHref = 'http://172.51.216.72:41005/subway/arrow.png',turnHref= 'http://172.51.216.72:41005/subway/turn.png';
 
     function loadJS( url, callback ){
         var script = document.createElement('script'),
@@ -26,7 +26,7 @@
 
     function tct_subway(opt){
         var self = this
-        // loadJS('http://43.138.106.240/subway/jquery.min.js',function(){
+        // loadJS('http://172.51.216.72:41005/subway/jquery.min.js',function(){
             loadJS('http://localhost:9528/subway/svg-pan-zoom.min.js',function(){
                 self._initial(opt);
             })
@@ -63,7 +63,7 @@
             }
             $.ajax({
                 // url: "beijing.xml",
-                url: "http://localhost:9528/subway/beijing.xml",
+                url: "http://172.51.216.72:41005/subway/beijing.xml",
                 dataType: 'xml',
                 type: 'GET',
                 timeout: 5000,
@@ -113,10 +113,10 @@
                     }
                 }
             })
-            this._generate('image',{'href':'http://43.138.106.240/subway/tam.png','width':85,'height':26,'x':908,'y':758},'image')
-            this._generate('image',{'href':'http://43.138.106.240/subway/north.png','width':50,'height':100,'x':1710,'y':250},'image')
-            this._generate('image',{'href':'http://43.138.106.240/subway/airport.png','width':40,'height':40,'x':1510,'y':355},'image')
-            this._generate('image',{'href':'http://43.138.106.240/subway/airport.png','width':40,'height':40,'x':1000,'y':1228},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41005/subway/tam.png','width':85,'height':26,'x':908,'y':758},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41005/subway/north.png','width':50,'height':100,'x':1710,'y':250},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41005/subway/airport.png','width':40,'height':40,'x':1510,'y':355},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41005/subway/airport.png','width':40,'height':40,'x':1000,'y':1228},'image')
             panZoom = svgPanZoom('#subway',{zoomEnabled: true,dblClickZoomEnabled:false,minZoom:.4,maxZoom:4,fit:false});
             // panZoom.pan({x: -950 + window.innerWidth/2, y: -770 + window.innerHeight/2});
             panZoom.pan({x:-window.innerWidth/4,y:-window.innerHeight/2})
