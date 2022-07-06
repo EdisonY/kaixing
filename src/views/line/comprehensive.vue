@@ -47,6 +47,6 @@ export default {
 
 <style scoped>
 
-.comprehensive{padding: 10px;background: #fff;}
+.comprehensive{padding: 10px;background: #000;}
 #subway{width: 100%;height:calc(100vh - 76px);}
 </style>

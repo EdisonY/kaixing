@@ -162,7 +162,7 @@
             }
         },
         _drewStationName:function(parent,data){
-            this._generate('text',{'id':data.acc.value,'font-family':'微软雅黑','x':Number(data.x.value) + Number(data.rx.value),'y':Number(data.y.value) + Number(data.ry.value) + 15,'fill':'#000','font-size':12,'lineId':Number(parent.lcode.value)},'stationName',data.lb.value)
+            this._generate('text',{'id':data.acc.value,'font-family':'微软雅黑','x':Number(data.x.value) + Number(data.rx.value),'y':Number(data.y.value) + Number(data.ry.value) + 15,'fill':'#fff','font-size':12,'lineId':Number(parent.lcode.value)},'stationName',data.lb.value)
         },
         _drewFullLoad:function(parent,data,index,next){
             var self = this
