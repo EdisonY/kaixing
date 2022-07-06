@@ -165,6 +165,7 @@
                     </el-menu-item>
                 </el-submenu>
             </el-menu>
+            <img class="logo" src="../src/assets/basie/logotop.png" />
         </div>
         <div class="subMain">
             <router-view />
@@ -271,4 +272,6 @@ input:focus,
 button:focus {
     outline: none;
 }
+.nav {position: relative;}
+.nav .logo{height: 50px;width: auto;position: absolute;right: 20px;top: 5px;}
 </style>
