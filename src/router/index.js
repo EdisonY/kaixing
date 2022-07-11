@@ -79,7 +79,7 @@ export const constantRoutes = [
             {
                 path: 'rainstorm',
                 name: '暴雨机场大面积航延',
-                component: () => import('@/views/emergency/rainstorm'),
+                component: () => import('@/views/emergency'),
                 meta: { title: '暴雨机场大面积航延'}
             }
         ]

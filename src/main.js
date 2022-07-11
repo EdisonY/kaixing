@@ -1,5 +1,5 @@
 import Vue from 'vue'
-
+import 'jointjs/dist/joint.css' // 引入jointjs样式，否则不能画栅格
 import 'normalize.css/normalize.css' // A modern alternative to CSS resets
 
 import ElementUI from 'element-ui'

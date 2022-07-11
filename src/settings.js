@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'TCT',
+  title: '综合决策支持系统',
 
   /**
    * @type {boolean} true | false
