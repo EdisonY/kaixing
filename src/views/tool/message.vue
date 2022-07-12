@@ -17,7 +17,7 @@
                     style="width: 100%">
                         <el-table-column
                             prop="date"
-                            label="日期时间">
+                            label="时间">
                         </el-table-column>
                         <el-table-column
                             prop="name"
@@ -25,11 +25,11 @@
                         </el-table-column>
                         <el-table-column
                             prop="address"
-                            label="来源">
+                            label="操作者">
                         </el-table-column>
                         <el-table-column
                             prop="address"
-                            label="操作人">
+                            label="结果">
                         </el-table-column>
                         
                     </el-table>

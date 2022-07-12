@@ -267,6 +267,12 @@ export const constantRoutes = [
         component: () => import('@/views/system/function'),
         hidden: true
     },
+    {
+        path: '/system/about',
+        name:'关于综合决策',
+        component: () => import('@/views/system/about'),
+        hidden: true
+    },
 
     
 
