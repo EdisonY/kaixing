@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import MessagePanel from "./components/MessagePanel.vue";
+import MessagePanel from "./components/MessagePanel";
 
 import FlowDiagram from "./components/FlowDiagram";
 import { getFlowData } from "./flowdata";
@@ -165,10 +165,24 @@ export default {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
             } else if (this.curflow === "方案终止判断") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案终止判断.png`;
-            }else if (this.curflow === "应急处置") {
+            } else if (this.curflow === "应急处置") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急处置.png`;
             }
             this._mockMsg();
+        },
+        testFunc() {
+            // 调用优锘的切换接口
+            //  $.ajax({
+            //         contentType: "application/json",
+            //         type: "POST",
+            //         url: "http://172.51.216.61:1995/customer/terminal/chart",
+            //         data: JSON.stringify({
+            //             module: "CHART",
+            //             key: "TRIGGER_1",
+            //             keyStatus: this.yn[this.ynIndex % 2],
+            //         }),
+            //         dataType: "json",
+            //     });
         },
     },
 };
