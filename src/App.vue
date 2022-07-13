@@ -73,6 +73,9 @@
                     <el-menu-item index="1-7">
                         <router-link to="/line/plane">车站平面图</router-link>
                     </el-menu-item>
+                    <el-menu-item index="1-8">
+                        <router-link to="/tool/important">重保活动</router-link>
+                    </el-menu-item>
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">平行推演</template>
@@ -133,14 +136,11 @@
                     <el-menu-item index="6-1">
                         <router-link to="/tool/command">信息与命令</router-link>
                     </el-menu-item>
-                    <el-menu-item index="6-2">
+                    <!-- <el-menu-item index="6-2">
                         <router-link to="/tool/alarm">报警</router-link>
-                    </el-menu-item>
+                    </el-menu-item> -->
                     <el-menu-item index="6-3">
                         <router-link to="/tool/message">消息</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="6-4">
-                        <router-link to="/tool/important">重要活动</router-link>
                     </el-menu-item>
                     <el-menu-item index="6-5">
                         <router-link to="/tool/report">报表</router-link>
@@ -159,6 +159,9 @@
                     </el-menu-item>
                     <el-menu-item index="7-4">
                         <router-link to="/system/function">系统功能</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="7-5">
+                        <router-link to="/system/about">关于综合决策</router-link>
                     </el-menu-item>
                 </el-submenu>
                 <el-submenu index="8">
