@@ -79,9 +79,9 @@
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">平行推演</template>
-                    <el-menu-item index="2-1">
+                    <!-- <el-menu-item index="2-1">
                         <router-link to="/choseline">常规运营</router-link>
-                    </el-menu-item>
+                    </el-menu-item> -->
                     <el-menu-item index="2-2">
                         <router-link to="/offlinescheme">离线方案对比</router-link>
                     </el-menu-item>
