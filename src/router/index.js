@@ -81,6 +81,18 @@ export const constantRoutes = [
                 name: '暴雨机场大面积航延',
                 component: () => import('@/views/emergency'),
                 meta: { title: '暴雨机场大面积航延'}
+            },
+            {
+                path: 'majorevent',
+                name: '重大活动运营',
+                component: () => import('@/views/emergency/MajorEvent'),
+                meta: { title: '重大活动运营'}
+            },
+            {
+                path: 'daily',
+                name: '常规运营',
+                component: () => import('@/views/emergency/Daily'),
+                meta: { title: '常规运营'}
             }
         ]
     },

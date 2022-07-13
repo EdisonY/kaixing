@@ -1,0 +1,57 @@
+<template>
+    <div class="base">
+        <div class="subwayLine">
+            <img src="@/assets/line.png" />
+        </div>
+        <iframe frameborder="0"
+            style="flex:1; padding: 10px;"
+            src="http://172.51.216.61:8011/seabed/preview/f89a88e9711445feb279e0a58cc481a3"></iframe>
+        <div style="flex:1;display: flex;flex-direction: column;">
+            <h3>TOP信息</h3>
+            <div style="flex:1;display: flex;flex-direction: row;">
+                <iframe frameborder="0"
+                    style="flex:1; padding: 10px;"
+                    src="http://172.51.216.61:8011/seabed/preview/8831f9d1e7da43ca84d8223a6530085f"></iframe>
+                <iframe frameborder="0"
+                    style="flex:1; padding: 10px;"
+                    src="http://172.51.216.61:8011/seabed/preview/ae38325cfc2f42cda33c95f454eec0c0"></iframe>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: "index",
+    components: {},
+    data() {
+        return {};
+    },
+    created() {},
+    computed: {},
+    mounted() {},
+    methods: {},
+    destroyed() {},
+};
+</script>
+
+<style>
+.subwayLine img {
+    width: 100%;
+}
+.base {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.base h3 {
+    padding: 10px 0 0 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.test {
+    transform: scale(1.4);
+    transform-origin: 0 0;
+}
+</style>

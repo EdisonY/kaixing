@@ -65,7 +65,23 @@
                         </div>
                         <iframe class="workarea"
                             :src="workurl"
-                            frameborder="0"></iframe>
+                            frameborder="0"
+                            v-if="intergrate==='iframe'"></iframe>
+                        <template v-else-if="intergrate==='选择线路'">
+                            <chose-line @choseline="intergrate='导入客流信息'" />
+                        </template>
+                        <template v-else-if="intergrate==='导入客流信息'">
+                            <base-control />
+                        </template>
+                        <template v-else-if="intergrate==='选择交路方案'">
+                            <route-scheme />
+                        </template>
+                        <template v-else-if="intergrate==='铺画运行图'">
+                            <draw-running />
+                        </template>
+                        <template v-else-if="intergrate==='运行图校验'">
+                            <ve-running />
+                        </template>
                     </div>
                 </div>
             </el-col>
@@ -80,8 +96,14 @@
 
 <script>
 import MessagePanel from "./components/MessagePanel";
-
 import FlowDiagram from "./components/FlowDiagram";
+
+import ChoseLine from "./daily/choseLine";
+import BaseControl from "./daily/base";
+import RouteScheme from "./daily/routescheme";
+import DrawRunning from "./daily/drawrunning";
+import VeRunning from "./daily/verunning";
+
 import { getFlowData } from "./flowdata";
 import { mockMessage } from "./mockdata";
 
@@ -89,6 +111,11 @@ export default {
     components: {
         MessagePanel,
         FlowDiagram,
+        ChoseLine,
+        BaseControl,
+        RouteScheme,
+        DrawRunning,
+        VeRunning,
     },
     created() {
         this.emergencyName = this.$route.meta.title;
@@ -109,10 +136,10 @@ export default {
             try {
                 this.flowdata = JSON.parse(this.flowdata);
             } catch (e) {
-                this.flowdata = getFlowData("storm");
+                this.flowdata = getFlowData("daily");
             }
         } else {
-            this.flowdata = getFlowData("storm");
+            this.flowdata = getFlowData("daily");
         }
         this.$refs.flowdiagram.initFlow(this.flowdata);
 
@@ -134,8 +161,8 @@ export default {
             workurl: "http://172.51.216.64/sdss/tc.html?name=平面图-网.png",
             flowdata: [],
             curflow: "",
-            curscene: "",
             messagelist: [],
+            intergrate: "iframe",
         };
     },
     methods: {
@@ -152,21 +179,23 @@ export default {
             }
         },
         changeWorkArea(scene) {
-            this.curscene = scene;
+            this.intergrate = "iframe";
             this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
             //  let key = `${this.emergencyName}-${this.curflow}`;
             // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
-            if (this.curflow === "应急会商") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急会商.png`;
-            } else if (this.curflow === "统计数据\n撰写简报") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
-            } else if (this.curflow === "方案终止判断") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案终止判断.png`;
-            } else if (this.curflow === "应急处置") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急处置.png`;
+            if (this.curflow === "选择线路") {
+                this.intergrate = "选择线路";
+            } else if (this.curflow === "导入客流信息") {
+                this.intergrate = "导入客流信息";
+            } else if (this.curflow === "选择交路方案") {
+                this.intergrate = "选择交路方案";
+            } else if (this.curflow === "铺画运行图") {
+                this.intergrate = "铺画运行图";
+            } else if (this.curflow === "运行图校验") {
+                this.intergrate = "运行图校验";
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
@@ -190,7 +219,6 @@ export default {
     },
 };
 </script>
-
 
 <style scoped>
 .page {

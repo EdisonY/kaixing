@@ -109,10 +109,10 @@ export default {
             try {
                 this.flowdata = JSON.parse(this.flowdata);
             } catch (e) {
-                this.flowdata = getFlowData("storm");
+                this.flowdata = getFlowData("majorevent");
             }
         } else {
-            this.flowdata = getFlowData("storm");
+            this.flowdata = getFlowData("majorevent");
         }
         this.$refs.flowdiagram.initFlow(this.flowdata);
 
@@ -159,14 +159,27 @@ export default {
             this.curflow = model.evt;
             //  let key = `${this.emergencyName}-${this.curflow}`;
             // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
-            if (this.curflow === "应急会商") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急会商.png`;
+            if (this.curflow === "客流监控") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=客流监控.png`;
+            } else if (this.curflow === "影响评估") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=影响评估.png`;
+            } else if (this.curflow === "方案确认") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案确认.png`;
+            } else if (this.curflow === "保障方案实施") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施1.png`;
+                setTimeout(() => {
+                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施2.png`;
+                }, 1500);
+                setTimeout(() => {
+                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施3.png`;
+                }, 3000);
+            } else if (this.curflow === "方案结束判断") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断1.png`;
+                setTimeout(() => {
+                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断2.png`;
+                }, 1500);
             } else if (this.curflow === "统计数据\n撰写简报") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
-            } else if (this.curflow === "方案终止判断") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案终止判断.png`;
-            } else if (this.curflow === "应急处置") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急处置.png`;
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
