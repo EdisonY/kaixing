@@ -53,6 +53,7 @@ const SCENES = {
                 evt: "应急会商",
                 use: false,
                 disable: false,
+                assists: ["n8"]
             },
             {
                 id: "n5",

@@ -6,6 +6,7 @@ import * as joint from "jointjs";
 const USED_COLOR = '#999';
 const NORMAL_COLOR = "#2281da";
 const HOVER_COLOR = "orange";
+const CURRENT_COLOR = "orange";
 
 
 /**
@@ -39,19 +40,51 @@ export function initPaper(id, w, h, cb) {
         if (!paper.cb) {
             return;
         }
+        let tmpAllCell = paper.model.getCells();
+
+        tmpAllCell.forEach(cell => {
+            console.log(cell);
+            cell.metadata.current = undefined;
+            if (cell.metadata.current) {
+                cell.attr('body/fill', CURRENT_COLOR);
+            } else {
+                if (cell.metadata && cell.metadata.use) {
+                    cell.attr('body/fill', USED_COLOR);
+                } else {
+                    cell.attr('body/fill', NORMAL_COLOR);
+                }
+            }
+        });
+
         if (cellView.model.metadata && cellView.model.metadata.evt) {
             paper.cb(cellView.model.metadata, cellView);
             cellView.model.metadata.use = true;
+            cellView.model.metadata.current = true;
+            if (cellView.model.metadata.assists) {
+                cellView.model.metadata.assists.forEach(a => {
+                    let tar = tmpAllCell.find(c => {
+                       return c.metadata.id === a;
+                    });
+                    if (tar) {
+                        tar.metadata.use = true;
+                        tar.attr('body/fill', USED_COLOR);
+                    }
+                });
+            }
         }
     });
     paper.on('cell:mouseover', function (cellView, evt) {
         cellView.model.attr('body/fill', HOVER_COLOR);
     });
     paper.on('cell:mouseout', function (cellView, evt) {
-        if (cellView.model.metadata && cellView.model.metadata.use) {
-            cellView.model.attr('body/fill', USED_COLOR);
+        if (cellView.model.metadata.current) {
+            cellView.model.attr('body/fill', CURRENT_COLOR);
         } else {
-            cellView.model.attr('body/fill', NORMAL_COLOR);
+            if (cellView.model.metadata && cellView.model.metadata.use) {
+                cellView.model.attr('body/fill', USED_COLOR);
+            } else {
+                cellView.model.attr('body/fill', NORMAL_COLOR);
+            }
         }
     });
 
