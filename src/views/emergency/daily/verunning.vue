@@ -259,6 +259,7 @@ export default {
                 message: msg,
             });
             this.handleClose();
+            this.$emit("msg", msg);
         },
     },
     destroyed() {},

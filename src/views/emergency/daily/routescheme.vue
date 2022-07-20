@@ -38,7 +38,7 @@
                 style="text-align:center;padding-top:15px">
                 <h3>交路方案选择</h3>
             </el-col>
-            <el-col :span="21"
+            <el-col :span="21" hidden
                 style="text-align:right;padding-top:15px;">
                 <el-button size="medium"
                     @click="sc('历史交路铺设方式查询成功！')">历史交路铺设方式</el-button>
@@ -123,47 +123,6 @@
             width="40%"
             class="detailDia"
             :before-close="handleClose">
-            <!-- <el-table
-                ref="singleTable"
-                :data="detailsData"
-                highlight-current-row
-                border
-                @current-change="handleCurrentChange"
-                style="width: 100%">
-                <el-table-column
-                property="date"
-                label="方案单选"
-                align="center"
-                width="100">
-                </el-table-column>
-                <el-table-column
-                property="name"
-                label="序号"
-                align="center"
-                width="50">
-                </el-table-column>
-                <el-table-column
-                property="address"
-                align="center"
-                label="交路选择">
-                </el-table-column>
-                <el-table-column
-                property="station"
-                align="center"
-                label="跳停车站">
-                </el-table-column>
-                <el-table-column
-                property="message"
-                align="center"
-                label="编组信息">
-                </el-table-column>
-                <el-table-column
-                property="bili"
-                align="center"
-                label="交路比例">
-                </el-table-column>
-            </el-table> -->
-
             <div class="imitate">
                 <h2>
                     <strong>方案单选</strong>

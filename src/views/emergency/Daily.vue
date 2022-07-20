@@ -80,7 +80,7 @@
                             <draw-running />
                         </template>
                         <template v-else-if="intergrate==='运行图校验'">
-                            <ve-running />
+                            <ve-running @msg="_mockMsg" />
                         </template>
                     </div>
                 </div>
@@ -105,7 +105,7 @@ import DrawRunning from "./daily/drawrunning";
 import VeRunning from "./daily/verunning";
 
 import { getFlowData } from "./flowdata";
-import { mockMessage } from "./mockdata";
+// import { mockMessage } from "./mockdata";
 
 export default {
     components: {
@@ -152,7 +152,6 @@ export default {
 
         if (this.curflow === "" && this.messagelist.length == 0) {
             this.curflow = "开始";
-            this._mockMsg();
         }
     },
     data() {
@@ -169,14 +168,13 @@ export default {
         topClick(key) {
             this.curflow = key;
         },
-        _mockMsg() {
-            let list = mockMessage[this.curflow];
-            if (list && list.length > 0) {
-                list.forEach((item) => {
-                    item.time = this.$getCurrentDate2();
-                    this.messagelist.push(item);
-                });
-            }
+        _mockMsg(msg) {
+            this.messagelist.push({
+                name: "总调",
+                content: msg,
+                time: this.$getCurrentDate2(),
+                right: true,
+            });
         },
         changeWorkArea(scene) {
             this.intergrate = "iframe";
@@ -197,6 +195,8 @@ export default {
                 this.intergrate = "导入客流信息";
             } else if (this.curflow === "选择交路方案") {
                 this.intergrate = "选择交路方案";
+            } else if (this.curflow === "设计开行方案") {
+                this.intergrate = "设计开行方案";
             }
             // else if (this.curflow === "铺画运行图") {
             //     this.intergrate = "铺画运行图";
@@ -207,7 +207,6 @@ export default {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
             }
-            this._mockMsg();
         },
         testFunc() {
             // 调用优锘的切换接口
