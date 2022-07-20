@@ -153,7 +153,15 @@ export default {
         },
         changeWorkArea(scene) {
             this.curscene = scene;
-            this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+            if (this.curscene === "客流-线") {
+                if (this.curflow === "方案结束判断") {
+                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断1.png`;
+                } else {
+                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施1.png`;
+                }
+            } else {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+            }
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
@@ -166,18 +174,9 @@ export default {
             } else if (this.curflow === "方案确认") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案确认.png`;
             } else if (this.curflow === "保障方案实施") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施1.png`;
-                setTimeout(() => {
-                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施2.png`;
-                }, 1500);
-                setTimeout(() => {
-                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施3.png`;
-                }, 3000);
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施2.png`;
             } else if (this.curflow === "方案结束判断") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断1.png`;
-                setTimeout(() => {
-                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断2.png`;
-                }, 1500);
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断2.png`;
             } else if (this.curflow === "统计数据\n撰写简报") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
             } else if (this.curflow === "结束") {

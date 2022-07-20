@@ -161,7 +161,11 @@ export default {
             // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "应急会商") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急会商.png`;
-            } else if (this.curflow === "统计数据\n撰写简报") {
+            } else if (this.curflow === "信息监视") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=备用列车.png`;
+            } else if (this.curflow === "方案确认") {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案确认.png`;
+            }else if (this.curflow === "统计数据\n撰写简报") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
             } else if (this.curflow === "方案终止判断") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案终止判断.png`;
