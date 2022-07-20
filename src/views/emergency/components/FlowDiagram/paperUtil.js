@@ -43,7 +43,6 @@ export function initPaper(id, w, h, cb) {
         let tmpAllCell = paper.model.getCells();
 
         tmpAllCell.forEach(cell => {
-            console.log(cell);
             cell.metadata.current = undefined;
             if (cell.metadata.current) {
                 cell.attr('body/fill', CURRENT_COLOR);

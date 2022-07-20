@@ -190,18 +190,19 @@ export default {
                 this.intergrate = "选择线路";
             } else if (this.curflow === "日常监控") {
                 this.intergrate = "日常监控";
+                this.intergrate = "iframe";
+                this.workurl =
+                    "http://172.51.216.64/sdss/tc.html?name=平面图-网.png";
             } else if (this.curflow === "导入客流信息") {
                 this.intergrate = "导入客流信息";
             } else if (this.curflow === "选择交路方案") {
                 this.intergrate = "选择交路方案";
-            } else if (this.curflow === "铺画运行图") {
-                this.intergrate = "铺画运行图";
-            } else if (this.curflow === "运行图校验") {
+            }
+            // else if (this.curflow === "铺画运行图") {
+            //     this.intergrate = "铺画运行图";
+            // }
+            else if (this.curflow === "运行图校验") {
                 this.intergrate = "运行图校验";
-            } else if (this.curflow === "日常监控") {
-                this.intergrate = "iframe";
-                this.workurl =
-                    "http://172.51.216.64/sdss/tc.html?name=平面图-网.png";
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
