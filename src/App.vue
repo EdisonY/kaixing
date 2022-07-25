@@ -283,4 +283,7 @@ button:focus {
 }
 .nav {position: relative;}
 .nav .logo{height: 50px;width: auto;position: absolute;right: 20px;top: 5px;}
+.subMain{
+    height: calc(100% - 60px);
+}
 </style>
