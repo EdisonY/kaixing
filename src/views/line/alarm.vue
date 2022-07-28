@@ -20,7 +20,7 @@
                                     @click="reset">重置</el-button>
                             </div>
                         </div>
-                        <div class="data">
+                        <div class="data" style="flex:5;overflow: auto;">
                             <el-table class="table"
                                 border
                                 :data="historydata"
@@ -88,13 +88,57 @@
                                 </el-table-column>
                             </el-table>
                         </div>
-                        <div style="text-align:center;padding:20px">
+                        <div style="text-align:right;padding:20px">
                             <el-button type="primary"
                                 @click="showMsg('报警事件已保存')">保 存</el-button>
                             <el-button type="primary"
                                 @click="showMsg('填报成功')">填 报</el-button>
                             <el-button type="primary"
                                 @click="viewhistory=true;reset()">历史查询</el-button>
+                        </div>
+                        <div class="tools">
+                            <p>进行中的事件</p>
+                        </div>
+                         <div class="data">
+                            <el-table class="table"
+                                border
+                                :data="doingdata"
+                                height="100%">
+                                <el-table-column prop="d1"
+                                    label="序号"
+                                    align="center"
+                                    width="80">
+                                </el-table-column>
+                                <el-table-column prop="d2"
+                                    label="描述"
+                                    sortable
+                                    align="center">
+                                </el-table-column>
+                                <el-table-column prop="d3"
+                                    label="线路"
+                                    sortable
+                                    align="center">
+                                </el-table-column>
+                                <el-table-column prop="d4"
+                                    label="时间"
+                                    sortable
+                                    align="center">
+                                </el-table-column>
+                                <el-table-column prop="d5"
+                                    label="当前状态"
+                                    align="center">
+                                </el-table-column>
+                                <el-table-column prop="d6"
+                                    label="操作"
+                                    align="center">
+                                    <template slot-scope="scope">
+                                        <el-button
+                                            type="primary"
+                                            size="mini"
+                                            style="margin:5px;width:80px">进度跟踪</el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
                         </div>
                     </div>
                 </el-col>
@@ -190,7 +234,7 @@
 </template>
 
 <script>
-import { mockHistory } from "./alarmData";
+import { mockHistory,mockDoing } from "./alarmData";
 export default {
     name: "comprehensive",
     data() {
@@ -199,6 +243,7 @@ export default {
             historyquery: "",
             historydata: mockHistory,
             activeName: "tab1",
+            doingdata:mockDoing
         };
     },
     created() {},
