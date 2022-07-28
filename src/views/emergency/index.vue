@@ -153,7 +153,11 @@ export default {
         },
         changeWorkArea(scene) {
             this.curscene = scene;
-            this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+            if (scene === "客流-站") {
+                this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!6362!!4e58!!7ad9!!5ba2!!6d41!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
+            } else {
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+            }
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
@@ -165,7 +169,7 @@ export default {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=备用列车.png`;
             } else if (this.curflow === "方案确认") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案确认.png`;
-            }else if (this.curflow === "统计数据\n撰写简报") {
+            } else if (this.curflow === "统计数据\n撰写简报") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
             } else if (this.curflow === "方案终止判断") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案终止判断.png`;
