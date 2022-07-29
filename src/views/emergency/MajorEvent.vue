@@ -155,7 +155,8 @@ export default {
             this.curscene = scene;
             if (this.curscene === "客流-线") {
                 if (this.curflow === "方案结束判断") {
-                    this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断1.png`;
+                    this.workurl=`http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!533a!!95f4!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
+                    // this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断1.png`;
                 } else {
                     this.workurl = `http://172.51.216.64/sdss/tc.html?name=保障方案实施1.png`;
                 }
@@ -180,7 +181,7 @@ export default {
             } else if (this.curflow === "方案结束判断") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案结束判断2.png`;
             } else if (this.curflow === "统计数据\n撰写简报") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报2.png`;
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);

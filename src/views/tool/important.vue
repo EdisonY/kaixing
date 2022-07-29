@@ -1,6 +1,7 @@
 <template>
     <div class="important submainnew">
-        <el-row :gutter="10">
+         <img src="../../assets/new/img13.png"/>
+        <!-- <el-row :gutter="10">
             <el-col :span="10">
                 <div class="grid-content grid-content-2">
 
@@ -44,7 +45,7 @@
 
                 </div>
             </el-col>
-        </el-row>
+        </el-row> -->
 
         
 
