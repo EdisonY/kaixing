@@ -1,7 +1,10 @@
 <template>
-    <div class="comprehensive">
-        <svg id="subway" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
+    <div style="height: calc(100vh - 60px);">
+        <iframe src="http://172.51.216.62:41005/#/subway" frameborder="0" style="width:100%;height:100%"></iframe>
     </div>
+    <!-- <div class="comprehensive">
+        <svg id="subway" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
+    </div> -->
 </template>
 
 <script>
@@ -21,6 +24,8 @@ export default {
 
     },
     mounted(){
+        return;
+        // TODO 暂时换成iframe
         tctSubway = new tct_subway({
             tmpId: 'subway',
             fullload:true

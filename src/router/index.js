@@ -17,6 +17,10 @@ import Layout from '@/layout'
 
 export const constantRoutes = [
     {
+        path:'/',
+        redirect:'/line/comprehensive'
+    },
+    {
         path: '/programme',
         component: () => import('@/layout'),
         name:'开行方案编制',
