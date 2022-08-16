@@ -65,7 +65,16 @@ module.exports = {
                 pathRewrite: {
                     '^/api': '/'
                 }
-            } 
+            } ,
+            '/warning_manage': {
+                target: "http://172.51.216.75:8090",
+                // target: "http://172.18.39.165:10700/",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/warning_manage': '/warning_manage'
+                }
+            } , 
+
         },
         // after: require('./mock/mock-server.js')
     },

@@ -143,7 +143,8 @@ function apiAxios(method,url,params){
             baseURL: axios.default.baseUrl,
             withCredentials: true
         }).then(res => {
-            resolve(res.data)  
+            resolve(res)  
+            // resolve(res.data)  
         }).catch(err => {
             
             Notification.error({
