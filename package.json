@@ -21,7 +21,7 @@
     "d3": "^5.15.1",
     "echarts": "^4.7.0",
     "echarts-gl": "^1.1.1",
-    "element-ui": "^2.15.6",
+    "element-ui": "^2.15.10",
     "eslint-plugin-html": "^6.0.1",
     "fs": "0.0.1-security",
     "html2canvas": "^1.0.0-rc.7",
