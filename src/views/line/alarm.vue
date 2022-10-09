@@ -278,14 +278,13 @@ export default {
         queryReal() {
             this.realdata = this.origin_realdata.filter((i) => {
                 return (
-                    i.name.indexOf(this.realquery) > -1 ||
-                    i.line.indexOf(this.realquery) > -1 ||
-                    i.level == this.realquery ||
-                    i.station.indexOf(this.realquery) > -1 ||
-                    i.position.indexOf(this.realquery) > -1 ||
-                    i.description.indexOf(this.realquery) > -1 ||
-                    (i.eventProgress &&
-                        i.eventProgress.indexOf(this.realquery) > -1)
+                    (i.name.indexOf(this.realquery) > -1 ||
+                        i.line.indexOf(this.realquery) > -1 ||
+                        i.level == this.realquery ||
+                        i.station.indexOf(this.realquery) > -1 ||
+                        i.position.indexOf(this.realquery) > -1 ||
+                        i.description.indexOf(this.realquery) > -1) &&
+                    !i.eventProgress
                 );
             });
         },
@@ -359,6 +358,9 @@ export default {
                         this.queryReal();
                         this.origin_historydata = this.origin_realdata;
                         this.queryHistory();
+                        this.doingdata = this.origin_realdata.filter((item) => {
+                            return item.eventProgress;
+                        });
                     }
                 } catch (err) {
                     console.log(err);
