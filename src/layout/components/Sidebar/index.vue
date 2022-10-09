@@ -61,7 +61,7 @@ export default {
 </script>
 <style>
 .logo{width: 100%;}
-.el-submenu__title{background: #192038 !important;display: none;}
+.el-submenu__title{background: #192038 !important;}
 .el-submenu__title i{color: #fff;}
 #app .sidebar-container .el-submenu__title:hover{background-color:#192038 !important}
 #app .sidebar-container .el-menu,#app .sidebar-container .el-submenu .el-menu-item{background-color: #000 !important;}
