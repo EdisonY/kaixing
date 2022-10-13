@@ -58,7 +58,7 @@
                         <router-link to="/line/comprehensive">综合线网图</router-link>
                     </el-menu-item>
                     <el-menu-item index="1-2">
-                        <router-link to="/line/passengerflow">客流监控</router-link>
+                        <router-link to="/new">客流监控</router-link>
                     </el-menu-item>
                     <el-menu-item index="1-3">
                         <router-link to="/line/driving">行车监控</router-link>

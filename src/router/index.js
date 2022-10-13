@@ -289,6 +289,12 @@ export const constantRoutes = [
         component: () => import('@/views/system/about'),
         hidden: true
     },
+    {
+        path: '/new',
+        name:'新增标签',
+        component: () => import('@/views/new'),
+        hidden: true
+    },
 
     
 
