@@ -295,7 +295,12 @@ export const constantRoutes = [
         component: () => import('@/views/new'),
         hidden: true
     },
-
+    {
+        path: '/nav01',
+        name:'导航01',
+        component: () => import('@/views/20221008/nav01'),
+        hidden: true
+    },
     
 
     
