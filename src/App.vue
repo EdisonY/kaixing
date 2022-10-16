@@ -124,7 +124,7 @@
                     </el-menu-item> -->
 
                     <el-menu-item index="3-1">
-                        <router-link to="/line/comprehensive">综合评价</router-link>
+                        <router-link to="/tmp/container1">综合评价</router-link>
                     </el-menu-item>
                     <el-menu-item index="3-2">
                         <router-link to="/line/passengerflow">态势评估</router-link>
@@ -132,16 +132,16 @@
                     <el-submenu index="3-3">
                         <template slot="title">趋势分析</template>
                         <el-menu-item index="3-3-1">
-                            <router-link to="/line/comprehensive">客流指标</router-link>
+                            <router-link to="/tmp/container2">客流指标</router-link>
                         </el-menu-item>
                         <el-menu-item index="3-3-2">
-                            <router-link to="/line/comprehensive">行车指标</router-link>
+                            <router-link to="/tmp/container3">行车指标</router-link>
                         </el-menu-item>
                         <el-menu-item index="3-3-3">
-                            <router-link to="/line/comprehensive">能耗指标</router-link>
+                            <router-link to="/line/energy">能耗指标</router-link>
                         </el-menu-item>
                         <el-menu-item index="3-3-4">
-                            <router-link to="/line/comprehensive">设备健康指标</router-link>
+                            <router-link to="/line/monitor">设备健康指标</router-link>
                         </el-menu-item>
                     </el-submenu>
                     <el-menu-item index="3-4">
