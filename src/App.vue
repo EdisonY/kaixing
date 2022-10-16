@@ -264,7 +264,7 @@
                         <router-link to="/cctv/preview">CCTV实时监控</router-link>
                     </el-menu-item>
                 </el-submenu> -->
-                <el-menu-item index="8"><router-link to="/nav01">导航01</router-link></el-menu-item>
+                <!-- <el-menu-item index="8"><router-link to="/nav01">导航01</router-link></el-menu-item> -->
             </el-menu>
             <img class="logo" src="../src/assets/basie/logotop.png" />
         </div>
