@@ -9,25 +9,8 @@
         </el-row>
         <el-row style="text-align:center;border-bottom:3px solid #ccc">
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="350" src="http://172.51.216.61:8011/seabed/preview/f89a88e9711445feb279e0a58cc481a3"></iframe>
+                <iframe frameborder="0" width="100%" height="350" src="http://172.16.1.111/link/oTcnnEFV"></iframe>
             </div>
-        </el-row>
-        <el-row>
-            <h3>TOP信息</h3>
-            <el-col :span="12">
-                <div class="grid-content bg-purple">
-                    <div class="yl">
-                        <iframe class="test" frameborder="0" width="100%" height="350" src="http://172.51.216.61:8011/seabed/preview/8831f9d1e7da43ca84d8223a6530085f"></iframe>
-                    </div>
-                </div>
-            </el-col>
-            <el-col :span="12">
-                <div class="grid-content bg-purple-light">
-                    <div class="yl">
-                        <iframe class="test" frameborder="0" width="100%" height="350" src="http://172.51.216.61:8011/seabed/preview/ae38325cfc2f42cda33c95f454eec0c0"></iframe>
-                    </div>
-                </div>
-            </el-col>
         </el-row>
     </div>
 </template>

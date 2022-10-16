@@ -126,60 +126,7 @@ export default {
     },
     created() {
         var self = this;
-        // TODO  实际上接口还不能调用，先用测试数据
-        // this.$api.get("/api/op/stations?lineId=21").then((res) => {
-        //     if (res.success) {
-        //         localStorage.setItem(
-        //             "stations",
-        //             JSON.stringify(res.data.stations)
-        //         );
-        //         self.$api.get("/api/op/routeconfig?lineId=21").then((res1) => {
-        //             if (res1.success) {
-        //                 localStorage.setItem(
-        //                     "routeconfig",
-        //                     JSON.stringify(res1.data.configs)
-        //                 );
-        //                 var tmpRoute = [];
-        //                 for (
-        //                     let index = 0;
-        //                     index < res1.data.configs[0].routes.length;
-        //                     index++
-        //                 ) {
-        //                     tmpRoute[index] = {};
-        //                     tmpRoute[index].value = index;
-        //                     tmpRoute[index].label = "";
-        //                     tmpRoute[index].startStation =
-        //                         res1.data.configs[0].routes[index].startStation;
-        //                     tmpRoute[index].endStation =
-        //                         res1.data.configs[0].routes[index].endStation;
-        //                     var a,
-        //                         b = "";
-        //                     for (let i = 0; i < res.data.stations.length; i++) {
-        //                         if (
-        //                             res1.data.configs[0].routes[index]
-        //                                 .startStation ==
-        //                             res.data.stations[i].stationId
-        //                         ) {
-        //                             a = res.data.stations[i].stationName;
-        //                         }
-        //                         if (
-        //                             res1.data.configs[0].routes[index]
-        //                                 .endStation ==
-        //                             res.data.stations[i].stationId
-        //                         ) {
-        //                             b = res.data.stations[i].stationName;
-        //                         }
-        //                         tmpRoute[index].label = a + " - " + b;
-        //                     }
-        //                 }
-        //                 localStorage.setItem(
-        //                     "tmpRoute",
-        //                     JSON.stringify(tmpRoute)
-        //                 );
-        //             }
-        //         });
-        //     }
-        // });
+        
 
         localStorage.setItem(
             "tmpRoute",

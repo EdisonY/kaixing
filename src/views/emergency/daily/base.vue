@@ -22,18 +22,7 @@
         </div>
         <iframe frameborder="0"
             style="flex:1; padding: 10px;"
-            src="http://172.51.216.61:8011/seabed/preview/f89a88e9711445feb279e0a58cc481a3"></iframe>
-        <div style="flex:1;display: flex;flex-direction: column;">
-            <h3>TOP信息</h3>
-            <div style="flex:1;display: flex;flex-direction: row;">
-                <iframe frameborder="0"
-                    style="flex:1; padding: 10px;"
-                    src="http://172.51.216.61:8011/seabed/preview/8831f9d1e7da43ca84d8223a6530085f"></iframe>
-                <iframe frameborder="0"
-                    style="flex:1; padding: 10px;"
-                    src="http://172.51.216.61:8011/seabed/preview/ae38325cfc2f42cda33c95f454eec0c0"></iframe>
-            </div>
-        </div>
+            src="http://172.16.1.111/link/oTcnnEFV"></iframe>
     </div>
 </template>
 

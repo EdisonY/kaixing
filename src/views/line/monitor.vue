@@ -31,7 +31,8 @@
 
                 </div>
                 <div class="grid-content grid-content-2">
-                    <img src="../../assets/new/img2.png" />
+                    <!-- TODO -->
+                    <img src="http://172.16.1.110/sdss/tc.html?name=设备报警数量.png" />
                 </div>
             </el-col>
         </el-row>

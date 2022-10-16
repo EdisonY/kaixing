@@ -10,17 +10,7 @@
         <el-row style="border-bottom:3px solid #ccc">
             <el-col :span="10">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/70986fa19c404915accccfef982c9ce0"></iframe>
-                </div>
-            </el-col>
-            <el-col :span="7">
-                <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/130263dd57a6419fb41e94a72bc14586"></iframe>
-                </div>
-            </el-col>
-            <el-col :span="7">
-                <div class="yl">
-                    <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/dc7cc8eeeb3b451293a227733723271e"></iframe>
+                    <iframe frameborder="0" width="100%" height="300" src="http://172.16.1.111/link/oTcnnEFV"></iframe>
                 </div>
             </el-col>
         </el-row>
