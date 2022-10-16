@@ -39,7 +39,6 @@
                                 @click="changeWorkArea('客流-站')">站</p>
                             <p class="btn"
                                 @click="changeWorkArea('客流-车')">车</p>
-
                             <p class="title segment">平面图</p>
                             <p class="btn segline"
                                 @click="changeWorkArea('平面图-网')">网</p>
@@ -63,9 +62,103 @@
                                 @click="changeWorkArea('周边-路况')">路况</p>
 
                         </div>
-                        <iframe class="workarea"
-                            :src="workurl"
-                            frameborder="0"></iframe>
+                        <div class="newAddTable" v-if="newAddTable">
+
+                    
+                    <table class="selfTable">
+                                <tbody>
+                                    <tr class="header">
+                                        <th>序号</th>
+                                        <th>运营数据</th>
+                                        <th>线路</th>
+                                        <th>数量</th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2">1</th>
+                                        <th rowspan="2">加开列车数（车次）</th>
+                                        <th>首都机场线</th>
+                                        <th>8</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>12</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="2">2</th>
+                                        <th rowspan="2">延长时间段</th>
+                                        <th>首都机场线</th>
+                                        <th>23:10 - 0:10</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>23:50 - 0:50</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="2">3</th>
+                                        <th rowspan="2">延长时间间隔（min）</th>
+                                        <th>首都机场线</th>
+                                        <th>15</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>10</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="2">4</th>
+                                        <th rowspan="2">运送乘客数（人）</th>
+                                        <th>首都机场线</th>
+                                        <th>1500</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>6000</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="2">5</th>
+                                        <th rowspan="2">影响车站数（个）</th>
+                                        <th>首都机场线</th>
+                                        <th>4</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>45</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="2">6</th>
+                                        <th rowspan="2">参与人员数（个）</th>
+                                        <th>首都机场线</th>
+                                        <th>28</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>315</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th rowspan="2">7</th>
+                                        <th rowspan="2">异常事件数（个）</th>
+                                        <th>首都机场线</th>
+                                        <th>0</th>
+                                    </tr>
+                                    <tr>
+                                        <th>10号线</th>
+                                        <th>0</th>
+                                    </tr>
+
+                                    
+                                </tbody>
+                            </table>
+                    
+                    <p>
+                                2022年2月28日暴雨事件首都机场线10列车、4个车站、28名站务人员、共延长2小时，10号线20列车、45个车站、315名站务人员、共延长2小时，应急处置时长22分03秒，共疏散旅客数<span>32676</span>人，无人员伤亡，无设备损失。
+                            </p>
+                    </div>
+                    <iframe class="workarea" :src="workurl" frameborder="0" v-if="!newAddTable"></iframe>
                     </div>
                 </div>
             </el-col>
@@ -136,6 +229,7 @@ export default {
             curflow: "",
             curscene: "",
             messagelist: [],
+            newAddTable:false
         };
     },
     methods: {
@@ -177,6 +271,7 @@ export default {
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
+            this.newAddTable = false
             //  let key = `${this.emergencyName}-${this.curflow}`;
             // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "应急会商") {
@@ -186,7 +281,8 @@ export default {
             } else if (this.curflow === "方案确认") {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案确认.png`;
             } else if (this.curflow === "统计数据\n撰写简报") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报.png`;
+                // this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报.png`;
+                this.newAddTable = true
             } else if (this.curflow === "方案终止判断") {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案终止判断.png`;
             } else if (this.curflow === "应急处置") {
@@ -300,4 +396,12 @@ export default {
     text-align: left;
     line-height: 40px;
 }
+
+.newAddTable{width: 100%;}
+.newAddTable table{width: 100%;}
+.newAddTable table tr{line-height: 30px;}
+.newAddTable table td{height:20px;line-height:20px;}
+.selfTable .header th{background: #2281da;color: #fff;height: 30px;line-height: 30px;font-weight: bold;font-size: 16px;}
+.newAddTable p{line-height: 25px;border:1px solid #ccc;padding: 6px;text-indent: 2em;margin: 10px 0 0 0}
+.newAddTable p span{color: red;font-weight: bold;font-size: 16px;}
 </style>
