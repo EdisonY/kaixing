@@ -9,8 +9,30 @@
                             <span>视频会商</span>
                             <p></p>
                         </div>
-                        <div class="item">
-                            <img src="../../assets/new/img4.png" />
+                        <div class="item itemnew">
+                            <div class="leftnew">
+                                <div class="nav">
+                                    <a href="javasctipt:;" class="now">线网图</a>
+                                    <a href="javasctipt:;">场段图</a>
+                                    <a href="javasctipt:;">运行图</a>
+                                    <a href="javasctipt:;">客流监控</a>
+                                    <a href="javasctipt:;">单兵</a>
+                                    <a href="javasctipt:;">聊天记录</a>
+                                </div>
+                                <div class="line">
+                                    <iframe src="http://172.51.216.62:41005/#/subway" frameborder="0" style="width:100%;height:100%"></iframe>
+                                </div>
+                            </div>
+                            <div class="pic">
+                                <img src="../../assets/new/pic1.png" />
+                                <img src="../../assets/new/pic2.png" />
+                                <img src="../../assets/new/pic3.png" />
+                                <img src="../../assets/new/pic4.png" />
+                                <img src="../../assets/new/pic5.png" />
+                                <img src="../../assets/new/pic6.png" />
+                                <img src="../../assets/new/pic7.png" />
+                                <img src="../../assets/new/pic8.png" />
+                            </div>
                         </div>
                     </el-card>
 
@@ -244,4 +266,11 @@ export default {
 
 <style scoped>
 .management ul li{padding: 0 0 5px 10px;}
+.itemnew .leftnew{float: left;width: 80%;}
+.itemnew .nav{height: 60px;line-height: 60px;text-align: center;display: flex;justify-content: space-between;}
+.itemnew .nav a{display: inline-block;background: #9e9e9e;border: 1px solid #fff;width: 16.6%;}
+.itemnew .nav a:hover,.itemnew .nav .now{background: #1e24e7;}
+.itemnew .leftnew .line{height: calc(100vh - 175px);}
+.itemnew .pic{float: left;width: 20%;height: 100%;}
+.itemnew .pic img{height: 12%;overflow: hidden;}
 </style>
