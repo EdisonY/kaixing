@@ -8,13 +8,6 @@
             </el-col>
         </el-row>
         <el-row style="border-bottom:3px solid #ccc">
-            <!-- <el-col :span="3" style="text-align:center;">
-                <h3>客流信息</h3>
-                <el-button type="primary">客流加载</el-button>
-            </el-col>
-            <el-col :span="7">
-                <div class="yl">断面客流预留</div>
-            </el-col> -->
             <el-col :span="10">
                 <div class="yl">
                     <iframe frameborder="0" width="100%" height="300" src="http://172.51.216.61:8011/seabed/preview/70986fa19c404915accccfef982c9ce0"></iframe>

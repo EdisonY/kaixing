@@ -105,9 +105,6 @@ export default {
       })
     },
     handleLogin() {
-        // this.$api.get('http://172.51.217.203:10080/oauth/token',this.useMemo).then(res => { 
-        //     console.log(res);
-        // })
       var self = this
       this.$refs.loginForm.validate(valid => {
         if (valid) {
