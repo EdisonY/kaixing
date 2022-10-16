@@ -14,7 +14,7 @@
 
                 <el-select v-model="value1"
                     placeholder="选择车站"
-                    @change="getChangeImage(value)">
+                    @change="getChangeImage(value1)">
                     <el-option v-for="item in options[1].options"
                         :key="item.value"
                         :label="item.label"

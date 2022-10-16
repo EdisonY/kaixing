@@ -1,41 +1,6 @@
 <template>
-    <div class="monitor submainnew">
-        <el-row :gutter="10">
-            <el-col :span="12">
-                <div class="grid-content">
-
-                    <el-card class="box-card">
-                        <div slot="header" class="clearfix">
-                            <span>关键设备运行状态</span>
-                            <p></p>
-                        </div>
-                        <div class="item">
-                            <div class="echarts" ref="echart"></div>
-                        </div>
-                    </el-card>
-
-                </div>
-            </el-col>
-            <el-col :span="12">
-                <div class="grid-content grid-content-2">
-
-                    <el-card class="box-card">
-                        <div slot="header" class="clearfix">
-                            <span>设备报警数量</span>
-                            <p></p>
-                        </div>
-                        <div class="item">
-                            <div class="echarts" ref="echart1"></div>
-                        </div>
-                    </el-card>
-
-                </div>
-                <div class="grid-content grid-content-2">
-                    <!-- TODO -->
-                    <iframe src="http://172.16.1.220:92/Operation" />
-                </div>
-            </el-col>
-        </el-row>
+    <div style="height: calc(100vh - 60px);">
+        <iframe src="http://172.16.1.220:92/Operation" frameborder="0" style="width:100%;height:100%"></iframe>
     </div>
 </template>
 

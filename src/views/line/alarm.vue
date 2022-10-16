@@ -46,7 +46,7 @@
 
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>各级报警数量</span>
+                            <span>各线报警数量</span>
                             <p></p>
                         </div>
                         <div class="item">

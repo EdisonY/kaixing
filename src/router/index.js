@@ -325,7 +325,7 @@ export const constantRoutes = [
     {
         path: '/tmp/container4',
         name:'容器4',
-        component: () => import('@/views/tmp/container4w'),
+        component: () => import('@/views/tmp/container4'),
         meta: { url: 'http://172.16.1.110/sdss/tc.html?name=img1016.png'},
         hidden: true
     },
