@@ -131,7 +131,7 @@ export default {
     data() {
         return {
             emergencyName: "",
-            workurl: "http://172.51.216.62:41005/#/subway",
+            workurl: "http://172.16.1.110:41002",
             flowdata: [],
             curflow: "",
             curscene: "",
@@ -156,7 +156,7 @@ export default {
             if (this.curscene === "客流-网") {
                 this.workurl = `http://172.51.216.64/sdss/tc.html?name=客流-网2.png`;
             } else if (scene === "平面图-网") {
-                this.workurl = `http://172.51.216.62:41005/#/subway`;
+                this.workurl = `http://172.16.1.110:41002`;
             } else if (this.curscene === "客流-线") {
                 if (this.curflow === "方案结束判断") {
                     this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!533a!!95f4!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
