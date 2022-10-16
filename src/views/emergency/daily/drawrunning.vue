@@ -79,7 +79,7 @@
                 <iframe frameborder="0"
                     width="100%"
                     height="300px"
-                    src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
+                    src="http://172.16.1.110:41000/#/common?rowHeight=50&viewTime=25200"></iframe>
                 <p style="text-align:right;padding:15px 0 0 0;">
                     <el-button type="success"
                         @click="ph('运行图校验成功！')">启动运行图校验</el-button>

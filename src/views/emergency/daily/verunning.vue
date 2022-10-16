@@ -42,7 +42,7 @@
             <iframe frameborder="0"
                 width="100%"
                 height="380"
-                src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
+                src="http://172.16.1.110:41000/#/common?rowHeight=50&viewTime=25200"></iframe>
         </div>
         <el-dialog title="站台滞留人数告警"
             :visible.sync="dialogVisible1"
