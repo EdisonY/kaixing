@@ -158,25 +158,25 @@ export default {
             } else if (scene === "平面图-网") {
                 this.workurl = `http://172.16.1.110:41002`;
             } else {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
             }
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
             //  let key = `${this.emergencyName}-${this.curflow}`;
-            // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
+            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "应急会商") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急会商.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=应急会商.png`;
             } else if (this.curflow === "信息监视") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=备用列车.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=备用列车.png`;
             } else if (this.curflow === "方案确认") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案确认.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案确认.png`;
             } else if (this.curflow === "统计数据\n撰写简报") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报.png`;
             } else if (this.curflow === "方案终止判断") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案终止判断.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案终止判断.png`;
             } else if (this.curflow === "应急处置") {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=应急处置.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=应急处置.png`;
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);

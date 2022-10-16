@@ -183,13 +183,13 @@ export default {
             } else if (scene === "平面图-网") {
                 this.workurl = `http://172.16.1.110:41002`;
             } else {
-                this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+                this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
             }
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
             //  let key = `${this.emergencyName}-${this.curflow}`;
-            // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
+            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "选择线路") {
                 this.intergrate = "选择线路";
             } else if (this.curflow === "日常监控") {
