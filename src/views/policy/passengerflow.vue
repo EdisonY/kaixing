@@ -93,7 +93,6 @@ var emphasisStyle = {
   }
 };
 
-import echarts from "echarts";
 let xAxisData1 = [];
 let data11 = [];
 let data22 = [];
