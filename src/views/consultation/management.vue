@@ -1,7 +1,7 @@
 <template>
     <div class="management submainnew">
         <el-row :gutter="10">
-            <el-col :span="10">
+            <el-col :span="14">
                 <div class="grid-content">
 
                     <el-card class="box-card">
@@ -38,7 +38,7 @@
 
                 </div>
             </el-col>
-            <el-col :span="14">
+            <el-col :span="10">
                 <div class="grid-content grid-content-4">
 
                     <el-card class="box-card">

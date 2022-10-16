@@ -322,13 +322,13 @@ export const constantRoutes = [
         meta: { url: 'http://172.16.1.111/link/XN5OcWPk'},
         hidden: true
     },
-    // {
-    //     path: '/tmp/container4',
-    //     name:'容器4',
-    //     component: () => import('@/views/tmp/container'),
-    //     meta: { url: 'http://172.16.1.111/link/YYl2chSc'},
-    //     hidden: true
-    // },
+    {
+        path: '/tmp/container4',
+        name:'容器4',
+        component: () => import('@/views/tmp/container'),
+        meta: { url: 'http://172.16.1.110/sdss/tc.html?name=img1016.png'},
+        hidden: true
+    },
         // {
     //     path: '/tmp/container5',
     //     name:'容器5',

@@ -153,11 +153,25 @@ export default {
         },
         changeWorkArea(scene) {
             this.curscene = scene;
-            if (scene === "客流-站") {
-                this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!6362!!4e58!!7ad9!!5ba2!!6d41!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
-            } else if (scene === "平面图-网") {
+            if (scene === "平面图-网") {
                 this.workurl = `http://172.16.1.110:41002`;
-            } else {
+            } 
+            // TODO
+            // else if (scene === "平面图-ATS") {
+            //     this.workurl = `http://172.16.1.110:41002`;
+            // } 
+            else if (scene === "客流-网") {
+                this.workurl = `http://172.16.1.111/link/iFDeE8us`;
+            } else if (scene === "客流-线") {
+                this.workurl = `http://172.16.1.111/link/kdHtibMs`;
+            } else if(scene === '客流-站'){
+                this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
+            }else if(scene === '客流-车'){
+                this.workurl = `http://172.16.1.111/link/V0sEA5CS`;
+            }else if(scene === '运行图'){
+                this.workurl = `http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200`;
+            }
+            else {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
             }
         },

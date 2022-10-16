@@ -85,30 +85,30 @@ export default {
         return{
             tableData: [{
                 id:'1',
-                name:'老王',
-                youxiang:'laowang@164.com',
+                name:'王多余',
+                youxiang:'morefish@164.com',
                 lianxi:'2315665',
                 bumen:'总调',
                 zhiwei:'主任',
-                guanli:'小红',
+                guanli:'张宏',
                 quanxian:'全部'
             },{
-                id:'1',
-                name:'老王',
-                youxiang:'laowang@164.com',
+                id:'2',
+                name:'张朝阳',
+                youxiang:'cy@164.com',
                 lianxi:'2315665',
                 bumen:'总调',
-                zhiwei:'主任',
-                guanli:'小红',
+                zhiwei:'职员',
+                guanli:'张宏',
                 quanxian:'全部'
             },{
-                id:'1',
-                name:'老王',
-                youxiang:'laowang@164.com',
+                id:'3',
+                name:'李斯特',
+                youxiang:'list@164.com',
                 lianxi:'2315665',
                 bumen:'总调',
-                zhiwei:'主任',
-                guanli:'小红',
+                zhiwei:'职员',
+                guanli:'张宏',
                 quanxian:'全部'
             }]
         }

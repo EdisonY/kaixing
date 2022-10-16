@@ -166,18 +166,12 @@
                 </el-submenu>
                 <el-submenu index="5">
                     <template slot="title">事件处置</template>
-                    <!-- <el-menu-item index="5-1">
-                        <router-link to="/consultation/management">应急处置</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="5-2">
-                        <router-link to="/consultation/soldier">应急单兵接入</router-link>
-                    </el-menu-item> -->
 
                     <el-menu-item index="5-1">
                         <router-link to="/choseline">预案编制</router-link>
                     </el-menu-item>
                     <el-menu-item index="5-2">
-                        <router-link to="/tool/important">活动时间表</router-link>
+                        <router-link to="/tmp/container4">活动时间表</router-link>
                     </el-menu-item>
                     <el-submenu index="5-3">
                         <template slot="title">活跃事件</template>
@@ -191,12 +185,12 @@
                     <el-menu-item index="5-4">
                         <router-link to="/consultation/soldier">应急单兵</router-link>
                     </el-menu-item>
-                    <el-menu-item index="5-5" disabled>
+                    <!-- <el-menu-item index="5-5" disabled>
                         <router-link to="/consultation/management">应急通信录</router-link>
                     </el-menu-item>
                     <el-menu-item index="5-6" disabled>
                         <router-link to="/consultation/management">应急物资</router-link>
-                    </el-menu-item>
+                    </el-menu-item> -->
                     <el-menu-item index="5-7">
                         <router-link to="/consultation/management">应急会商</router-link>
                     </el-menu-item>
@@ -247,9 +241,9 @@
                     <el-menu-item index="7-2">
                         <router-link to="/system/role">用户管理</router-link>
                     </el-menu-item>
-                    <el-menu-item index="7-3">
+                    <!-- <el-menu-item index="7-3">
                         <router-link to="/system/function">系统设置</router-link>
-                    </el-menu-item>
+                    </el-menu-item> -->
                     <el-menu-item index="7-4">
                         <router-link to="/system/about">关于</router-link>
                     </el-menu-item>
