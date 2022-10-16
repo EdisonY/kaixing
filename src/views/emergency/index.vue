@@ -131,7 +131,7 @@ export default {
     data() {
         return {
             emergencyName: "",
-            workurl: "http://172.16.1.110:41002",
+            workurl: "http://172.16.1.110:41002/#/subway",
             flowdata: [],
             curflow: "",
             curscene: "",
@@ -154,11 +154,11 @@ export default {
         changeWorkArea(scene) {
             this.curscene = scene;
             if (scene === "平面图-网") {
-                this.workurl = `http://172.16.1.110:41002`;
+                this.workurl = `http://172.16.1.110:41002/#/subway`;
             } 
             // TODO
             // else if (scene === "平面图-ATS") {
-            //     this.workurl = `http://172.16.1.110:41002`;
+            //     this.workurl = `http://172.16.1.110:41002/#/subway`;
             // } 
             else if (scene === "客流-网") {
                 this.workurl = `http://172.16.1.111/link/iFDeE8us`;

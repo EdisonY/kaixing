@@ -20,7 +20,7 @@
                                     <a href="javasctipt:;">聊天记录</a>
                                 </div>
                                 <div class="line">
-                                    <iframe src="http://172.16.1.110:41002" frameborder="0" style="width:100%;height:100%"></iframe>
+                                    <iframe src="http://172.16.1.110:41002/#/subway" frameborder="0" style="width:100%;height:100%"></iframe>
                                 </div>
                             </div>
                             <div class="pic">
