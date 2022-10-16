@@ -33,7 +33,8 @@
             </el-col>
             <el-col :span="21">
                 <div class="rightside">
-                <history v-show="active=='1'"/>
+                    <History v-show="active=='1'" />
+                    <Analysis v-show="active=='2'" />
                 </div>
             </el-col>
         </el-row>
@@ -41,11 +42,11 @@
 </template>
 
 <script>
-import history from './components/history.vue';
 import History from "./components/history.vue";
+import Analysis from "./components/analysis.vue";
 
 export default {
-    components: { history },
+    components: { History, Analysis },
     name: "nav01",
     data() {
         return {
@@ -65,7 +66,6 @@ export default {
     created() {},
     computed: {},
     mounted() {},
-    conponents: [History],
     methods: {
         handleOpen(key, keyPath) {
             console.log(key, keyPath);
@@ -73,8 +73,8 @@ export default {
         handleClose(key, keyPath) {
             console.log(key, keyPath);
         },
-        handleSelect(key,keyPath){
-            this.active=key;
+        handleSelect(key, keyPath) {
+            this.active = key;
         },
 
         getSearch() {
@@ -184,12 +184,11 @@ export default {
 </script>
 
 <style scoped>
-
 .el-submenu >>> .el-submenu__title {
     background: transparent !important;
 }
 
-.rightside{
+.rightside {
     padding: 10px;
 }
 </style>
