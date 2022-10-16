@@ -64,8 +64,101 @@
 
                         </div>
                         <div class="workarea">
+                            <div class="newAddTable"
+                                v-if="newAddTable">
+                                <table class="selfTable">
+                                    <tbody>
+                                        <tr class="header">
+                                            <th>序号</th>
+                                            <th>运营数据</th>
+                                            <th>线路</th>
+                                            <th>数量</th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2">1</th>
+                                            <th rowspan="2">加开列车数（车次）</th>
+                                            <th>7号线</th>
+                                            <th>3</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>2</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th rowspan="2">2</th>
+                                            <th rowspan="2">延长时间段</th>
+                                            <th>7号线</th>
+                                            <th>35min</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>30min</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th rowspan="2">3</th>
+                                            <th rowspan="2">延长时间间隔（min）</th>
+                                            <th>7号线</th>
+                                            <th>--</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>--</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th rowspan="2">4</th>
+                                            <th rowspan="2">运送乘客数（人）</th>
+                                            <th>7号线</th>
+                                            <th>35071</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>21024</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th rowspan="2">5</th>
+                                            <th rowspan="2">影响车站数（个）</th>
+                                            <th>7号线</th>
+                                            <th>30</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>35</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th rowspan="2">6</th>
+                                            <th rowspan="2">参与人员数（个）</th>
+                                            <th>7号线</th>
+                                            <th>28</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>15</th>
+                                        </tr>
+
+                                        <tr>
+                                            <th rowspan="2">7</th>
+                                            <th rowspan="2">异常事件数（个）</th>
+                                            <th>7号线</th>
+                                            <th>0</th>
+                                        </tr>
+                                        <tr>
+                                            <th>八通线</th>
+                                            <th>0</th>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <p>
+                                    2022年12月24日保障环球影城夜场活动，7号线加开3列临客，八通线加开2列临客，涉及65个车站，处置时长2小时25分03秒，共服务旅客<span>56095</span>人，无人员伤亡，无设备损失。
+                                </p>
+                            </div>
                             <div v-if="specialMode"
-                                style="height:100%;display: flex;flex-direction: column;">
+                                style="height:100%;display: flex;flex-direction:column;">
                                 <iframe style="flex:1"
                                     src="http://172.16.1.110:41001/sample"
                                     frameborder="0"></iframe>
@@ -76,12 +169,11 @@
                                     src="http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
                                     frameborder="0"></iframe>
                             </div>
-                            <iframe v-else
+                            <iframe v-if="!(specialMode || newAddTable)"
                                 style="width:100%;height: 100%;"
                                 :src="workurl"
                                 frameborder="0"></iframe>
                         </div>
-
                     </div>
                 </div>
             </el-col>
@@ -153,6 +245,7 @@ export default {
             curscene: "",
             messagelist: [],
             specialMode: false,
+            newAddTable: false,
         };
     },
     methods: {
@@ -194,6 +287,9 @@ export default {
         flowNext(model, cellview) {
             this.specialMode = false;
             this.curflow = model.evt;
+            this.newAddTable = false;
+            //  let key = `${this.emergencyName}-${this.curflow}`;
+            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "客流监控") {
                 this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
             } else if (this.curflow === "影响评估") {
@@ -205,7 +301,7 @@ export default {
             } else if (this.curflow === "方案结束判断") {
                 this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
             } else if (this.curflow === "统计数据\n撰写简报") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报2.png`;
+                this.newAddTable = true;
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
@@ -317,5 +413,38 @@ export default {
 .mainmenu {
     text-align: left;
     line-height: 40px;
+}
+.newAddTable {
+    width: 100%;
+}
+.newAddTable table {
+    width: 100%;
+}
+.newAddTable table tr {
+    line-height: 30px;
+}
+.newAddTable table td {
+    height: 20px;
+    line-height: 20px;
+}
+.selfTable .header th {
+    background: #2281da;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.newAddTable p {
+    line-height: 25px;
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-indent: 2em;
+    margin: 10px 0 0 0;
+}
+.newAddTable p span {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
 }
 </style>
