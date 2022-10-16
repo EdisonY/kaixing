@@ -56,7 +56,7 @@ var option = {
     backgroundColor:'#000',
     xAxis: {
     type: 'category',
-    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    data:  ['10-11', '10-12', '10-13', '10-14', '10-15', '10-16', '10-17']
   },
   yAxis: {
     type: 'value'
@@ -93,7 +93,7 @@ var option1 = {
      xAxis: [
     {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data: ['10-11', '10-12', '10-13', '10-14', '10-15', '10-16', '10-17'],
       axisPointer: {
         type: 'shadow'
       }

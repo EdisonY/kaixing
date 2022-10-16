@@ -85,11 +85,14 @@
 
 <script>
 import echarts from "echarts";
+
+const STATIONS=['北京西站','湾子站','达官营站','广安门内站','菜市口站','虎坊桥站','珠市口站','桥湾站','磁器口站','广渠门内站','广渠门外站','双井站','九龙山站','大郊亭站','百子湾站','化工站'];
+
 let xAxisData = [];
 let data1 = [];
 let data2 = [];
 for (let i = 0; i < 10; i++) {
-  xAxisData.push('Class' + i);
+  xAxisData.push(STATIONS[i]);
   data1.push(+(Math.random() * 2).toFixed(2));
   data2.push(+(Math.random() * 5).toFixed(2));
 }
@@ -151,7 +154,7 @@ var option2 = {
      xAxis: [
     {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data:  ['10-11', '10-12', '10-13', '10-14', '10-15', '10-16', '10-17'],
       axisPointer: {
         type: 'shadow'
       }

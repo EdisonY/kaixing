@@ -304,28 +304,28 @@ export const constantRoutes = [
     {
         path: '/tmp/container1',
         name:'容器1',
-        component: () => import('@/views/tmp/container'),
+        component: () => import('@/views/tmp/container1'),
         meta: { url: 'http://172.16.1.111/link/YYl2chSc'},
         hidden: true
     },
     {
         path: '/tmp/container2',
         name:'容器2',
-        component: () => import('@/views/tmp/container'),
+        component: () => import('@/views/tmp/container2'),
         meta: { url: 'http://172.16.1.111/link/DqAzVYn3'},
         hidden: true
     },
     {
         path: '/tmp/container3',
         name:'容器3',
-        component: () => import('@/views/tmp/container'),
+        component: () => import('@/views/tmp/container3'),
         meta: { url: 'http://172.16.1.111/link/XN5OcWPk'},
         hidden: true
     },
     {
         path: '/tmp/container4',
         name:'容器4',
-        component: () => import('@/views/tmp/container'),
+        component: () => import('@/views/tmp/container4w'),
         meta: { url: 'http://172.16.1.110/sdss/tc.html?name=img1016.png'},
         hidden: true
     },

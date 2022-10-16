@@ -32,7 +32,7 @@
                 </div>
                 <div class="grid-content grid-content-2">
                     <!-- TODO -->
-                    <img src="http://172.16.1.110/sdss/tc.html?name=设备报警数量.png" />
+                    <iframe src="http://172.16.1.220:92/Operation" />
                 </div>
             </el-col>
         </el-row>

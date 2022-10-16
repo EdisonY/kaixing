@@ -126,7 +126,7 @@ let xAxisData = [];
 let data1 = [];
 let data2 = [];
 for (let i = 0; i < 10; i++) {
-  xAxisData.push('Class' + i);
+  xAxisData.push(`${i*2+4}:00`);
   data1.push(+(Math.random() * 2).toFixed(2));
   data2.push(+(Math.random() * 5).toFixed(2));
 }
@@ -185,7 +185,7 @@ var option1 = {
     backgroundColor:'#000',
     xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['北京西站', '湾子站', '达官营站', '广安门内站', '菜市口站', '虎坊桥站', '珠市口站']
     },
     yAxis: {
         type: 'value'
@@ -203,25 +203,25 @@ export default {
     data(){
         return{
             tableData: [{
-                date: 'A站 100',
-                name: 'B站 100',
-                address: 'D站 100'
+                date: '北京西站 30221',
+                name: '百子湾站 28334',
+                address: '东直门 345'
             }, {
-                date: 'A站 100',
-                name: 'B站 100',
-                address: 'D站 100'
+                date: '九龙山站 28334',
+                name: '北京西站 22000',
+                address: '花乡东桥站 122'
             }, {
-                date: 'A站 100',
-                name: 'B站 100',
-                address: 'D站 100'
+                date: '达官营站 22000',
+                name: '九龙山站 100',
+                address: '呼家楼站 201'
             }, {
-                date: 'A站 100',
-                name: 'B站 100',
-                address: 'D站 100'
+                date: '双井站 15345',
+                name: '达官营站 12003',
+                address: '知春路站 23'
             }, {
-                date: 'A站 100',
-                name: 'B站 100',
-                address: 'D站 100'
+                date: '百子湾站 12003',
+                name: '双井站 11672',
+                address: '大望路站 18'
             }, ]
         }
     },

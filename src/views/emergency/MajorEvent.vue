@@ -176,21 +176,16 @@ export default {
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
-            //  let key = `${this.emergencyName}-${this.curflow}`;
-            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "客流监控") {
-                // this.workurl = `http://172.16.1.110/sdss/tc.html?name=客流监控.png`;
-                this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!5e38!!89c4!!7269!!7406!!8f66!!7ad9!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
+                this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
             } else if (this.curflow === "影响评估") {
-                // this.workurl = `http://172.16.1.110/sdss/tc.html?name=影响评估.png`;
-                this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!6362!!4e58!!7ad9!!5ba2!!6d41!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
+                this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
             } else if (this.curflow === "方案确认") {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案确认3.png`;
             } else if (this.curflow === "保障方案实施") {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=保障方案实施2.png`;
             } else if (this.curflow === "方案结束判断") {
-                // this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案结束判断2.png`;
-                this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!6362!!4e58!!7ad9!!5ba2!!6d41!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
+                this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
             } else if (this.curflow === "统计数据\n撰写简报") {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报2.png`;
             } else if (this.curflow === "结束") {

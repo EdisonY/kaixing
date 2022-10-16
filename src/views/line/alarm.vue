@@ -150,9 +150,9 @@ var option2 = {
         borderRadius: 8
       },
       data: [
-        { value: 40, name: '商业' },
-        { value: 38, name: '牵引' },
-        { value: 32, name: '动照' },
+        { value: 40, name: '行车' },
+        { value: 38, name: '客流' },
+        { value: 32, name: '设备' },
       ]
     }
   ]

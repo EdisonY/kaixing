@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '综合决策支持系统',
+  title: '网络化决策支持系统',
 
   /**
    * @type {boolean} true | false

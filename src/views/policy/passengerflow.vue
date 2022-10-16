@@ -73,11 +73,16 @@
 
 <script>
 import echarts from "echarts";
+
+const LINES=[
+    '1号线', '2号线','5号线', '6号线', '7号线', 
+    '8号线','9号线','10号线','13号线','19号线'
+];
 let xAxisData = [];
 let data1 = [];
 let data2 = [];
 for (let i = 0; i < 10; i++) {
-  xAxisData.push('Class' + i);
+  xAxisData.push(`${i*2+4}:00`);
   data1.push(+(Math.random() * 2).toFixed(2));
   data2.push(+(Math.random() * 5).toFixed(2));
 }
@@ -87,6 +92,16 @@ var emphasisStyle = {
     shadowColor: 'rgba(0,0,0,0.3)'
   }
 };
+
+import echarts from "echarts";
+let xAxisData1 = [];
+let data11 = [];
+let data22 = [];
+for (let i = 0; i < 10; i++) {
+    xAxisData1.push(LINES[i]);
+    data11.push(+(Math.random() * 2).toFixed(2));
+    data22.push(+(Math.random() * 5).toFixed(2));
+}
 
 var charts = null
 var charts1 = null
@@ -128,6 +143,41 @@ var option = {
   ]
 };
 
+var option1 = {
+    grid:{
+        left:20,
+        top:10,
+        right:0,
+        bottom:20
+    },
+    backgroundColor:'#000',
+  tooltip: {},
+  xAxis: {
+    data: xAxisData1,
+    name: 'X Axis',
+    axisLine: { onZero: true },
+    splitLine: { show: false },
+    splitArea: { show: false }
+  },
+  yAxis: {},
+  series: [
+    {
+      name: 'bar',
+      type: 'bar',
+      stack: 'one',
+      emphasis: emphasisStyle,
+      data: data11
+    },
+    {
+      name: 'bar2',
+      type: 'bar',
+      stack: 'one',
+      emphasis: emphasisStyle,
+      data: data22
+    }
+  ]
+};
+
 var option2 = {
     grid:{
         left:30,
@@ -139,7 +189,7 @@ var option2 = {
      xAxis: [
     {
       type: 'category',
-      data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data: ['北京西站','湾子站','达官营站','广安门内站','菜市口站','虎坊桥站','珠市口站'],
       axisPointer: {
         type: 'shadow'
       }
@@ -341,7 +391,7 @@ export default {
         charts.setOption(option, true);
 
         charts1 = this.$echarts.init(this.$refs.echart1,'dark');
-        charts1.setOption(option, true);
+        charts1.setOption(option1, true);
 
         charts2 = this.$echarts.init(this.$refs.echart2,'dark');
         charts2.setOption(option2, true);

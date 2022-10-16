@@ -7,9 +7,9 @@
                 </div>
             </el-col>
         </el-row>
-        <el-row style="text-align:center;border-bottom:3px solid #ccc">
+        <el-row style="text-align:center;">
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="350" src="http://172.16.1.111/link/oTcnnEFV"></iframe>
+                <iframe frameborder="0" width="100%" height="700" src="http://172.16.1.111/link/oTcnnEFV"></iframe>
             </div>
         </el-row>
     </div>
