@@ -101,27 +101,9 @@
                     <el-menu-item index="2-2">
                         <router-link to="/line/comprehensive">在线推演</router-link>
                     </el-menu-item>
-                    <!-- <el-menu-item index="2-3">
-                        <router-link to="/emergency/rainstorm">暴雨机场大面积航班延误</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="2-4">
-                        <router-link to="/emergency/majorevent">重大活动运营</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="2-5">
-                        <router-link to="/emergency/daily">常规运营</router-link>
-                    </el-menu-item> -->
                 </el-submenu>
                 <el-submenu index="3">
                     <template slot="title">态势研判</template>
-                    <!-- <el-menu-item index="3-1">
-                        <router-link to="/monitor">系统综合评价指标</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="3-2">
-                        <router-link to="/situation/detailed">专业性指标详细展示</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="3-3">
-                        <router-link to="/situation/trend">指标趋势分析</router-link>
-                    </el-menu-item> -->
 
                     <el-menu-item index="3-1">
                         <router-link to="/tmp/container1">综合评价</router-link>
