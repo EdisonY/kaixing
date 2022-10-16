@@ -165,7 +165,7 @@ export default {
             } else if (scene === "客流-线") {
                 this.workurl = `http://172.16.1.111/link/kdHtibMs`;
             } else if(scene === '客流-站'){
-                this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
+                this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
             }else if(scene === '客流-车'){
                 this.workurl = `http://172.16.1.111/link/V0sEA5CS`;
             }else if(scene === '运行图'){

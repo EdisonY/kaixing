@@ -63,9 +63,25 @@
                                 @click="changeWorkArea('周边-路况')">路况</p>
 
                         </div>
-                        <iframe class="workarea"
-                            :src="workurl"
-                            frameborder="0"></iframe>
+                        <div class="workarea">
+                            <div v-if="specialMode"
+                                style="height:100%;display: flex;flex-direction: column;">
+                                <iframe style="flex:1"
+                                    src="http://172.16.1.110:41001/sample"
+                                    frameborder="0"></iframe>
+                                <iframe style="flex:1"
+                                    src="http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200&linename=计划运行图"
+                                    frameborder="0"></iframe>
+                                <iframe style="flex:1;width: 100%;"
+                                    src="http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
+                                    frameborder="0"></iframe>
+                            </div>
+                            <iframe v-else
+                                style="width:100%;height: 100%;"
+                                :src="workurl"
+                                frameborder="0"></iframe>
+                        </div>
+
                     </div>
                 </div>
             </el-col>
@@ -136,6 +152,7 @@ export default {
             curflow: "",
             curscene: "",
             messagelist: [],
+            specialMode: false,
         };
     },
     methods: {
@@ -159,22 +176,23 @@ export default {
             // TODO
             // else if (scene === "平面图-ATS") {
             //     this.workurl = `http://172.16.1.110:41002/#/subway`;
-            // } 
+            // }
             else if (scene === "客流-网") {
                 this.workurl = `http://172.16.1.111/link/iFDeE8us`;
             } else if (scene === "客流-线") {
                 this.workurl = `http://172.16.1.111/link/kdHtibMs`;
-            } else if(scene === '客流-站'){
-                this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
-            }else if(scene === '客流-车'){
+            } else if (scene === "客流-站") {
+                this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
+            } else if (scene === "客流-车") {
                 this.workurl = `http://172.16.1.111/link/V0sEA5CS`;
-            }else if(scene === '运行图'){
+            } else if (scene === "运行图") {
                 this.workurl = `http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200`;
-            }else {
+            } else {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
             }
         },
         flowNext(model, cellview) {
+            this.specialMode = false;
             this.curflow = model.evt;
             if (this.curflow === "客流监控") {
                 this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
@@ -183,7 +201,7 @@ export default {
             } else if (this.curflow === "方案确认") {
                 this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案确认3.png`;
             } else if (this.curflow === "保障方案实施") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=保障方案实施2.png`;
+                this.specialMode = true;
             } else if (this.curflow === "方案结束判断") {
                 this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
             } else if (this.curflow === "统计数据\n撰写简报") {
@@ -194,9 +212,7 @@ export default {
             }
             this._mockMsg();
         },
-        testFunc() {
-
-        },
+        testFunc() {},
     },
 };
 </script>
@@ -291,6 +307,11 @@ export default {
 
 .middle-panel > .workarea {
     flex: 1;
+}
+
+.special {
+    display: flex;
+    flex-direction: column;
 }
 
 .mainmenu {
