@@ -301,7 +301,48 @@ export const constantRoutes = [
         component: () => import('@/views/20221008/nav01'),
         hidden: true
     },
-    
+    {
+        path: '/tmp/container1',
+        name:'容器1',
+        component: () => import('@/views/tmp/container'),
+        meta: { url: 'http://172.16.1.111/link/YYl2chSc'},
+        hidden: true
+    },
+    {
+        path: '/tmp/container2',
+        name:'容器2',
+        component: () => import('@/views/tmp/container'),
+        meta: { url: 'http://172.16.1.111/link/DqAzVYn3'},
+        hidden: true
+    },
+    {
+        path: '/tmp/container3',
+        name:'容器3',
+        component: () => import('@/views/tmp/container'),
+        meta: { url: 'http://172.16.1.111/link/XN5OcWPk'},
+        hidden: true
+    },
+    // {
+    //     path: '/tmp/container4',
+    //     name:'容器4',
+    //     component: () => import('@/views/tmp/container'),
+    //     meta: { url: 'http://172.16.1.111/link/YYl2chSc'},
+    //     hidden: true
+    // },
+        // {
+    //     path: '/tmp/container5',
+    //     name:'容器5',
+    //     component: () => import('@/views/tmp/container'),
+    //     meta: { url: 'http://172.16.1.111/link/YYl2chSc'},
+    //     hidden: true
+    // },
+            // {
+    //     path: '/tmp/container6',
+    //     name:'容器6',
+    //     component: () => import('@/views/tmp/container'),
+    //     meta: { url: 'http://172.16.1.111/link/YYl2chSc'},
+    //     hidden: true
+    // },
 
     
     
