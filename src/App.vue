@@ -147,7 +147,7 @@
                     </el-menu-item> -->
                 </el-submenu>
                 <el-submenu index="5">
-                    <template slot="title">事件处置</template>
+                    <template slot="title">应急会商</template>
 
                     <el-menu-item index="5-1">
                         <router-link to="/choseline">预案编制</router-link>
