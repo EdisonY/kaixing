@@ -1,6 +1,6 @@
 ;(function(global, undefined) {
     "use strict"
-    var _global,panZoom,state,time,func,hot = [],arrowHref = 'http://localhost:9528/subway/arrow.png',turnHref= 'http://localhost:9528/subway/turn.png',Num = 0,stationPath = [];
+    var _global,panZoom,state,time,func,hot = [],arrowHref = 'http://172.51.216.72:41004/subway/arrow.png',turnHref= 'http://172.51.216.72:41004/subway/turn.png',Num = 0,stationPath = [];
 
     function loadJS( url, callback ){
         var script = document.createElement('script'),
@@ -26,8 +26,8 @@
 
     function tct_subway(opt){
         var self = this
-        // loadJS('http://localhost:9528/subway/jquery.min.js',function(){
-            loadJS('http://localhost:9528/subway/svg-pan-zoom.min.js',function(){
+        // loadJS('http://172.51.216.72:41004/subway/jquery.min.js',function(){
+            loadJS('http://172.51.216.72:41004/subway/svg-pan-zoom.min.js',function(){
                 self._initial(opt);
             })
         // });
@@ -63,7 +63,7 @@
             // }
             $.ajax({
                 // url: "beijing.xml",
-                url: "http://localhost:9528/subway/beijing.xml?" + Math.floor(Math.random()*1000),
+                url: "http://172.51.216.72:41004/subway/beijing.xml?" + Math.floor(Math.random()*1000),
                 dataType: 'xml',
                 type: 'GET',
                 timeout: 5000,
@@ -119,12 +119,12 @@
                     }
                 }
             })
-            this._generate('image',{'href':'http://localhost:9528/subway/tam.png','width':85,'height':26,'x':908,'y':758,'class':'tam'},'image')
-            this._generate('image',{'href':'http://localhost:9528/subway/north.png','width':50,'height':100,'x':1710,'y':250,'class':'cluster'},'image')
-            this._generate('image',{'href':'http://localhost:9528/subway/airport.png','width':40,'height':40,'x':1510,'y':355,'class':'cluster'},'image')
-            this._generate('image',{'href':'http://localhost:9528/subway/airport.png','width':40,'height':40,'x':1000,'y':1228,'class':'cluster'},'image')
-            this._generate('image',{'href':'http://localhost:9528/subway/birde.png','width':80,'height':40,'x':940,'y':480,'class':'cluster'},'image')
-            this._generate('image',{'href':'http://localhost:9528/subway/jump.png','width':45,'height':40,'x':248,'y':770,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/tam.png','width':85,'height':26,'x':908,'y':758,'class':'tam'},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/north.png','width':50,'height':100,'x':1710,'y':250,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/airport.png','width':40,'height':40,'x':1510,'y':355,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/airport.png','width':40,'height':40,'x':1000,'y':1228,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/birde.png','width':80,'height':40,'x':940,'y':480,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/jump.png','width':45,'height':40,'x':248,'y':770,'class':'cluster'},'image')
 
             panZoom = svgPanZoom('#subway',{zoomEnabled: true,dblClickZoomEnabled:false,minZoom:.3,maxZoom:4,fit:false});
             panZoom.pan({x:($('.Line').width() - 1860) / 2,y:($('.wirenetwork').height() - 1500) / 2})
@@ -683,7 +683,7 @@
             for (let index = 0; index < from.line.length; index++) {
                 cname += from.line[index].lineId + ' ';
             }
-            this._generate('image',{'href':'http://localhost:9528/subway/' + state + '.png','width':30,'height':40,'x':from.line.length > 1 ? from.x - 18 : from.x - 15,'y':from.y - 50,'class':'cluster zk ' + cname},'Passengerflow')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/' + state + '.png','width':30,'height':40,'x':from.line.length > 1 ? from.x - 18 : from.x - 15,'y':from.y - 50,'class':'cluster zk ' + cname},'Passengerflow')
         },
         drewStationAlarm:function(from,state){
             //绘制站点管控信息
@@ -691,7 +691,7 @@
             for (let index = 0; index < from.line.length; index++) {
                 cname += from.line[index].lineId + ' ';
             }
-            this._generate('image',{'href':'http://localhost:9528/subway/' + state + '.png','width':30,'height':40,'x':from.line.length > 1 ? from.x - 18 : from.x - 15,'y':from.y - 50,'class':'cluster zk szk ' + cname,type:'zk'},'Passengerflow')
+            this._generate('image',{'href':'http://172.51.216.72:41004/subway/' + state + '.png','width':30,'height':40,'x':from.line.length > 1 ? from.x - 18 : from.x - 15,'y':from.y - 50,'class':'cluster zk szk ' + cname,type:'zk'},'Passengerflow')
         },
         drewHeatmap:function(position,value){
             //绘制热力图
@@ -770,7 +770,7 @@
                 element.setAttributeNS(null,"keyPoints","0;" + per + ";1");
                 element.setAttributeNS(null,"path",this._getBetweenPath(from,to,direction,fId,tId,lineId));
             }else{
-                this._generate('image',{id:trainId + 'realtime','href':'http://localhost:9528/subway/type1.png','width':10,'height':10,'class':direction == 'down' ? 'cluster train fixgap ' + cname : 'cluster train ' + cname},'alarm')
+                this._generate('image',{id:trainId + 'realtime','href':'http://172.51.216.72:41004/subway/type1.png','width':10,'height':10,'class':direction == 'down' ? 'cluster train fixgap ' + cname : 'cluster train ' + cname},'alarm')
                 this._generate('animateMotion',{
                     id:trainId + 'Y',
                     dur:speed ? arrive / speed : arrive + "s",
@@ -792,7 +792,7 @@
         },
         drewStop:function(station,trainId,lineid){
             if($('#' + trainId + 'stop').length == 0 && station && station.line){
-                this._generate('image',{id:trainId + 'stop','href':'http://localhost:9528/subway/type2.png','width':10,'height':10,'x':station.line.length > 1 ? station.x - 3 : station.x,'y':station.line.length > 1 ? station.y - 3 : station.y,'class':'cluster train ' + lineid},'stop')
+                this._generate('image',{id:trainId + 'stop','href':'http://172.51.216.72:41004/subway/type2.png','width':10,'height':10,'x':station.line.length > 1 ? station.x - 3 : station.x,'y':station.line.length > 1 ? station.y - 3 : station.y,'class':'cluster train ' + lineid},'stop')
             }
         },
         clearStop:function(){
