@@ -146,6 +146,14 @@ export const constantRoutes = [
         hidden: true
     },
     {
+        path: '/line/marshalling',
+        name: '线网集群',
+        hidden: true,
+        component: () =>
+            import ('@/views/marshalling'),
+        meta: { title: '线网集群', type: true }
+    },
+    {
         path: '/line/passengerflow',
         name:'客流信息',
         component: () => import('@/views/line/passengerflow'),

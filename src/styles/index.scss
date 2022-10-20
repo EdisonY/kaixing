@@ -13,6 +13,10 @@ body {
   color: #fff;
 //   text-shadow: -1px -1px 0 #000;
 }
+@font-face { 
+    font-family: 'lcdd'; 
+    src: url('../../public/subway/FX-LED.ttf');
+}
 
 label {
   font-weight: 700;
@@ -177,3 +181,36 @@ div:focus {
 .leftside .el-select .el-input__inner{height: 40px;line-height: 40px;border-radius: 0;}
 .leftside .el-collapse-item__header{font-size: 16px;padding: 0 0 0 10px;}
 .el-select-group__title{font-weight: bold;color: #000;}
+
+
+.el-card__header{background: #1f2d3d;padding: 8px 20px;color: #fff;}
+.el-tabs--border-card>.el-tabs__header{background: #1f2d3d;}
+.el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active{background: #1f2d3d;}
+.el-card__body,.el-tabs__content{background: #304156;color: #fff;}
+
+.train1{transform:rotate(180deg) translate(-7.5px,-3px);}
+.train{transform: translate(-5px,-5px);}
+
+.train.fixgap{transform: translate(-7.5px,-3px);}
+.train1.fixgap{transform:rotate(180deg) translate(-7.5px,-7px);}
+
+.fullLoadBtn{position: fixed;z-index: 999;right:10px;top:80px;height: 30px;font-size:18px;color:#fff;padding:5px 0 0 5px;display: none;}
+.fullLoadBtn span{display: inline-block;height: 30px;line-height: 30px;border:1px solid #fff;padding: 0 10px;margin:0 5px 0 0;border-radius: 4px;cursor: default;}
+.fullLoadBtn .sub1{background:#81c19e}
+.fullLoadBtn .sub2{background:#f1d44b}
+.fullLoadBtn .sub3{background:#de8c17}
+.fullLoadBtn .sub4{background:#d0000f}
+
+.wirenetElement .el-date-editor .el-range__icon,.wirenetElement .el-date-editor .el-range-separator{line-height: 25px;}
+.wirenetElement .el-date-editor .el-range__close-icon{display: none;}
+.el-time-panel__content::before,.el-time-panel__content::after{margin-top:-8px}
+
+.wirenetwork .legend .el-card__body, .el-main{padding: 5px;}
+
+
+@keyframes zkAnimation{
+	0% { transform: translate(0,0px); }
+    50% { transform: translate(0,10px); }
+    100% { transform: translate(0,0px); }
+}
+.zk{animation:zkAnimation 5s infinite;}

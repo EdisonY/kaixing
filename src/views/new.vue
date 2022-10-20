@@ -90,25 +90,25 @@ export default {
                     active:false,
                     show:false,
                     type:0,
-                    url:'http://172.16.1.111/link/qaAitH3r'
+                    url:'http://frp.funenc.xyz:7245/link/qaAitH3r'
                 },{
                     name:'线路运力',
                     active:false,
                     show:false,
                     type:1,
-                    url:'http://172.16.1.111/link/XN5OcWPk'
+                    url:'http://frp.funenc.xyz:7245/link/XN5OcWPk'
                 },{
                     name:'进出站情况',
                     active:false,
                     show:false,
                     type:2,
-                    url:'http://172.16.1.111/link/DqAzVYn3'
+                    url:'http://frp.funenc.xyz:7245/link/DqAzVYn3'
                 },{
                     name:'候车情况',
                     active:false,
                     show:false,
                     type:3,
-                    url:'http://172.16.1.111/link/13z2mWyR'
+                    url:'http://frp.funenc.xyz:7245/link/13z2mWyR'
                 },
             ]
         }

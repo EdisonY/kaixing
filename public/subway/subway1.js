@@ -1,6 +1,6 @@
 ;(function(global, undefined) {
     "use strict"
-    var _global,panZoom,state,time,func = [],arrowHref = 'http://172.51.216.72:41004/subway/arrow.png',turnHref= 'http://172.51.216.72:41004/subway/turn.png';
+    var _global,panZoom,state,time,func,hot = [],arrowHref = 'http://localhost:9528/subway/arrow.png',turnHref= 'http://localhost:9528/subway/turn.png',Num = 0,stationPath = [];
 
     function loadJS( url, callback ){
         var script = document.createElement('script'),
@@ -26,8 +26,8 @@
 
     function tct_subway(opt){
         var self = this
-        // loadJS('http://172.51.216.72:41004/subway/jquery.min.js',function(){
-            loadJS('http://172.51.216.72:41004/subway/svg-pan-zoom.min.js',function(){
+        // loadJS('http://localhost:9528/subway/jquery.min.js',function(){
+            loadJS('http://localhost:9528/subway/svg-pan-zoom.min.js',function(){
                 self._initial(opt);
             })
         // });
@@ -42,28 +42,28 @@
             var _self = this
             this.__proto__.id = opt.tmpId
             this._generate('g',{'id':'subwayMain'},opt.tmpId)
-            if(opt.fullload) {
-                this.__proto__.showfull = true
-                var btn = "<div class='btn'><p><span class='sub sub1'>舒适</span><span class='sub sub2'>较舒适</span><span class='sub sub3'>轻度拥挤</span><span class='sub sub4'>拥挤</span><span class='parent'>满载率</span></p></div>"
-                $('#' + opt.tmpId).after(btn)
-                $('.parent').on('click',function(){
-                    $('.btn').stop().animate({
-                        width:$('.btn').width() == 87 ? 415 : 87
-                    },300,function(){
-                        _self.clearFlyLine()
-                        if($('.btn').width() == 87){
-                            $('#normal').show()
-                            $('#fullLoad').hide()
-                        }else{
-                            $('#normal').hide()
-                            $('#fullLoad').show()
-                        }    
-                    })
-                })
-            }
+            // if(opt.fullload) {
+            this.__proto__.showfull = true
+            var btn = "<div class='fullLoadBtn'><span class='sub sub1'>舒适</span><span class='sub sub2'>较舒适</span><span class='sub sub3'>轻度拥挤</span><span class='sub sub4'>拥挤</span></div>"
+            $('#' + opt.tmpId).after(btn)
+            // $('.parent').on('click',function(){
+            //     $('.btn').stop().animate({
+            //         width:$('.btn').width() == 87 ? 415 : 87
+            //     },300,function(){
+            //         _self.clearFlyLine()
+            //         if($('.btn').width() == 87){
+            //             $('#normal').show()
+            //             $('#fullLoad').hide()
+            //         }else{
+            //             $('#normal').hide()
+            //             $('#fullLoad').show()
+            //         }    
+            //     })
+            // })
+            // }
             $.ajax({
                 // url: "beijing.xml",
-                url: "http://172.51.216.72:41004/subway/beijing.xml",
+                url: "http://localhost:9528/subway/beijing.xml?" + Math.floor(Math.random()*1000),
                 dataType: 'xml',
                 type: 'GET',
                 timeout: 5000,
@@ -74,11 +74,17 @@
                     _self.__proto__.xml = xml;
                     _self._generate('g',{'id':'normal','class':'normal'},'subwayMain')
                     _self._generate('g',{'id':'image'},'subwayMain')
+                    
                     _self._generate('g',{'id':'fullLoad'},'subwayMain')
                     _self._generate('g',{'id':'lineName'},'subwayMain')
                     _self._generate('g',{'id':'stationPoint'},'subwayMain')
                     _self._generate('g',{'id':'stationName'},'subwayMain')
+                    _self._generate('g',{'id':'alarm'},'subwayMain')
+                    _self._generate('g',{'id':'stop'},'subwayMain')
                     _self._generate('g',{'id':'arrow'},'subwayMain')
+                    _self._generate('g',{'id':'HeatMap'},'subwayMain')
+                    _self._generate('g',{'id':'Passengerflow'},'subwayMain')
+                    _self._generate('g',{'id':'alarMain'},'subwayMain')
                     _self._getLine()
                 }
             });
@@ -113,20 +119,24 @@
                     }
                 }
             })
-            this._generate('image',{'href':'http://172.51.216.72:41004/subway/tam.png','width':85,'height':26,'x':908,'y':758},'image')
-            this._generate('image',{'href':'http://172.51.216.72:41004/subway/north.png','width':50,'height':100,'x':1710,'y':250},'image')
-            this._generate('image',{'href':'http://172.51.216.72:41004/subway/airport.png','width':40,'height':40,'x':1510,'y':355},'image')
-            this._generate('image',{'href':'http://172.51.216.72:41004/subway/airport.png','width':40,'height':40,'x':1000,'y':1228},'image')
-            panZoom = svgPanZoom('#subway',{zoomEnabled: true,dblClickZoomEnabled:false,minZoom:.4,maxZoom:4,fit:false});
-            // panZoom.pan({x: -950 + window.innerWidth/2, y: -770 + window.innerHeight/2});
-            panZoom.pan({x:-window.innerWidth/4,y:-window.innerHeight/2})
+            this._generate('image',{'href':'http://localhost:9528/subway/tam.png','width':85,'height':26,'x':908,'y':758,'class':'tam'},'image')
+            this._generate('image',{'href':'http://localhost:9528/subway/north.png','width':50,'height':100,'x':1710,'y':250,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://localhost:9528/subway/airport.png','width':40,'height':40,'x':1510,'y':355,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://localhost:9528/subway/airport.png','width':40,'height':40,'x':1000,'y':1228,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://localhost:9528/subway/birde.png','width':80,'height':40,'x':940,'y':480,'class':'cluster'},'image')
+            this._generate('image',{'href':'http://localhost:9528/subway/jump.png','width':45,'height':40,'x':248,'y':770,'class':'cluster'},'image')
+
+            panZoom = svgPanZoom('#subway',{zoomEnabled: true,dblClickZoomEnabled:false,minZoom:.3,maxZoom:4,fit:false});
+            panZoom.pan({x:($('.Line').width() - 1860) / 2,y:($('.wirenetwork').height() - 1500) / 2})
             panZoom.zoom(1)
+            console.log(panZoom);
+            
         },
         _drewLine:function(parent,data,index,next){
-            this._generate('line',{'id':data[index].attributes.acc.value,'x1':data[index].attributes.x.value,'y1':data[index].attributes.y.value,'x2':data[next].attributes.x.value,'y2':data[next].attributes.y.value,'stroke':parent.lc.nodeValue.replace("0x", "#"),'stroke-width':5,'stroke-linejoin':'round','stroke-linecap':'round','lineId':Number(parent.lcode.value)},'normal')
+            this._generate('line',{'id':data[index].attributes.acc.value,'x1':data[index].attributes.x.value,'y1':data[index].attributes.y.value,'x2':data[next].attributes.x.value,'y2':data[next].attributes.y.value,'stroke':parent.lc.nodeValue.replace("0x", "#"),'stroke-width':5,'stroke-linejoin':'round','stroke-linecap':'round','lineId':Number(parent.lcode.value),'class':'cluster ' + Number(parent.lcode.value)},'normal')
         },
         _drewCurve:function(parent,data,index,next) {
-            this._generate('path',{'id':data[index].attributes.acc.value,'d':'M' + data[index].attributes.x.value + ' ' + data[index].attributes.y.value + ' Q' +  data[index].attributes.arc.value.replace(":", " ") + ' ' + data[next].attributes.x.value + ' ' + data[next].attributes.y.value,'stroke':parent.lc.nodeValue.replace("0x", "#"),'stroke-width':5,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none','lineId':Number(parent.lcode.value)},'normal')
+            this._generate('path',{'id':data[index].attributes.acc.value,'d':'M' + data[index].attributes.x.value + ' ' + data[index].attributes.y.value + ' Q' +  data[index].attributes.arc.value.replace(":", " ") + ' ' + data[next].attributes.x.value + ' ' + data[next].attributes.y.value,'stroke':parent.lc.nodeValue.replace("0x", "#"),'stroke-width':5,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none','lineId':Number(parent.lcode.value),'class':'cluster ' + Number(parent.lcode.value)},'normal')
         },
         _drewStation:function(data){
             var self = this
@@ -135,9 +145,9 @@
             _state = _state[0].split(',')
             for (let index = 0; index < _arry.length; index++) {
                 var str = _arry[index].split(',')
-                self._generate('rect',{'lineId':Number(data.lcode.nodeValue),'fill':data.lc.nodeValue.replace("0x", "#"),'width':str[2],'height':str[3],'x':str[0],'y':str[1]},'lineName')
+                self._generate('rect',{'lineId':Number(data.lcode.nodeValue),'class':'cluster','fill':data.lc.nodeValue.replace("0x", "#"),'width':str[2],'height':str[3],'x':str[0],'y':str[1]},'lineName')
                 if (Number(data.lcode.nodeValue) <= 57)
-                    if(_state[index] != '大兴')
+                    if(_state[index] != '大兴' && _state[index] != '八通')
                         state = "地铁" + _state[index] + "号线";
                     else{
                         state = "地铁" + _state[index] + "线";
@@ -150,19 +160,24 @@
                     else
                         state = "地铁"+_state[index]+"线";
                 }
-                self._generate('text',{'lineId':Number(data.lcode.nodeValue),'fill':'white','font-family':'微软雅黑','font-size':12,'text-anchor':'middle','x':Number(str[0]) + 35,'y':Number(str[1]) + 14,'sdata':state,'lb':data.lb.value,'lbx':data.lbx.value,'lby':data.lby.value,'type':'line'},'lineName',state)
+                self._generate('text',{'lineId':Number(data.lcode.nodeValue),'class':'cluster','fill':'#ccc','font-family':'微软雅黑','font-size':12,'text-anchor':'middle','x':Number(str[0]) + 35,'y':Number(str[1]) + 14,'sdata':state,'lb':data.lb.value,'lbx':data.lbx.value,'lby':data.lby.value,'type':'line'},'lineName',state)
 
             }
         },
         _drewStationPoint:function(parent,data){
+            if(data.show){
+                return
+            }
             if(data.ex.value == 'true'){
-                this._generate('image',{'id':data.acc.value,'href':turnHref,'width':14,'height':14,'x':data.dx ? Number(data.x.value) - 7 + Number(data.dx.value) : Number(data.x.value) - 7,'y':data.dy ? Number(data.y.value) - 7 + Number(data.dy.value) : Number(data.y.value) - 7,'sdata':data.lb.value,'type':'station','lineId':Number(parent.lcode.value),'sort':parent.sort.value},'stationPoint')
+                this._generate('image',{'id':data.acc.value,'href':turnHref,'width':8,'height':8,'x':data.dx ? Number(data.x.value) - 4 + Number(data.dx.value) : Number(data.x.value) - 4,'y':data.dy ? Number(data.y.value) - 4 + Number(data.dy.value) : Number(data.y.value) - 4,'sdata':data.lb.value,'type':'station','lineId':Number(parent.lcode.value),'class':'cluster ' + Number(parent.lcode.value),'sort':parent.sort.value},'stationPoint')
             }else{
-                this._generate('circle',{'id':data.acc.value,'fill':'white','r':4,'stroke':'black','stroke-width':1,'cx':Number(data.x.value),'cy':Number(data.y.value),'sdata':data.lb.value,'type':'station','lineId':Number(parent.lcode.value),'sort':parent.sort.value},'stationPoint')
+                this._generate('circle',{'id':data.acc.value,'fill':'white','r':2,'stroke':'black','stroke-width':1,'cx':Number(data.x.value),'cy':Number(data.y.value),'sdata':data.lb.value,'type':'station','lineId':Number(parent.lcode.value),'class':'cluster ' + Number(parent.lcode.value),'sort':parent.sort.value},'stationPoint')
             }
         },
         _drewStationName:function(parent,data){
-            this._generate('text',{'id':data.acc.value,'font-family':'微软雅黑','x':Number(data.x.value) + Number(data.rx.value),'y':Number(data.y.value) + Number(data.ry.value) + 15,'fill':'#fff','font-size':12,'lineId':Number(parent.lcode.value)},'stationName',data.lb.value)
+            if(data.show == undefined){
+                this._generate('text',{'id':data.acc.value,'ex':String(data.ex.value),'se':data.se ? String(data.se.value) : '','font-family':'微软雅黑','x':Number(data.x.value) + Number(data.rx.value),'y':Number(data.y.value) + Number(data.ry.value) + 15,'fill':'#ccc','font-size':12,'lineId':Number(parent.lcode.value),'class':'cluster ' + Number(parent.lcode.value),'type':'station','stationName':data.lb.value},'stationName',data.lb.value)
+            }
         },
         _drewFullLoad:function(parent,data,index,next){
             var self = this
@@ -172,18 +187,66 @@
             var _uoy = Number(data[index].attributes.uoy.value)
             var _dox = Number(data[index].attributes.dox.value)
             var _doy = Number(data[index].attributes.doy.value)
+            var alr = false
             var dom = document.createElementNS('http://www.w3.org/2000/svg','g')
             dom.setAttribute('id',data[index].attributes.acc.value + 'full')
+            dom.setAttribute('class','cluster ' + Number(parent.lcode.value))
+
+            for (let index = 0; index < stationPath.length; index++) {
+                if(stationPath[index].line == Number(parent.lcode.value)){
+                    alr = true
+                }
+            }
+
+            if(!alr){
+                stationPath.push(
+                    {
+                        line:Number(parent.lcode.value),
+                        station:[]
+                    }
+                )
+            }
+
             document.getElementById('fullLoad').appendChild(dom);
             if(data[index].attributes.arc != undefined){
                 var arr = data[index].attributes.arc.value.split(',')[0].split(':')
                 var urc = data[index].attributes.uoarc.value.split(',')[0].split(':')
                 var drc = data[index].attributes.doarc.value.split(',')[0].split(':')
-                this._generate('path',{'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
-                this._generate('path',{'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+
+                stationPath[stationPath.length - 1].station.push({
+                    'sId':data[index].attributes.acc.value,
+                    'id':'up',
+                    'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                    'endX':Number(data[next].attributes.x.value),
+                    'endY':Number(data[next].attributes.y.value)
+                },{
+                    'sId':data[index].attributes.acc.value,
+                    'id':'down',
+                    'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                    'endX':_x,
+                    'endY':_y
+                })
+
             }else{
-                this._generate('line',{'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
-                this._generate('line',{'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+
+                stationPath[stationPath.length - 1].station.push({
+                    'sId':data[index].attributes.acc.value,
+                    'id':'up',
+                    'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' L' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                    'endX':Number(data[next].attributes.x.value),
+                    'endY':Number(data[next].attributes.y.value)
+                },{
+                    'sId':data[index].attributes.acc.value,
+                    'id':'down',
+                    'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' L' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                    'endX':_x,
+                    'endY':_y                    
+                })
+
             }
             for (let i = index + 1; i < data.length; i++) {
                 if(data[i].attributes.acc.value == ''){
@@ -197,12 +260,41 @@
                         var arr = data[i].attributes.arc.value.split(',')[0].split(':')
                         var urc = data[i].attributes.uoarc.value.split(',')[0].split(':')
                         var drc = data[i].attributes.doarc.value.split(',')[0].split(':')
-                        self._generate('path',{'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
-                        self._generate('path',{'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none'},data[index].attributes.acc.value + 'full')
-        
+                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        
+                        stationPath[stationPath.length - 1].station.push({
+                            'sId':data[index].attributes.acc.value,
+                            'id':'up',
+                            'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                            'endX':Number(data[next].attributes.x.value),
+                            'endY':Number(data[next].attributes.y.value)
+                        },{
+                            'sId':data[index].attributes.acc.value,
+                            'id':'down',
+                            'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                            'endX':_x,
+                            'endY':_y
+                        })
+
                     }else{
-                        self._generate('line',{'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
-                        self._generate('line',{'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':1,'stroke-linejoin':'round','stroke-linecap':'round'},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+
+                        stationPath[stationPath.length - 1].station.push({
+                            'sId':data[index].attributes.acc.value,
+                            'id':'up',
+                            'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' L' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                            'endX':Number(data[next].attributes.x.value),
+                            'endY':Number(data[next].attributes.y.value)
+                        },{
+                            'sId':data[index].attributes.acc.value,
+                            'id':'down',
+                            'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' L' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                            'endX':_x,
+                            'endY':_y                    
+                        })
+
                     }
                 }else{
                     break
@@ -235,6 +327,10 @@
                         break;
                         case 'mask':
                             self._events('mask')
+                        break;
+                        case 'zk':
+                            self._events('zk',obj)
+                        break;
                         default:
                         break;
                     }
@@ -263,37 +359,39 @@
             }
             switch (event) {
                 case 'lineName.touch':
+                    $('#background,#select').remove()
+                    this._generate('g',{'id':'background'},'subwayMain')
+                    this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#000','fill-opacity':0.8,'type':'mask'},'background')
+                    this._generate('g',{'id':'select'},'subwayMain')
+                    $('#subwayMain g').children().each(function(e,i){
+                        if(i.attributes.lineId && i.attributes.lineId.value == info.lineId){
+                            var _dom = i.cloneNode(true)
+                            document.getElementById('select').appendChild(_dom);
+                        }
+                    })
+                    this._getCenterLine(info)
+                    _callback()
+                break;
+                case 'station.touch':
                     // $('#background,#select').remove()
                     // this._generate('g',{'id':'background'},'subwayMain')
                     // this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#fff','fill-opacity':0.8,'type':'mask'},'background')
                     // this._generate('g',{'id':'select'},'subwayMain')
                     // $('#subwayMain g').children().each(function(e,i){
-                    //     if(i.attributes.lineId && i.attributes.lineId.value == info.lineId){
+                    //     if(i.attributes.id && i.attributes.id.value == info.id && i.nodeName != 'line' && i.nodeName != 'path'){
                     //         var _dom = i.cloneNode(true)
                     //         document.getElementById('select').appendChild(_dom);
                     //     }
                     // })
-                    // this._getCenterLine(info)
+                    this.stationNameJump(info)
                     // _callback()
                 break;
-                case 'station.touch':
-                    $('#background,#select').remove()
-                    this._generate('g',{'id':'background'},'subwayMain')
-                    this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#fff','fill-opacity':0.8,'type':'mask'},'background')
-                    this._generate('g',{'id':'select'},'subwayMain')
-                    $('#subwayMain g').children().each(function(e,i){
-                        if(i.attributes.id && i.attributes.id.value == info.id && i.nodeName != 'line' && i.nodeName != 'path'){
-                            var _dom = i.cloneNode(true)
-                            document.getElementById('select').appendChild(_dom);
-                        }
-                    })
-                    _callback()
+                case 'zk':
+                    this.zkJump(info)
                 break;
                 case 'mask':
                     $('#background,#select').remove()
                     _callback()
-                break;
-                default:
                 break;
             }
             
@@ -307,10 +405,13 @@
             }
         },
         _resize:function(){
-            panZoom.resize();
-            panZoom.fit();
-            panZoom.zoom(0.4)
-            panZoom.center();
+            var pan = panZoom.getPan();
+            var zoom = panZoom.getZoom();
+            console.log(pan);
+            panZoom.zoom(1)
+            panZoom.pan({x:($('.Line').width() - 1860) / 2,y:($('.wirenetwork').height() - 1500) / 2})
+            // this._animatePan({sx: pan.x, sy: pan.y, tx: ($('.Line').width() - 1860) / 2, ty: ($('.wirenetwork').height() - 1500) / 2})
+            
         },
         _getCenterLine:function(params){
             var self = this
@@ -340,6 +441,45 @@
                 }
             }, animationStepTime);
         },
+        _getBetweenPath:function(from,to,direction,fId,tId,lineId){
+            var path = ''
+            var position = false
+
+            // console.log(fId,tId);
+            //2是1号线古城到四惠东方向，1是相反，上下行我说不好
+
+            for (let index = 0; index < stationPath.length; index++) {
+                if(stationPath[index].line == lineId){
+
+                    for (let i = 0; i < stationPath[index].station.length; i++) {
+                        if(direction == 1){
+                            if(lineId == 7 || lineId == 5|| lineId == 1 || lineId == 6){
+                                if(stationPath[index].station[i].sId == fId && stationPath[index].station[i].id == 'up'){
+                                    path += stationPath[index].station[i].d
+                                }
+                            }else{
+                                if(stationPath[index].station[i].sId == tId && stationPath[index].station[i].id == 'up'){
+                                    path += stationPath[index].station[i].d
+                                }
+                            }
+                            
+                        }else{
+                            if(lineId == 7 || lineId == 5|| lineId == 1 || lineId == 6){
+                                if(stationPath[index].station[i].sId == fId && stationPath[index].station[i].id == 'down'){
+                                    path += stationPath[index].station[i].d
+                                }
+                            }else{
+                                if(stationPath[index].station[i].sId == tId && stationPath[index].station[i].id == 'down'){
+                                    path += stationPath[index].station[i].d
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return path
+            
+        },
         addFlyLine:function(from,to,config){
             var self = this
             var fx = Number(from.x)
@@ -352,7 +492,7 @@
             
             if($('#select').length == 0){
                 this._generate('g',{'id':'background'},'subwayMain')
-                this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#fff','fill-opacity':0.8},'background')
+                this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#000','fill-opacity':0.8},'background')
                 this._generate('g',{'id':'select'},'subwayMain')
             }
 
@@ -409,21 +549,288 @@
             }
             this._generate('circle',{'id':'to','cx':fx,'cy':fy,'r':5,'stroke':color[config],'fill':'#fff','stroke-width':4,'fill-opacity':1},fly)
         },
+        stationName:function(type){
+            //type:1 显示全部车站名称 2:不显示车站名称 3:只显示起止站和换乘站名称
+            switch (type) {
+                case 1:
+                    $('#stationName').show()
+                    $('#stationName').children().each(function(e,i){
+                        i.style.display = 'block'
+                    })
+                break;
+                    
+                case 2:
+                    $('#stationName').hide()
+                break;
+
+                case 3:
+                    $('#stationName').show()
+                    $('#stationName').children().each(function(e,i){
+                        // console.log(i.attributes.ex.value);
+                        if(i.attributes.ex.value != 'true'){
+                            i.style.display = 'none'
+                        }
+                        if(i.attributes.se.value == 'true'){
+                            i.style.display = 'block'
+                        }
+                    })
+                break;
+            }
+        },
+        lineName(data){
+            data ? $('#lineName').show() : $('#lineName').hide()
+        },
+        codeStation(code){
+            //站点名称对应StationList表
+            var num = 0
+            for (let index = 0; index < StationList.length; index++) {
+                if(code == StationList[index].Code){
+                    num++
+                    return this.getPosition(StationList[index].name)
+                }
+            }
+            if(num == 0){
+                return false;
+            }
+        },
+        openFullLoad(res){
+            //打开满载率图层
+            if(res){
+                $('#normal').hide()
+                $('#fullLoad,.wirenetwork .fullLoadBtn').show()
+            }else{
+                $('#normal').show()
+                $('#fullLoad,.wirenetwork .fullLoadBtn').hide()
+            }
+        },
+        showLess(){
+            //减少图像辅助内容显示
+            if($('.clusterTrue').length == 0){
+                this.stationName(3)
+                this.lineName(false)
+            }
+        },
+        showLess2(){
+            //减少图像辅助内容显示
+            if($('.clusterTrue').length == 0){
+                this.stationName(1)
+                this.lineName(false)
+            }
+        },
+        showNormal(){
+            //图像辅助内容全部显示
+            if($('.clusterTrue').length == 0){
+                this.stationName(1)
+                this.lineName(true)
+            }
+
+        },
+
+        /* 新增临时demo开始 */
+        stopNormail:function(from,state){
+            //绘制站点客流信息
+            console.log(from);
+            var cname = ''
+            var end = 10
+            var fx = from.line.length > 1 ? from.x - 3 : from.x
+            var fy = from.line.length > 1 ? from.y - 3 : from.y
+            var num = Math.floor(Math.random()*1000);
+            var color = ['#56fcf0','#facb10','#f56911','#f42419']
+            for (let index = 0; index < from.line.length; index++) {
+                cname += from.line[index].lineId + ' ';
+            }
+            this._generate('g',{'id':'fly' + from.id,'class':'cluster ' + cname},'Passengerflow')
+            $('#fly' + from.id).empty()
+            switch (state) {
+                case 0:
+                    end = 10
+                    for (let index = 1; index <= 3; index++) {
+                        this._generate('circle',{'id':'flyto' + from.id + index,'cx':fx,'cy':fy,'stroke':color[state],'stroke-width':3,'fill-opacity':'0',r:index * 4,opacity:1 - .4 * index},'fly' + from.id)
+                    }
+                break;
+                case 1:
+                    end = 20
+                    for (let index = 1; index <= 3; index++) {
+                        this._generate('circle',{'id':'flyto' + from.id + index,'cx':fx,'cy':fy,'stroke':color[state],'stroke-width':4,'fill-opacity':'0',r:index * 6,opacity:1 - .3 * index},'fly' + from.id)
+                    }
+                break;
+                case 2:
+                    end = 30
+                    for (let index = 1; index <= 3; index++) {
+                        this._generate('circle',{'id':'flyto' + from.id + index,'cx':fx,'cy':fy,'stroke':color[state],'stroke-width':4.5,'fill-opacity':'0',r:index * 8,opacity:1 - .26 * index},'fly' + from.id)
+                    }
+                break;
+                case 3:
+                    end = 35
+                    for (let index = 0; index < 3; index++) {
+                        this._generate('circle',{'id':'flyto' + from.id + index,'cx':fx,'cy':fy,'stroke':color[state],'stroke-width':4.5,'fill-opacity':'0'},'fly' + from.id)
+                        if(index > 0){
+                            this._generate('animate',{'attributeName':'r','begin':'ani1.begin + ' + index + 's','from':4,'to':end,'dur':'5s','repeatCount':'indefinite'},'flyto' + from.id + index)
+                            this._generate('animate',{'attributeName':'opacity','begin':'ani1.begin + ' + index + 's','from':1,'to':0,'dur':'5s','repeatCount':'indefinite'},'flyto' + from.id + index)
+                        }else{
+                            this._generate('animate',{'attributeName':'r','id':'ani1','begin':0,'from':4,'to':end,'dur':'5s','repeatCount':'indefinite'},'flyto' + from.id + index)
+                            this._generate('animate',{'attributeName':'opacity','begin':0,'from':1,'to':0,'dur':'5s','repeatCount':'indefinite'},'flyto' + from.id + index)
+                        }
+                    }
+                break;
+            }
+            
+            
+        },
+        drewAlarm:function(from,state){
+            //绘制站点管控信息
+            var cname = ''
+            for (let index = 0; index < from.line.length; index++) {
+                cname += from.line[index].lineId + ' ';
+            }
+            this._generate('image',{'href':'http://localhost:9528/subway/' + state + '.png','width':30,'height':40,'x':from.line.length > 1 ? from.x - 18 : from.x - 15,'y':from.y - 50,'class':'cluster zk ' + cname},'Passengerflow')
+        },
+        drewStationAlarm:function(from,state){
+            //绘制站点管控信息
+            var cname = ''
+            for (let index = 0; index < from.line.length; index++) {
+                cname += from.line[index].lineId + ' ';
+            }
+            this._generate('image',{'href':'http://localhost:9528/subway/' + state + '.png','width':30,'height':40,'x':from.line.length > 1 ? from.x - 18 : from.x - 15,'y':from.y - 50,'class':'cluster zk szk ' + cname,type:'zk'},'Passengerflow')
+        },
+        drewHeatmap:function(position,value){
+            //绘制热力图
+            if(position.id == undefined) return false;
+            let cname = ''
+            const base = Number((value * 100).toFixed(2))
+
+            for (let index = 0; index < position.line.length; index++) {
+                cname += position.line[index].lineId + ' ';
+            }
+
+            this._generate('g',{id:position.id + 'Hot','class':'cluster ' + cname},'HeatMap')
+            this._generate('defs',{id:position.id + 'defs'},position.id + 'Hot')
+            this._generate('radialGradient',{id:position.id + 'grad1',cx:"50%",cy:"50%",r:base + "%",fx:"50%",fy:"50%"},position.id + 'defs')
+
+            this._generate('stop',{offset:"0%",style:"stop-color:rgb(255 0 0);stop-opacity:1"},position.id + 'grad1')
+            this._generate('stop',{offset:base + "%",style:"stop-color:rgb(255 254 0);stop-opacity:1"},position.id + 'grad1')
+            this._generate('stop',{offset:((100 - base) / 2 + base) + "%",style:"stop-color:rgb(9 255 0);stop-opacity:1"},position.id + 'grad1')
+            this._generate('stop',{offset:"100%",style:"stop-color:rgb(0 201 255);stop-opacity:0.8"},position.id + 'grad1')
+
+            this._generate('filter',{id:position.id + "f1",x:"0",y:"0",filterUnits:'userSpaceOnUse'},position.id + 'defs')
+            this._generate('feGaussianBlur',{in:"StrokePaint",stdDeviation:"5"},position.id + 'f1')
+            this._generate('circle',{id:position.id + "circle",cx:position.x >= 80 ? position.x : 80,cy:position.y,r:value * 20,fill:"url(#" + position.id + "grad1)",filter:"url(#" + position.id + "f1)"},position.id + 'Hot')
+            if(position.x <= 80){
+                $('#' + position.id + "circle").css({
+                    transform : 'translate(' + ( - (80 - position.x) ) + 'px' + ',0)'
+                })
+            }
+        },
+        drewRunning:function(from,to,trainId,Percent,arrive,direction,speed){
+            if(Percent == 100 || from == undefined || to == undefined || from.id == undefined || to.id == undefined) return;           
+
+            var cname = ''
+            var fromtoArray = []
+            var path = ''
+            var first = true
+            var fId = ''
+            var tId = ''
+            var fixGap = false
+            var lineId = ''
+            var per = Percent / 100
+
+            // console.log(from,to,trainId,Percent,arrive);
+
+            //获取线路id
+            for (let index = 0; index < to.line.length; index++) {
+                cname += to.line[index].lineId + ' ';
+            }
+
+            //获取起止站ID
+            for (let index = 0; index < from.line.length; index++) {
+                for (let indext = 0; indext < to.line.length; indext++) {
+                    if(from.line[index].lineId == to.line[indext].lineId){
+                        fId = from.line[index].id
+                        tId = to.line[indext].id
+                        lineId = from.line[index].lineId
+                        if(from.line[index].lineId == 74 || from.line[index].lineId == 9){
+                            fixGap = true
+                        }
+                    }
+                }
+            }
+
+            if(lineId == '') {
+                return false;
+            }
+
+            // console.log('Line ID: ' + lineId);
+            // console.log(stationPath);
+            // console.log('PATH: ' + this._getBetweenPath(from,to,direction,fId,tId,lineId));
+
+            //判断此列车是否已经存在，存在即更新并重置，不存即在新增
+            if($('#' + trainId + 'realtime').length > 0){
+                var element = $('#' + trainId + 'Y').get(0)
+                element.setAttributeNS(null,"dur",speed ? arrive / speed : arrive + "s");
+                element.setAttributeNS(null,"keyPoints","0;" + per + ";1");
+                element.setAttributeNS(null,"path",this._getBetweenPath(from,to,direction,fId,tId,lineId));
+            }else{
+                this._generate('image',{id:trainId + 'realtime','href':'http://localhost:9528/subway/type1.png','width':10,'height':10,'class':direction == 'down' ? 'cluster train fixgap ' + cname : 'cluster train ' + cname},'alarm')
+                this._generate('animateMotion',{
+                    id:trainId + 'Y',
+                    dur:speed ? arrive / speed : arrive + "s",
+                    // fill:"freeze", //结束后冻结车辆图标
+                    keyPoints:"0;" + per + ";1",
+                    keyTimes:"0;0.0001;1",
+                    rotate:"auto",
+                    calcMode:"linear",
+                    begin:"indefinite",
+                    restart:"always",
+                    path:this._getBetweenPath(from,to,direction,fId,tId,lineId)}
+                ,trainId + 'realtime') 
+            }
+            var element = $('#' + trainId + 'Y').get(0);
+            element.addEventListener('endEvent', () => {
+                // alert('something');
+            })
+            element.beginElement();
+        },
+        drewStop:function(station,trainId,lineid){
+            if($('#' + trainId + 'stop').length == 0 && station && station.line){
+                this._generate('image',{id:trainId + 'stop','href':'http://localhost:9528/subway/type2.png','width':10,'height':10,'x':station.line.length > 1 ? station.x - 3 : station.x,'y':station.line.length > 1 ? station.y - 3 : station.y,'class':'cluster train ' + lineid},'stop')
+            }
+        },
+        clearStop:function(){
+            $('#stop').html('')
+        },
+        pause:function(){
+            var svg = document.getElementById("subway");
+            svg.pauseAnimations();
+        },
+        unpause:function(){
+            var svg = document.getElementById("subway");
+            svg.unpauseAnimations();
+        },
+        stationNameJump(info){
+            window.handleClickFun(info)
+        },
+        zkJump(info){
+            window.handleClickZKFun(info)
+        },
+
+
+
+
+
+
+
+        /* 新增临时demo结束 */
         clearFlyLine:function(){
             $('#background,#select,#fly0,#fly1').remove()
         },
         loadRateMultiply:function(from,to,num){
+            if(from == undefined || to == undefined || from.line == undefined || to.line == undefined) return;  
+            console.log(from,to,num);
+
             var self = this
-            if(this.__proto__.showfull){
-                if($('.btn').width() == 87){
-                    $('.parent').click()
-                    showMultiply()
-                }else{
-                    showMultiply()
-                }
-            }else{
-                alert('请先开启客流开关！')
-            }
+
+            showMultiply()
+
             function getColor(num) {
                 if(num >= 0 && num <= 25){
                     return '#79be85'
@@ -434,7 +841,11 @@
                 }else if(num > 75){
                     return '#d0000f'
                 }
+
             }
+
+            console.log(from,to,num);
+
             function showMultiply(){
                 var id,next;
                 for (let index = 0; index < from.line.length; index++) {
@@ -475,7 +886,6 @@
                                     break;
                                 }
                             }else{
-                                console.log(from.line[index],to.line[i]);
                                 if(from.line[index].id > to.line[i].id){
                                     next = true
                                     id = to.line[i].id
@@ -503,7 +913,7 @@
                             // pushArrow(i)
                         })
                     }else{
-                        $('#subwayMain g').children().each(function(e,i){
+                        $('#subwayMain #fullLoad').children().each(function(e,i){
                             if(i.attributes.id && i.attributes.id.value == id + 'full'){
                                 for (let index = 0; index < i.childNodes.length; index++) {
                                     if(i.childNodes[index].id == 'down' && next){
@@ -615,40 +1025,20 @@
 
                 }
             }
-            $('#normal').hide()
+        },
+        resetMultiply:function(){
+            $('#subwayMain #fullLoad').children().each(function(e,i){
+                for (let index = 0; index < i.childNodes.length; index++) {
+                    i.childNodes[index].attributes.stroke.value = '#79be85'
+                }
+            })
         },
         getPosition:function(id){
-            // var p = new Promise(function(resolve,reject){
-            //     setTimeout(()=>{
-            //         var cb = []
-            //         $('#subwayMain g').children().each(function(e,i){
-            //             if(i.attributes.type && i.attributes.type.value == 'station'){
-            //                 if(!isNaN(Number(id))){
-            //                     if(i.attributes.id && i.attributes.id.value === id){
-            //                         cb = {
-            //                             x:i.attributes.cx ? Number(i.attributes.cx.value) : Number(i.attributes.x.value),
-            //                             y:i.attributes.cy ? Number(i.attributes.cy.value) : Number(i.attributes.y.value)
-            //                         }
-            //                     }
-            //                 }else{
-            //                     if(i.attributes.sdata && i.attributes.sdata.value === id){
-            //                         cb.push({
-            //                             x:i.attributes.cx ? Number(i.attributes.cx.value) : Number(i.attributes.x.value),
-            //                             y:i.attributes.cy ? Number(i.attributes.cy.value) : Number(i.attributes.y.value)
-            //                         })
-            //                     }
-            //                 }
-            //             }
-            //         })
-            //         resolve(cb)
-            //     },400)
-            // })
-            // return p
             var cb = {}
             var tmp = []
             var ax = parseFloat($('#subwayMain').css('transform').substring(7).split(',')[4])
             var ay = parseFloat($('#subwayMain').css('transform').substring(7).split(',')[5])
-            $('#subwayMain g').children().each(function(e,i){
+            $('#subwayMain #stationPoint').children().each(function(e,i){
                 if(i.attributes.type && i.attributes.type.value == 'station'){
                     if(i.attributes.id && i.attributes.id.value === id){
                         tmp.push(i)
@@ -659,6 +1049,7 @@
             })
             setInfo(tmp)
             function setInfo(i){
+                if(i.length <= 0) return false;
                 cb = {
                     x:i[0].attributes.cx ? Number(i[0].attributes.cx.value) : Number(i[0].attributes.x.value),
                     y:i[0].attributes.cy ? Number(i[0].attributes.cy.value) : Number(i[0].attributes.y.value),
@@ -701,7 +1092,7 @@
             var _h = document.getElementById('subwayMain').getBBox().height
             $('#background,#select').remove()
             this._generate('g',{'id':'background'},'subwayMain')
-            this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#fff','fill-opacity':0.8,'type':'mask'},'background')
+            this._generate('rect',{'id':'eventsBg','x':-30,'y':135,'width':_w,'height':_h,'fill':'#000','fill-opacity':0.8,'type':'mask'},'background')
             this._generate('g',{'id':'select'},'subwayMain')
             $('#subwayMain g').children().each(function(e,i){
                 if(i.attributes.lineId && i.attributes.lineId.value == id){
