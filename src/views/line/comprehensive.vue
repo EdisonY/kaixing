@@ -147,28 +147,28 @@
             </ul>
             <ul>
                 <li class="title_p"><span>图标</span>站控措施</li>
-                <li><span><img src="http://172.51.216.72:41004subway/3.png" /></span>封站</li>
-                <li><span><img src="http://172.51.216.72:41004subway/4.png" /></span>安检减缓速度</li>
-                <li><span><img src="http://172.51.216.72:41004subway/5.png" /></span>分批放行乘客</li>
-                <li><span><img src="http://172.51.216.72:41004subway/6.png" /></span>设立导流围栏</li>
-                <li><span><img src="http://172.51.216.72:41004subway/7.png" /></span>封闭部分出入口</li>
-                <li><span><img src="http://172.51.216.72:41004subway/8.png" /></span>关闭部分进站闸机</li>
-                <li><span><img src="http://172.51.216.72:41004subway/9.png" /></span>CUC减缓售票速度</li>
-                <li><span><img src="http://172.51.216.72:41004subway/10.png" /></span>TVM减缓售票速度</li>
-                <li><span><img src="http://172.51.216.72:41004subway/11.png" /></span>改变电扶梯运行方向</li>
-                <li><span><img src="http://172.51.216.72:41004subway/12.png" /></span>引导乘客经楼梯分流</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/3.png" /></span>封站</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/4.png" /></span>安检减缓速度</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/5.png" /></span>分批放行乘客</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/6.png" /></span>设立导流围栏</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/7.png" /></span>封闭部分出入口</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/8.png" /></span>关闭部分进站闸机</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/9.png" /></span>CUC减缓售票速度</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/10.png" /></span>TVM减缓售票速度</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/11.png" /></span>改变电扶梯运行方向</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/12.png" /></span>引导乘客经楼梯分流</li>
             </ul>
         </div>
         <div class="alarm">
             <ul>
                 <li class="title_p"><span>图标</span>车站告警</li>
-                <li><span><img src="http://172.51.216.72:41004subway/13.png" /></span>车辆故障</li>
-                <li><span><img src="http://172.51.216.72:41004subway/14.png" /></span>供电故障</li>
-                <li><span><img src="http://172.51.216.72:41004subway/15.png" /></span>通信故障</li>
-                <li><span><img src="http://172.51.216.72:41004subway/16.png" /></span>信号故障</li>
-                <li><span><img src="http://172.51.216.72:41004subway/17.png" /></span>机电故障</li>
-                <li><span><img src="http://172.51.216.72:41004subway/18.png" /></span>自然灾害</li>
-                <li><span><img src="http://172.51.216.72:41004subway/19.png" /></span>突发事件</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/13.png" /></span>车辆故障</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/14.png" /></span>供电故障</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/15.png" /></span>通信故障</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/16.png" /></span>信号故障</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/17.png" /></span>机电故障</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/18.png" /></span>自然灾害</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/19.png" /></span>突发事件</li>
             </ul>
         </div>
         <div class="lineState">
@@ -232,7 +232,7 @@
         title="车站告警详情 -> 西直门站 -> 供电故障"
         :append-to-body="true"
         :visible.sync="zkDialog">
-        <img class="szk" src="http://172.51.216.72:41004subway/szk.jpg" />
+        <img class="szk" src="http://172.51.216.72:41004/subway/szk.jpg" />
         </el-dialog>
 
     </div>
@@ -558,8 +558,8 @@ export default {
     methods:{
         realtimeFormat(){
             var time = new Date()
-            return (time.getHours() - 2) * 3600 + time.getMinutes() * 60 + time.getSeconds()
-            // return 6 * 3600 + time.getMinutes() * 60 + time.getSeconds()
+            // return (time.getHours() - 2) * 3600 + time.getMinutes() * 60 + time.getSeconds()
+            return 6 * 3600 + time.getMinutes() * 60 + time.getSeconds()
         },
         formatTooltip(val){
             //2h 120m 7200s

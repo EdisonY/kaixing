@@ -181,6 +181,7 @@
         },
         _drewFullLoad:function(parent,data,index,next){
             var self = this
+            var double = 5
             var _x = Number(data[index].attributes.x.value)
             var _y = Number(data[index].attributes.y.value)
             var _uox = Number(data[index].attributes.uox.value)
@@ -212,37 +213,37 @@
                 var arr = data[index].attributes.arc.value.split(',')[0].split(':')
                 var urc = data[index].attributes.uoarc.value.split(',')[0].split(':')
                 var drc = data[index].attributes.doarc.value.split(',')[0].split(':')
-                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + double * _dox) + ' ' + (_y + double * _doy) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
 
                 stationPath[stationPath.length - 1].station.push({
                     'sId':data[index].attributes.acc.value,
                     'id':'up',
-                    'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                    'd':' M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),
                     'endX':Number(data[next].attributes.x.value),
                     'endY':Number(data[next].attributes.y.value)
                 },{
                     'sId':data[index].attributes.acc.value,
                     'id':'down',
-                    'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                    'd':' M' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (_x + double * _dox) + ' ' + (_y + double * _doy),
                     'endX':_x,
                     'endY':_y
                 })
 
             }else{
-                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + double * _uox,'y1':_y + double * _uoy,'x2':Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + double * _dox,'y1':_y + double * _doy,'x2':Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
 
                 stationPath[stationPath.length - 1].station.push({
                     'sId':data[index].attributes.acc.value,
                     'id':'up',
-                    'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' L' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                    'd':' M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' L' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),
                     'endX':Number(data[next].attributes.x.value),
                     'endY':Number(data[next].attributes.y.value)
                 },{
                     'sId':data[index].attributes.acc.value,
                     'id':'down',
-                    'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' L' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                    'd':' M' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)) + ' L' + (_x + double * _dox) + ' ' + (_y + double * _doy),
                     'endX':_x,
                     'endY':_y                    
                 })
@@ -260,37 +261,37 @@
                         var arr = data[i].attributes.arc.value.split(',')[0].split(':')
                         var urc = data[i].attributes.uoarc.value.split(',')[0].split(':')
                         var drc = data[i].attributes.doarc.value.split(',')[0].split(':')
-                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + double * _dox) + ' ' + (_y + double * _doy) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
                         
                         stationPath[stationPath.length - 1].station.push({
                             'sId':data[index].attributes.acc.value,
                             'id':'up',
-                            'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' Q' + (Number(arr[0]) + 2 * urc[0]) + ' ' + (Number(arr[1]) + 2 * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                            'd':' M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),
                             'endX':Number(data[next].attributes.x.value),
                             'endY':Number(data[next].attributes.y.value)
                         },{
                             'sId':data[index].attributes.acc.value,
                             'id':'down',
-                            'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' Q' + (Number(arr[0]) + 2 * drc[0]) + ' ' + (Number(arr[1]) + 2 * drc[1]) + ' ' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                            'd':' M' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (_x + double * _dox) + ' ' + (_y + double * _doy),
                             'endX':_x,
                             'endY':_y
                         })
 
                     }else{
-                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + 2 * _uox,'y1':_y + 2 * _uoy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + 2 * _dox,'y1':_y + 2 * _doy,'x2':Number(data[i + 1].attributes.x.value) + 2 * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + 2 * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + double * _uox,'y1':_y + double * _uoy,'x2':Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + double * _dox,'y1':_y + double * _doy,'x2':Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
 
                         stationPath[stationPath.length - 1].station.push({
                             'sId':data[index].attributes.acc.value,
                             'id':'up',
-                            'd':' M' + (_x + 2 * _uox) + ' ' + (_y + 2 * _uoy) + ' L' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.uoy.value)),
+                            'd':' M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' L' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),
                             'endX':Number(data[next].attributes.x.value),
                             'endY':Number(data[next].attributes.y.value)
                         },{
                             'sId':data[index].attributes.acc.value,
                             'id':'down',
-                            'd':' M' + (Number(data[next].attributes.x.value) + 2 * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + 2 * Number(data[next].attributes.doy.value)) + ' L' + (_x + 2 * _dox) + ' ' + (_y + 2 * _doy),
+                            'd':' M' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)) + ' L' + (_x + double * _dox) + ' ' + (_y + double * _doy),
                             'endX':_x,
                             'endY':_y                    
                         })
