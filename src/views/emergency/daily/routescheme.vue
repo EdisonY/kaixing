@@ -13,7 +13,7 @@
                     <iframe frameborder="0"
                         width="100%"
                         height="600"
-                        src="http://172.16.1.111/link/oTcnnEFV"></iframe>
+                        src="http://frp.funenc.xyz:7245/link/oTcnnEFV"></iframe>
                 </div>
             </el-col>
         </el-row>

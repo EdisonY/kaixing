@@ -5,7 +5,7 @@
                 <iframe frameborder="0"
                     width="100%"
                     height="100%"
-                    src="http://172.16.1.111/link/oTcnnEFV"></iframe>
+                    src="http://frp.funenc.xyz:7245/link/oTcnnEFV"></iframe>
             </div>
         </div>
         <div style="flex:1; border-bottom: 3px solid #ccc;">
@@ -67,7 +67,7 @@
                 <iframe frameborder="0"
                     width="100%"
                     height="300px"
-                    src="http://172.16.1.110:41000/#/common?rowHeight=50&viewTime=25200"></iframe>
+                    src="http://172.51.216.72:41004/#/common?rowHeight=50&viewTime=25200"></iframe>
                 <p style="text-align:right;padding:15px 0 0 0;">
                     <el-button type="success"
                         @click="ph('运行图校验成功！')">启动运行图校验</el-button>

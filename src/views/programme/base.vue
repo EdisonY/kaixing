@@ -9,7 +9,7 @@
         </el-row>
         <el-row style="text-align:center;">
             <div class="yl">
-                <iframe frameborder="0" width="100%" height="700" src="http://172.16.1.111/link/oTcnnEFV"></iframe>
+                <iframe frameborder="0" width="100%" height="700" src="http://frp.funenc.xyz:7245/link/oTcnnEFV"></iframe>
             </div>
         </el-row>
     </div>

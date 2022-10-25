@@ -224,7 +224,7 @@ export default {
     data() {
         return {
             emergencyName: "",
-            workurl: "http://172.16.1.110:41002/#/subway",
+            workurl: "http://172.51.216.72:41004/#/subway",
             flowdata: [],
             curflow: "",
             curscene: "",
@@ -255,18 +255,18 @@ export default {
             //     this.workurl = `http://172.16.1.110:41002/#/subway`;
             // } 
             else if (scene === "客流-网") {
-                this.workurl = `http://172.16.1.111/link/iFDeE8us`;
+                this.workurl = `http://frp.funenc.xyz:7245/link/iFDeE8us`;
             } else if (scene === "客流-线") {
-                this.workurl = `http://172.16.1.111/link/kdHtibMs`;
+                this.workurl = `http://frp.funenc.xyz:7245/link/kdHtibMs`;
             } else if(scene === '客流-站'){
-                this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
+                this.workurl = `http://frp.funenc.xyz:7245/link/DqAzVYn3`;
             }else if(scene === '客流-车'){
-                this.workurl = `http://172.16.1.111/link/V0sEA5CS`;
+                this.workurl = `http://frp.funenc.xyz:7245/link/V0sEA5CS`;
             }else if(scene === '运行图'){
-                this.workurl = `http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200`;
+                this.workurl = `http://172.51.216.72:41004/#/common?rowHeight=120&viewTime=25200`;
             }
             else {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
+                this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=${scene}.png`;
             }
         },
         flowNext(model, cellview) {
@@ -275,18 +275,18 @@ export default {
             //  let key = `${this.emergencyName}-${this.curflow}`;
             // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "应急会商") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=应急会商.png`;
+                this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=应急会商.png`;
             } else if (this.curflow === "信息监视") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=备用列车.png`;
+                this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=备用列车.png`;
             } else if (this.curflow === "方案确认") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案确认.png`;
+                this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=方案确认.png`;
             } else if (this.curflow === "统计数据\n撰写简报") {
                 // this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报.png`;
                 this.newAddTable = true
             } else if (this.curflow === "方案终止判断") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案终止判断.png`;
+                this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=方案终止判断.png`;
             } else if (this.curflow === "应急处置") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=应急处置.png`;
+                this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=应急处置.png`;
             } else if (this.curflow === "结束") {
                 sessionStorage.removeItem(this.emergencyName);
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
