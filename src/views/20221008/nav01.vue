@@ -7,25 +7,18 @@
                     @open="handleOpen"
                     @close="handleClose"
                     @select="handleSelect"
-                    background-color="#545c64"
+                    background-color="#1d1e39"
                     text-color="#fff"
-                    active-text-color="#ffd04b">
+                    active-text-color="#6eb5ff">
                     <el-menu-item index="1">
                         <span slot="title">常态历史客流选择</span>
                     </el-menu-item>
                     <el-menu-item index="2">
                         <span slot="title">活动增量客流分析</span>
                     </el-menu-item>
-                    <el-submenu index="3">
-                        <template slot="title">
-                            <span>开行方案设计与验证</span>
-                        </template>
-                        <el-menu-item-group style="background:transparent !important">
-                            <el-menu-item index="3-1">开行方案设计</el-menu-item>
-                            <el-menu-item index="3-2">本线验证结果</el-menu-item>
-                            <el-menu-item index="3-3">全网验证结果</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
+                    <el-menu-item index="3">
+                        <span slot="title">开行方案设计与验证</span>
+                    </el-menu-item>
                     <el-menu-item index="4">
                         <span slot="title">客运组织方案的设计与验证</span>
                     </el-menu-item>
@@ -35,6 +28,8 @@
                 <div class="rightside">
                     <History v-show="active=='1'" />
                     <Analysis v-show="active=='2'" />
+                    <Verify v-show="active=='3'" />
+                    <Organize v-show="active=='4'" />
                 </div>
             </el-col>
         </el-row>
@@ -44,13 +39,15 @@
 <script>
 import History from "./components/history.vue";
 import Analysis from "./components/analysis.vue";
+import Verify from "./components/verify.vue";
+import Organize from "./components/organize.vue";
 
 export default {
-    components: { History, Analysis },
+    components: { History, Analysis ,Verify,Organize },
     name: "nav01",
     data() {
         return {
-            active: "1",
+            active: "4",
             options: [
                 {
                     label: "线路",
@@ -188,7 +185,8 @@ export default {
     background: transparent !important;
 }
 
-.rightside {
-    padding: 10px;
-}
+.rightside {padding: 20px 30px 0 30px;}
+.leftside {padding: 20px 0 0 0;}
+.leftside .el-menu{border:none;height: calc(100vh - 80px) !important;}
+.leftside .el-menu .el-menu-item{font-size: 16px;}
 </style>

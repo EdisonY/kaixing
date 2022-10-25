@@ -41,9 +41,7 @@
                 </el-radio-group>
             </el-col>
             <el-col :span="2">
-                <el-button size="mini"
-                    type="primary"
-                    @click="handleClick">确定</el-button>
+                <el-button size="mini" type="primary" @click="handleClick" class="rightConfig">确认</el-button>
             </el-col>
         </el-row>
         <!-- echart -->
@@ -60,7 +58,7 @@
             </el-col>
         </el-row>
         <!-- echart -->
-        <el-row style="padding:10px 0 0 10px">
+        <el-row style="padding:10px 0 0 0">
             <el-radio-group v-model="selectedLine"
                 @change="handleChnageLine">
                 <el-radio-button :key="index"
@@ -68,7 +66,7 @@
                     :label="item"></el-radio-button>
             </el-radio-group>
         </el-row>
-        <el-row class="flex7">
+        <el-row class="flex7 linbottom">
             <el-col class="chart"
                 :span="12">
                 <div class="chart"
@@ -319,19 +317,11 @@ export default {
 </script>
 
 <style scoped>
-.inner-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #409eff;
-    margin-left: 5px;
-    margin-right: 20px;
-}
-.component-page {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    height: calc(100vh - 80px);
-}
+
+
+.component-page .el-radio{color: #a1a2a3;}
+.linbottom{background: #1d1e39;}
+.rightConfig{padding-left:30px;padding-right:30px;}
 .row {
     margin: 10px 0;
 }

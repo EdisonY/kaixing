@@ -1,82 +1,123 @@
 <template>
     <div class="component-page">
-        <el-row class="row">
-            <span class="inner-title">需求输入</span>
-        </el-row>
-        <el-row class="row">
-            <el-col :span="24">
-                <span class="inner-prop">总人数</span>
-                <el-input style="width:80px"></el-input>
-                <span class="inner-prop">总人数</span>
-                <span class="inner-prop">地铁分担率</span>
-                <el-input style="width:80px"></el-input>
-                <span class="inner-prop">%</span>
-            </el-col>
-        </el-row>
-        <el-divider></el-divider>
-        <el-row class="row">
-            <span class="inner-title">需求输入</span>
-        </el-row>
-        <el-row style="padding:10px 0 0 10px">
-            <el-radio-group v-model="selectedLine"
-                @change="handleChnageLine">
-                <el-radio-button :key="index"
-                    v-for="(item,index) in lineList"
-                    :label="item"></el-radio-button>
+        <div class="bg">
+            <el-row class="row">
+                <span class="inner-title">需求输入</span>
+            </el-row>
+            <el-row class="row inputDiv">
+                <el-col :span="24">
+                    <div class="insideDiv">
+                        <span class="inner-prop">总人数</span><br/>
+                        <el-input class="inputS" v-model="zrs"></el-input>
+                    </div>
+                    <div class="insideDiv">
+                        <span class="inner-prop">活动时间</span><br/>
+                        <el-time-picker
+                            v-model="value1"
+                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
+                            class="inputS"
+                            placeholder="任意时间点">
+                        </el-time-picker>
+                        至
+                        <el-time-picker
+                            arrow-control
+                            v-model="value2"
+                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
+                            class="inputS"
+                            placeholder="任意时间点">
+                        </el-time-picker>
+                    </div>
+                    <div class="insideDiv">
+                        <span class="inner-prop">地铁分担率</span><br/>
+                        <el-input class="inputS"></el-input>
+                    </div>
+                </el-col>
+            </el-row>
+        </div>
+
+        <el-row style="padding:40px 0 0 0">
+            <el-radio-group v-model="selectedLine" @change="handleChnageLine">
+                <el-radio-button :key="index" v-for="(item,index) in lineList" :label="item.label"></el-radio-button>
             </el-radio-group>
         </el-row>
-        <el-row class="row">
-            <el-col :span="22">
-                <span class="inner-prop">浮动系数</span>
-                <el-input style="width:80px"></el-input>
-                <span class="inner-prop">%</span>
-                <span class="inner-prop">客流高峰时间</span>
-                <el-input style="width:80px"></el-input>
-                <span class="inner-prop">%</span>
-            </el-col>
-            <el-col :span="2">
-                <el-button size="mini"
-                    type="primary">开始客流预测</el-button>
-            </el-col>
-        </el-row>
 
-        <!-- echart -->
-        <el-row class="flex6">
-            <el-col class="chart"
-                :span="10">
-                <el-table :data="tableData"
-                    border
-                    style="width: 100%">
-                    <el-table-column prop="date"
-                        label="日期"
-                        width="180">
-                    </el-table-column>
-                    <el-table-column prop="name"
-                        label="姓名"
-                        width="180">
-                    </el-table-column>
-                    <el-table-column prop="address"
-                        label="地址">
-                    </el-table-column>
-                </el-table>
-            </el-col>
-            <el-col class="chart"
-                :span="14">
-                <div class="chart"
-                    ref="echart1"></div>
-            </el-col>
-        </el-row>
-        <el-row class="row">
-            <el-button size="mini"
-                style="margin:10px;float:right"
-                type="primary">保存</el-button>
-        </el-row>
+        <div class="bg">
+            <el-row class="row">
+                <span class="inner-title">参数设置</span>
+            </el-row>
+            <el-row class="row inputDiv">
+                <el-col :span="24">
+                    <div class="insideDiv">
+                        <span class="inner-prop">浮动系数</span><br/>
+                        <el-input class="inputS" v-model="zrs"></el-input>
+                    </div>
+                    <div class="insideDiv">
+                        <span class="inner-prop">客流高峰时间</span><br/>
+                        <el-time-picker
+                            v-model="value1"
+                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
+                            class="inputS"
+                            placeholder="任意时间点">
+                        </el-time-picker>
+                        至
+                        <el-time-picker
+                            arrow-control
+                            v-model="value2"
+                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
+                            class="inputS"
+                            placeholder="任意时间点">
+                        </el-time-picker>
+                    </div>
+                    <div class="insideDiv">
+                        <span class="inner-prop">&nbsp;</span><br/>
+                        <el-button size="mini" type="primary" @click="handleClick" class="rightConfig">开始客流预测</el-button>
+                    </div>
+                </el-col>
+            </el-row>
+            </br>
+            <el-row>
+                <el-col :span="12">
+                    <el-row class="row">
+                        <span class="inner-title">活动目的车站排名</span>
+                    </el-row>
+                    <el-table :data="tableData" style="width: 100%" class="componentTable">
+                        <el-table-column prop="date"
+                            label="日期"
+                            width="180">
+                        </el-table-column>
+                        <el-table-column prop="name"
+                            label="姓名"
+                            width="180">
+                        </el-table-column>
+                        <el-table-column prop="address"
+                            label="地址">
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+                <el-col :span="1">&nbsp;</el-col>
+                <el-col :span="11">
+                    <el-row class="row">
+                        <span class="inner-title">活动目的车站排名</span>
+                    </el-row>
+                    <div class="chart" ref="echart1"></div>
+                    <el-button style="margin:10px;float:right" type="primary" class="rightConfig">保存</el-button>
+                </el-col>
+            </el-row>
+        </div>
+        
     </div>
 </template>
 
 <script>
 import echarts from "echarts";
-
+let xAxisData = [];
+let data1 = [];
+let data2 = [];
+for (let i = 0; i < 10; i++) {
+  xAxisData.push('Class' + i);
+  data1.push(+(Math.random() * 2).toFixed(2));
+  data2.push(+(Math.random() * 5).toFixed(2));
+}
 const emphasisStyle = {
     itemStyle: {
         shadowBlur: 10,
@@ -85,55 +126,38 @@ const emphasisStyle = {
 };
 
 const option = {
-    grid: {
-        left: 30,
-        top: 40,
-        right: 0,
-        bottom: 40,
-        borderWidth: "1",
-        borderColor: "red",
+  legend: {
+    data: ['bar', 'bar2'],
+    left: '0%'
+  },
+  tooltip: {},
+  xAxis: {
+    data: xAxisData,
+    name: 'X Axis',
+    axisLine: { onZero: true },
+    splitLine: { show: false },
+    splitArea: { show: false }
+  },
+  yAxis: {},
+  grid: {
+    bottom: 30
+  },
+  series: [
+    {
+      name: 'bar',
+      type: 'bar',
+      stack: 'one',
+      emphasis: emphasisStyle,
+      data: data1
     },
-    title: {
-        text: "2022年1月3日环球度假区站分时进站量",
-        textStyle: {
-            color: "#303133",
-        },
-        left: "center",
+    {
+      name: 'bar2',
+      type: 'bar',
+      stack: 'one',
+      emphasis: emphasisStyle,
+      data: data2
     },
-    backgroundColor: "#FFF",
-    tooltip: {},
-    xAxis: {
-        axisLabel: {
-            show: true,
-            textStyle: {
-                color: "#606266",
-            },
-            rotate: 90,
-        },
-        data: [],
-        axisLine: { onZero: true },
-        splitLine: { show: false },
-        splitArea: { show: false },
-    },
-    yAxis: {
-        axisLabel: {
-            show: true,
-            textStyle: {
-                color: "#606266",
-            },
-        },
-    },
-    series: [
-        {
-            name: "bar",
-            type: "bar",
-            emphasis: emphasisStyle,
-            data: [],
-            itemStyle: {
-                color: "#5470c6",
-            },
-        },
-    ],
+  ]
 };
 
 export default {
@@ -141,14 +165,26 @@ export default {
     data() {
         return {
             stations: [],
-            lineList: [],
+            lineList: [{
+                value:'0',
+                label:'常规预测'
+            },{
+                value:'1',
+                label:'备用预测1'
+            },{
+                value:'2',
+                label:'备用预测2'
+            },{
+                value:'3',
+                label:'备用预测3'
+            }],
             query: {
                 stationid: "",
                 ptype: "",
                 prange: "",
                 prange_date: "",
             },
-            selectedLine: "",
+            selectedLine: "常规预测",
             tableData: [
                 {
                     date: "2016-05-02",
@@ -171,6 +207,9 @@ export default {
                     address: "上海市普陀区金沙江路 1516 弄",
                 },
             ],
+            value1: new Date(2016, 9, 10, 18, 40),
+            value2: new Date(2016, 9, 10, 18, 40),
+            zrs:''
         };
     },
     created() {},
@@ -180,6 +219,9 @@ export default {
         this.$nextTick(() => {
             this.getData();
         });
+
+        let charts1 = this.$echarts.init(this.$refs.echart1, "dark");
+        charts1.setOption(option, true);
     },
     //移除事件监听
     beforeDestroy() {
@@ -208,22 +250,31 @@ export default {
             }
         },
         async handleChnageLine(value) {
+            console.log(value);
+
+            // for (let index = 0; index < this.lineList.length; index++) {
+            //     if(value == this.lineList[index].label){
+            //         this.selectedLine = this.lineList[index].value
+            //     }
+                
+            // }
+
             this.selectedLine = value;
 
-            let data = await this.mockData(3);
-            let opt3 = this.getOptions(3, data);
-            let charts3 = this.$echarts.init(this.$refs.echart3, "dark");
-            charts3.setOption(opt3, true);
+            // let data = await this.mockData(3);
+            // let opt3 = this.getOptions(3, data);
+            // let charts3 = this.$echarts.init(this.$refs.echart3, "dark");
+            // charts3.setOption(opt3, true);
 
-            data = await this.mockData(4);
-            let opt4 = this.getOptions(4, data);
-            let charts4 = this.$echarts.init(this.$refs.echart4, "dark");
-            charts4.setOption(opt4, true);
+            // data = await this.mockData(4);
+            // let opt4 = this.getOptions(4, data);
+            // let charts4 = this.$echarts.init(this.$refs.echart4, "dark");
+            // charts4.setOption(opt4, true);
         },
         async getData() {
             let data = await this.mockData();
             this.stations = data.stations;
-            this.lineList = data.lineList;
+            // this.lineList = data.lineList;
         },
         getOptions(chartnum, data) {
             if (chartnum == 1) {
@@ -245,9 +296,6 @@ export default {
         },
         resizefunc() {
             this.$echarts.init(this.$refs.echart1).resize(); //多个echarts则在此处添加
-            this.$echarts.init(this.$refs.echart2).resize(); //多个echarts则在此处添加
-            this.$echarts.init(this.$refs.echart3).resize(); //多个echarts则在此处添加
-            this.$echarts.init(this.$refs.echart4).resize(); //多个echarts则在此处添加
         },
         mockData(chartnum, exdata) {
             return new Promise((resolve, reject) => {
@@ -311,14 +359,6 @@ export default {
                                 stationname: "六里桥",
                             },
                         ],
-                        lineList: [
-                            "1号线",
-                            "2号线",
-                            "4号线",
-                            "9号线",
-                            "10号线",
-                            "13号线",
-                        ],
                     });
                 }
             });
@@ -328,25 +368,10 @@ export default {
 </script>
 
 <style scoped>
-.inner-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #409eff;
-    margin-left: 5px;
-    margin-right: 20px;
-}
-
 .inner-prop {
     color: #606266;
     margin-left: 5px;
     margin-right: 20px;
-}
-
-.component-page {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    height: calc(100vh - 80px);
 }
 .row {
     margin: 10px 0;
@@ -359,6 +384,8 @@ export default {
 }
 .chart {
     height: 100%;
+    min-height: 300px;
     padding: 5px;
 }
+.inputDiv .insideDiv{float: left;margin-right: 50px;}
 </style>
