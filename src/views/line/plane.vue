@@ -33,11 +33,11 @@
 
 <script>
 const URLS = [
-    "http://172.16.1.110/sdss/tc.html?name=0.png",
-    "http://172.16.1.110/sdss/tc.html?name=1.png",
-    "http://172.16.1.110/sdss/tc.html?name=2.png",
-    "http://172.16.1.110/sdss/tc.html?name=3.png",
-    "http://172.16.1.110/sdss/tc.html?name=4.png",
+    "http://172.51.216.72:41004/sdss/tc.html?name=0.png",
+    "http://172.51.216.72:41004/sdss/tc.html?name=1.png",
+    "http://172.51.216.72:41004/sdss/tc.html?name=2.png",
+    "http://172.51.216.72:41004/sdss/tc.html?name=3.png",
+    "http://172.51.216.72:41004/sdss/tc.html?name=4.png",
 ];
 export default {
     name: "plane",
