@@ -1,7 +1,7 @@
 <template>
     <div class="component-page">
         
-        <el-row class="row">
+        <el-row class="row hotarea">
             <img src="@/assets/basie/hotarea.png"/>
         </el-row>
             
@@ -26,7 +26,7 @@ export default {
     mounted() {
         window.addEventListener("resize", this.resizefunc);
         this.$nextTick(() => {
-            this.getData();
+            // this.getData();
         });
 
         
@@ -112,5 +112,5 @@ export default {
 </script>
 
 <style scoped>
-
+.hotarea{text-align: center;position: relative;}
 </style>
