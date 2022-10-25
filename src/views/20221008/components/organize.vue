@@ -2,10 +2,19 @@
     <div class="component-page">
         
         <el-row class="row hotarea">
-            <img src="@/assets/basie/hotarea.png"/>
+            <img src="@/assets/basie/hotarea.png" usemap="#planetmap"/>
+            <map name="planetmap" id="planetmap">
+                <area shape="rect" href="javascript:void(0)" coords="740,180,827,220" @click="show(1)"/>
+                <area shape="rect" href="javascript:void(0)" coords="548,180,636,220" @click="show(2)"/>
+                <area shape="rect" href="javascript:void(0)" coords="493,50,578,90" @click="show(3)"/>
+                <area shape="rect" href="javascript:void(0)" coords="373,183,458,220" @click="show(4)"/>
+                <area shape="rect" href="javascript:void(0)" coords="285,183,370,220" @click="show(5)"/>
+                <area shape="rect" href="javascript:void(0)" coords="50,183,180,220" @click="show(6)"/>
+                <area shape="rect" href="javascript:void(0)" coords="25,312,203,251" @click="show(7)"/>
+                <area shape="rect" href="javascript:void(0)" coords="50,440,180,480" @click="show(8)"/>
+                <area shape="rect" href="javascript:void(0)" coords="438,445,570,484" @click="show(9)"/>
+            </map>
         </el-row>
-            
-
         
             
     </div>
@@ -37,7 +46,9 @@ export default {
         this.resizefunc = null;
     },
     methods: {
-        
+        show(index){
+            alert(index)
+        },
         resizefunc() {
             this.$echarts.init(this.$refs.echart1).resize(); //多个echarts则在此处添加
         },
