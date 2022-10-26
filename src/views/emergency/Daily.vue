@@ -157,7 +157,7 @@ export default {
     data() {
         return {
             emergencyName: "",
-            workurl: "http://172.16.1.110:41002/#/subway",
+            workurl: "http://172.51.216.62:41005/#/subway",
             flowdata: [],
             curflow: "",
             messagelist: [],
@@ -181,22 +181,22 @@ export default {
             if (scene === "客流-站") {
                 this.workurl = `http://bi.funenc.com/bi/?proc=1&action=viewer&hback=true&db=!5317!!4eac!!8f68!!9053!!4ea4!!901a!!5927!!8bfe!!9898!!2f!!65e5!!5e38!!6a21!!5f0f!-!5ba2!!6d41!!7ef4!!5ea6!-!5e38!!89c4!!7269!!7406!!8f66!!7ad9!.db&platform=PC&browserType=chrome&au_act=login&adminv=aoms&passv=g5`;
             } else if (scene === "平面图-网") {
-                this.workurl = `http://172.16.1.110:41002/#/subway`;
+                this.workurl = `http://172.51.216.62:41005/#/subway`;
             } else {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
             }
         },
         flowNext(model, cellview) {
             this.curflow = model.evt;
             //  let key = `${this.emergencyName}-${this.curflow}`;
-            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
+            // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "选择线路") {
                 this.intergrate = "选择线路";
             } else if (this.curflow === "日常监控") {
                 this.intergrate = "日常监控";
                 this.intergrate = "iframe";
                 this.workurl =
-                    "http://172.16.1.110:41002/#/subway";
+                    "http://172.51.216.62:41005/#/subway";
             } else if (this.curflow === "导入客流信息") {
                 this.intergrate = "导入客流信息";
             } else if (this.curflow === "选择交路方案") {

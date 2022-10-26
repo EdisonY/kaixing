@@ -248,11 +248,11 @@ export default {
         changeWorkArea(scene) {
             this.curscene = scene;
             if (scene === "平面图-网") {
-                this.workurl = `http://172.16.1.110:41002/#/subway`;
+                this.workurl = `http://172.51.216.62:41005/#/subway`;
             } 
             // TODO
             // else if (scene === "平面图-ATS") {
-            //     this.workurl = `http://172.16.1.110:41002/#/subway`;
+            //     this.workurl = `http://172.51.216.62:41005/#/subway`;
             // } 
             else if (scene === "客流-网") {
                 this.workurl = `http://frp.funenc.xyz:7245/link/iFDeE8us`;
@@ -273,7 +273,7 @@ export default {
             this.curflow = model.evt;
             this.newAddTable = false
             //  let key = `${this.emergencyName}-${this.curflow}`;
-            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
+            // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "应急会商") {
                 this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=应急会商.png`;
             } else if (this.curflow === "信息监视") {
@@ -281,7 +281,7 @@ export default {
             } else if (this.curflow === "方案确认") {
                 this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=方案确认.png`;
             } else if (this.curflow === "统计数据\n撰写简报") {
-                // this.workurl = `http://172.16.1.110/sdss/tc.html?name=撰写简报.png`;
+                // this.workurl = `http://172.51.216.64/sdss/tc.html?name=撰写简报.png`;
                 this.newAddTable = true
             } else if (this.curflow === "方案终止判断") {
                 this.workurl = `http://172.51.216.72:41004/sdss/tc.html?name=方案终止判断.png`;

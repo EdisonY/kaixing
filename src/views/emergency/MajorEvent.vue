@@ -160,13 +160,13 @@
                             <div v-if="specialMode"
                                 style="height:100%;display: flex;flex-direction:column;">
                                 <iframe style="flex:1"
-                                    src="http://172.16.1.110:41001/sample"
+                                    src="http://172.51.216.72:41005/sample"
                                     frameborder="0"></iframe>
                                 <iframe style="flex:1"
-                                    src="http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200&linename=计划运行图"
+                                    src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=计划运行图"
                                     frameborder="0"></iframe>
                                 <iframe style="flex:1;width: 100%;"
-                                    src="http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
+                                    src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
                                     frameborder="0"></iframe>
                             </div>
                             <iframe v-if="!(specialMode || newAddTable)"
@@ -239,7 +239,7 @@ export default {
     data() {
         return {
             emergencyName: "",
-            workurl: "http://172.16.1.110:41002/#/subway",
+            workurl: "http://172.51.216.62:41005/#/subway",
             flowdata: [],
             curflow: "",
             curscene: "",
@@ -264,11 +264,11 @@ export default {
         changeWorkArea(scene) {
             this.curscene = scene;
             if (scene === "平面图-网") {
-                this.workurl = `http://172.16.1.110:41002/#/subway`;
+                this.workurl = `http://172.51.216.62:41005/#/subway`;
             }
             // TODO
             // else if (scene === "平面图-ATS") {
-            //     this.workurl = `http://172.16.1.110:41002/#/subway`;
+            //     this.workurl = `http://172.51.216.62:41005/#/subway`;
             // }
             else if (scene === "客流-网") {
                 this.workurl = `http://172.16.1.111/link/iFDeE8us`;
@@ -279,9 +279,9 @@ export default {
             } else if (scene === "客流-车") {
                 this.workurl = `http://172.16.1.111/link/V0sEA5CS`;
             } else if (scene === "运行图") {
-                this.workurl = `http://172.16.1.110:41000/#/common?rowHeight=120&viewTime=25200`;
+                this.workurl = `http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200`;
             } else {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=${scene}.png`;
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
             }
         },
         flowNext(model, cellview) {
@@ -289,13 +289,13 @@ export default {
             this.curflow = model.evt;
             this.newAddTable = false;
             //  let key = `${this.emergencyName}-${this.curflow}`;
-            // this.workurl = `http://172.16.1.110/sdss/tc.html?name=${key}.png`;
+            // this.workurl = `http://172.51.216.64/sdss/tc.html?name=${key}.png`;
             if (this.curflow === "客流监控") {
                 this.workurl = `http://172.16.1.111/link/DqAzVYn3`;
             } else if (this.curflow === "影响评估") {
                 this.workurl = `http://172.16.1.111/link/2EUrUWHw`;
             } else if (this.curflow === "方案确认") {
-                this.workurl = `http://172.16.1.110/sdss/tc.html?name=方案确认3.png`;
+                this.workurl = `http://172.51.216.64/sdss/tc.html?name=方案确认3.png`;
             } else if (this.curflow === "保障方案实施") {
                 this.specialMode = true;
             } else if (this.curflow === "方案结束判断") {
