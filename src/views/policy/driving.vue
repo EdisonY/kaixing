@@ -34,7 +34,7 @@
         </el-row>
         <div class="grid-content grid-content-2">
 
-            <iframe frameborder="0" width="100%" height="100%" src="http://172.16.1.110:41000/#/common?rowHeight=50&viewTime=25200"></iframe>
+            <iframe frameborder="0" width="100%" height="100%" src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
 
         </div>
         

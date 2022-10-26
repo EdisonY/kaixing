@@ -57,7 +57,7 @@
         <el-row style="padding:0 20px" v-if="showrungrap">
             <el-col :span="24" style="text-align:center;">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="380" src="http://172.16.1.110:41000/#/common?rowHeight=50&viewTime=25200"></iframe>
+                    <iframe frameborder="0" width="100%" height="380" src="http://172.51.216.72:41003/#/common?rowHeight=50&viewTime=25200"></iframe>
                     <!-- <img src="@/assets/tmp/addafter.png"> -->
                 </div>
             </el-col>
