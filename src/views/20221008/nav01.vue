@@ -26,10 +26,10 @@
             </el-col>
             <el-col :span="21">
                 <div class="rightside">
-                    <History v-show="active=='1'" />
-                    <Analysis v-show="active=='2'" />
-                    <Verify v-show="active=='3'" />
-                    <Organize v-show="active=='4'" />
+                    <History v-show="active=='1'" :key="active" />
+                    <Analysis v-show="active=='2'" :key="active"  />
+                    <Verify v-show="active=='3'" :key="active"  />
+                    <Organize v-show="active=='4'" :key="active"  />
                 </div>
             </el-col>
         </el-row>
@@ -47,7 +47,7 @@ export default {
     name: "nav01",
     data() {
         return {
-            active: "4",
+            active: "1",
             options: [
                 {
                     label: "线路",
@@ -72,6 +72,7 @@ export default {
         },
         handleSelect(key, keyPath) {
             this.active = key;
+            this.$forceUpdate();
         },
 
         getSearch() {
@@ -186,7 +187,8 @@ export default {
 }
 
 .rightside {padding: 20px 30px 0 30px;}
-.leftside {padding: 20px 0 0 0;}
-.leftside .el-menu{border:none;height: calc(100vh - 80px) !important;}
+.leftside {padding: 20px 0 0 0;position: relative;}
+.leftside::after{content: '';display: block;position: fixed;left: 0;bottom: 0px;width: 12.5%;height: 50%;background: #1d1e39;}
+.leftside .el-menu{border:none;height: calc(100vh - 80px) !important;z-index: 2;}
 .leftside .el-menu .el-menu-item{font-size: 16px;}
 </style>

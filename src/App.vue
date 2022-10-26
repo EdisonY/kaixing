@@ -231,6 +231,8 @@
                     </el-menu-item>
 
                 </el-submenu>
+
+                <el-menu-item index="8"><router-link to="/nav01">重大活动场景-事前</router-link></el-menu-item>
                 <!-- <el-submenu index="8">
                     <template slot="title">CCTV监控</template>
                     <el-menu-item index="8-1">

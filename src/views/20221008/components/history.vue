@@ -3,8 +3,7 @@
         <el-row class="row">
             <el-col :span="24">
                 <span class="inner-title">目标车站</span>
-
-                <el-select v-model="query.stationid"
+                <el-select v-model="query.stationid" class="inputS"
                     placeholder="请选择">
                     <el-option v-for="item in stations"
                         :key="item.stationid"
@@ -17,7 +16,7 @@
         <el-row class="row">
             <el-col :span="24">
                 <span class="inner-title">客流类型</span>
-                <el-radio-group v-model="query.ptype">
+                <el-radio-group v-model="query.ptype" class="inputS">
                     <el-radio label="工作日">工作日</el-radio>
                     <el-radio label="休息日">休息日</el-radio>
                     <el-radio label="节假日">节假日</el-radio>
@@ -28,7 +27,7 @@
         <el-row class="row">
             <el-col :span="22">
                 <span class="inner-title">客流选择</span>
-                <el-radio-group v-model="query.prange">
+                <el-radio-group v-model="query.prange" class="inputS">
                     <el-radio label="最大值">最大值</el-radio>
                     <el-radio label="60天均值">60天均值</el-radio>
                     <el-radio label="特定日">特定日</el-radio>
@@ -36,6 +35,7 @@
                         v-model="query.prange_date"
                         value-format="yyyy-MM-DD HH:mm:ss"
                         type="date"
+                        class="inputS"
                         placeholder="选择日期">
                     </el-date-picker>
                 </el-radio-group>
@@ -69,15 +69,11 @@
         <el-row class="flex7 linbottom">
             <el-col class="chart"
                 :span="12">
-                <div class="chart"
-                    style="border:solid 1px #EBEEF5"
-                    ref="echart3"></div>
+                <div class="chart" ref="echart3"></div>
             </el-col>
             <el-col class="chart"
                 :span="12">
-                <div class="chart"
-                    style="border:solid 1px #EBEEF5"
-                    ref="echart4"></div>
+                <div class="chart" ref="echart4"></div>
             </el-col>
         </el-row>
     </div>
@@ -86,36 +82,27 @@
 <script>
 import echarts from "echarts";
 
-const emphasisStyle = {
-    itemStyle: {
-        shadowBlur: 10,
-        shadowColor: "rgba(0,0,0,0.3)",
-    },
-};
-
 const option = {
     grid: {
         left: 30,
-        top: 40,
+        top: 50,
         right: 0,
         bottom: 40,
-        borderWidth: "1",
-        borderColor: "red",
     },
     title: {
         text: "2022年1月3日环球度假区站分时进站量",
         textStyle: {
-            color: "#303133",
+            color: "#fff",
         },
-        left: "center",
+        left: -5,
     },
-    backgroundColor: "#FFF",
+    backgroundColor: "",
     tooltip: {},
     xAxis: {
         axisLabel: {
             show: true,
             textStyle: {
-                color: "#606266",
+                color: "#fff",
             },
             rotate: 90,
         },
@@ -128,18 +115,28 @@ const option = {
         axisLabel: {
             show: true,
             textStyle: {
-                color: "#606266",
+                color: "#fff",
             },
         },
+        splitLine: { show: false },
+        axisLine: { show: false },
+        axisTick: {show: false},
+        splitArea: {show: false}
     },
     series: [
         {
             name: "bar",
             type: "bar",
-            emphasis: emphasisStyle,
             data: [],
             itemStyle: {
                 color: "#5470c6",
+                barBorderRadius: [6, 6, 0, 0],
+                
+            },
+            showBackground: true,
+            backgroundStyle: {
+                color: 'rgba(48, 56, 69, 0.4)',
+                barBorderRadius: [6, 6, 0, 0],
             },
         },
     ],
@@ -152,9 +149,9 @@ export default {
             stations: [],
             lineList: [],
             query: {
-                stationid: "",
-                ptype: "",
-                prange: "",
+                stationid: "花乡东桥",
+                ptype: "60天均值",
+                prange: "最大值",
                 prange_date: "",
             },
             selectedLine: "",
@@ -167,6 +164,8 @@ export default {
         this.$nextTick(() => {
             this.getData();
         });
+        this.handleClick()
+        this.handleChnageLine('1号线')
     },
     //移除事件监听
     beforeDestroy() {
@@ -175,8 +174,6 @@ export default {
     },
     methods: {
         async handleClick() {
-            console.log(this.query);
-
             if (this.query.stationid && this.query.prange && this.query.ptype) {
                 let data = await this.mockData(1);
                 let opt1 = this.getOptions(1, data);
@@ -198,16 +195,15 @@ export default {
         },
         async handleChnageLine(value) {
             this.selectedLine = value;
-
             let data = await this.mockData(3);
-                let opt3 = this.getOptions(3, data);
-                let charts3 = this.$echarts.init(this.$refs.echart3, "dark");
-                charts3.setOption(opt3, true);
+            let opt3 = this.getOptions(3, data);
+            let charts3 = this.$echarts.init(this.$refs.echart3, "dark");
+            charts3.setOption(opt3, true);
 
-                data = await this.mockData(4);
-                let opt4 = this.getOptions(4, data);
-                let charts4 = this.$echarts.init(this.$refs.echart4, "dark");
-                charts4.setOption(opt4, true);
+            data = await this.mockData(4);
+            let opt4 = this.getOptions(4, data);
+            let charts4 = this.$echarts.init(this.$refs.echart4, "dark");
+            charts4.setOption(opt4, true);
         },
         async getData() {
             let data = await this.mockData();

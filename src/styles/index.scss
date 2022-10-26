@@ -217,13 +217,14 @@ div:focus {
 
 .component-page {display: flex;color: #a1a2a3;flex-direction: column;height: calc(100vh - 80px);}
 .component-page .bg{background:#1d1e39;color: #b5b6b6;padding: 20px;color: #bfbfbf;}
-.component-page .inputS input{background: #2c2f3e;color: #b0b3bf;border:none;height: 40px;line-height: 40px;width: 120px;}
+.component-page .inputS input,.component-page .inputS.is-disabled .el-input__inner,.component-page .inputS .el-input.is-disabled .el-input__inner{background: #2c2f3e;color: #b0b3bf;border:none;height: 40px;line-height: 40px;width: 120px;}
+.component-page .inputS_B input{width: 200px;text-align: center;}
 .component-page .el-radio-button:first-child .el-radio-button__inner,.component-page .el-radio-button:last-child .el-radio-button__inner{border-radius: 0;border: none;}
 .component-page .el-radio-button__inner{background: none;border:none;color: #898a8b;}
 .component-page .inner-prop{color: #ababab !important;}
 .component-page .el-radio-button__orig-radio:checked+.el-radio-button__inner{background:#1d1e39;color: #b5b6b6;box-shadow:none}
 .component-page .inner-title {font-size: 16px;font-weight: bold;color: #f9c414;margin-right: 20px;}
-.component-page .el-date-editor.el-input,.component-page  .el-date-editor.el-input__inner{width: auto;}
+.component-page .el-date-editor.el-input,.component-page .el-date-editor.el-input__inner{width: auto;}
 .component-page .rightConfig{height: 40px;line-height: 40px;padding: 0 30px;font-size: 14px;}
 .component-page .componentTable,.component-page .componentTable th.el-table__cell,.component-page .componentTable.el-table tr{background: none;color: #a8a8a8;}
 .component-page .componentTable th.el-table__cell{background: #363851;font-weight: bold;}
@@ -236,3 +237,20 @@ div:focus {
 .component-page .el-dialog ul li span{width: 250px;text-align: right;display: inline-block;margin-right: 50px;}
 .component-page .el-dialog__header{text-align: left;border-bottom: 1px solid #767575;}
 .component-page .el-dialog__title{color: #fff;}
+.component-page .el-input__suffix{display: none;}
+.component-page .inputS.el-date-editor--date .el-input__inner{padding-right: 10px;}
+.component-page .inputS .el-radio__input.is-checked .el-radio__inner{border-color: #f9c414;background: transparent;}
+.component-page .inputS .el-radio__inner::after{background: #f9c414;}
+.component-page .inputS .el-radio__inner{background: transparent;}
+.component-page .inputS .el-radio__input.is-checked+.el-radio__label{color: #d6d6d6;}
+.component-page .steps1 .el-table__fixed-right::before{height:0}
+.component-page .organizeMain .inputS{width: 180px;height: 140px;border: 1px solid #f9c414;display: block;cursor: pointer;}
+.component-page .organizeMain .big,.component-page .organizeMain #xg0{width: 360px !important;height: 282px !important;}
+.component-page .organizeMain .inputS input{background: transparent;width: 100%;height: 100%;padding: 0;text-align: center;}
+.component-page .organizeMain .el-input__suffix{display: block;}
+.component-page .organizeMain .inputS .el-input__icon{line-height: 10px;}
+.component-page .organizeMain .el-col{box-sizing: content-box;}
+.component-page .organizeMain .el-input{position: absolute;top: 50%;transform: translate(0,-50%);}
+.component-page .organizeMain .xgplayer{border: 1px solid #f9c414;display: block;width: 180px !important;height: 140px !important;overflow: hidden;}
+.component-page .organizeMain .xgplayer-skin-default .xgplayer-error,.component-page .organizeMain .xgplayer-skin-default .xgplayer-enter{width: 99%;height: 99%;}
+// .component-page .organizeMain .preview .el-col{width: 180px;height: 140px;}

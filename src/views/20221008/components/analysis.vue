@@ -29,7 +29,7 @@
                     </div>
                     <div class="insideDiv">
                         <span class="inner-prop">地铁分担率</span><br/>
-                        <el-input class="inputS"></el-input>
+                        <el-input class="inputS" v-model="fdl"></el-input>
                     </div>
                 </el-col>
             </el-row>
@@ -49,7 +49,7 @@
                 <el-col :span="24">
                     <div class="insideDiv">
                         <span class="inner-prop">浮动系数</span><br/>
-                        <el-input class="inputS" v-model="zrs"></el-input>
+                        <el-input class="inputS" v-model="fd"></el-input>
                     </div>
                     <div class="insideDiv">
                         <span class="inner-prop">客流高峰时间</span><br/>
@@ -97,7 +97,7 @@
                 <el-col :span="1">&nbsp;</el-col>
                 <el-col :span="11">
                     <el-row class="row">
-                        <span class="inner-title">活动目的车站排名</span>
+                        <span class="inner-title">分时进站量</span>
                     </el-row>
                     <div class="chart" ref="echart1"></div>
                     <el-button style="margin:10px;float:right" type="primary" class="rightConfig">保存</el-button>
@@ -118,46 +118,71 @@ for (let i = 0; i < 10; i++) {
   data1.push(+(Math.random() * 2).toFixed(2));
   data2.push(+(Math.random() * 5).toFixed(2));
 }
-const emphasisStyle = {
-    itemStyle: {
-        shadowBlur: 10,
-        shadowColor: "rgba(0,0,0,0.3)",
-    },
-};
-
+console.log(xAxisData);
 const option = {
-  legend: {
-    data: ['bar', 'bar2'],
-    left: '0%'
-  },
-  tooltip: {},
-  xAxis: {
-    data: xAxisData,
-    name: 'X Axis',
-    axisLine: { onZero: true },
-    splitLine: { show: false },
-    splitArea: { show: false }
-  },
-  yAxis: {},
-  grid: {
-    bottom: 30
-  },
-  series: [
-    {
-      name: 'bar',
-      type: 'bar',
-      stack: 'one',
-      emphasis: emphasisStyle,
-      data: data1
+    grid: {
+        left: 30,
+        top: 10,
+        right: 0,
+        bottom: 40,
     },
-    {
-      name: 'bar2',
-      type: 'bar',
-      stack: 'one',
-      emphasis: emphasisStyle,
-      data: data2
+    title: {
+        show:false,
+        text: "2022年1月3日环球度假区站分时进站量",
+        textStyle: {
+            color: "#fff",
+        },
+        left: -5,
     },
-  ]
+    backgroundColor: "",
+    tooltip: {},
+    xAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+            rotate: 90,
+        },
+        data: [],
+        axisLine: { onZero: true },
+        splitLine: { show: false },
+        splitArea: { show: false },
+    },
+    yAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+        },
+        splitLine: { show: false },
+        axisLine: { show: false },
+        axisTick: {show: false},
+        splitArea: {show: false}
+    },
+    series: [
+    {
+            name: "bar",
+            type: "bar",
+            data: [],
+            itemStyle: {
+                color: "#3644e0",
+                barBorderRadius: [6, 6, 0, 0],
+            },
+            stack: 'one',
+        },
+        {
+            name: "bar2",
+            type: "bar",
+            data: [],
+            itemStyle: {
+                color: "#f1696a",
+                barBorderRadius: [6, 6, 0, 0],
+            },
+            stack: 'one',
+        },
+    ],
 };
 
 export default {
@@ -209,7 +234,9 @@ export default {
             ],
             value1: new Date(2016, 9, 10, 18, 40),
             value2: new Date(2016, 9, 10, 18, 40),
-            zrs:''
+            zrs:'',
+            fd:'',
+            fdl:""
         };
     },
     created() {},
@@ -219,9 +246,7 @@ export default {
         this.$nextTick(() => {
             this.getData();
         });
-
-        let charts1 = this.$echarts.init(this.$refs.echart1, "dark");
-        charts1.setOption(option, true);
+        this.handleClick()
     },
     //移除事件监听
     beforeDestroy() {
@@ -231,23 +256,10 @@ export default {
     methods: {
         async handleClick() {
             console.log(this.query);
-
-            if (this.query.stationid && this.query.prange && this.query.ptype) {
-                let data = await this.mockData(1);
-                let opt1 = this.getOptions(1, data);
-                let charts1 = this.$echarts.init(this.$refs.echart1, "dark");
-                charts1.setOption(opt1, true);
-
-                data = await this.mockData(2);
-                let opt2 = this.getOptions(2, data);
-                let charts2 = this.$echarts.init(this.$refs.echart2, "dark");
-                charts2.setOption(opt2, true);
-            } else {
-                this.$message({
-                    message: "请选择条件",
-                    type: "warning",
-                });
-            }
+            let data = await this.mockData(1);
+            let opt1 = this.getOptions(1, data);
+            let charts1 = this.$echarts.init(this.$refs.echart1, "dark");
+            charts1.setOption(opt1, true);
         },
         async handleChnageLine(value) {
             console.log(value);
@@ -292,6 +304,7 @@ export default {
             }
             option.xAxis.data = data.x;
             option.series[0].data = data.y;
+            option.series[1].data = data.y;
             return option;
         },
         resizefunc() {

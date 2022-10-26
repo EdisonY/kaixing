@@ -78,8 +78,6 @@ export default {
                     self.defult.reload()
                 }
             }
-
-            
         },
         getVideo(){
             this.defult = new FlvJsPlayer({

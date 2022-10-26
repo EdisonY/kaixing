@@ -22,7 +22,7 @@
         </div>
         <iframe frameborder="0"
             style="flex:1; padding: 10px;"
-            src="http://172.16.1.111/link/oTcnnEFV"></iframe>
+            src="http://frp.funenc.xyz:7245/link/oTcnnEFV"></iframe>
     </div>
 </template>
 

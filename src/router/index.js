@@ -334,7 +334,11 @@ export const constantRoutes = [
         path: '/tmp/container4',
         name:'容器4',
         component: () => import('@/views/tmp/container4'),
+<<<<<<< Updated upstream
         meta: { url: 'http://172.51.216.64/sdss/tc.html?name=img1016.png'},
+=======
+        meta: { url: 'http://172.51.216.72:41004/sdss/tc.html?name=img1016.png'},
+>>>>>>> Stashed changes
         hidden: true
     },
         // {
