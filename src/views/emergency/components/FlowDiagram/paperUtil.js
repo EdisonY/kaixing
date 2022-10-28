@@ -4,7 +4,8 @@
 import * as joint from "jointjs";
 
 const USED_COLOR = '#999';
-const NORMAL_COLOR = "#2281da";
+// const NORMAL_COLOR = "#2281da";
+const NORMAL_COLOR="#5470c6";
 const HOVER_COLOR = "orange";
 const CURRENT_COLOR = "orange";
 

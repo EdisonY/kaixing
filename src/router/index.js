@@ -97,6 +97,12 @@ export const constantRoutes = [
                 name: '常规运营',
                 component: () => import('@/views/emergency/Daily'),
                 meta: { title: '常规运营'}
+            },
+            {
+                path: 'inmajor',
+                name: '重大活动场景-事中',
+                component: () => import('@/views/emergency/InMajorEvent'),
+                meta: { title: '重大活动场景-事中'}
             }
         ]
     },

@@ -160,8 +160,11 @@
                         <el-menu-item index="5-3-1">
                             <router-link to="/emergency/rainstorm">暴雨0906</router-link>
                         </el-menu-item>
-                        <el-menu-item index="5-3-1">
+                        <el-menu-item index="5-3-2">
                             <router-link to="/emergency/majorevent">跨年夜1231</router-link>
+                        </el-menu-item>
+                        <el-menu-item index="5-3-3">
+                            <router-link to="/emergency/inmajor">重大活动场景-事中</router-link>
                         </el-menu-item>
                     </el-submenu>                    
                     <el-menu-item index="5-4">
