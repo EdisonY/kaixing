@@ -73,7 +73,7 @@
                     <p class="innertitle">应急预案</p>
                     <div class="divline"></div>
                     <div class="middle-panel">
-                        <Comprehensive style="height:calc(100vh - 150px)"
+                        <Comprehensive style="height:calc(100vh - 150px);"
                             v-if="currentView == '2D线网图'" />
                         <div  style="height:100%;width:100%"
                             v-if="currentView == '客流监视及滚动预测'">
@@ -406,10 +406,6 @@ export default {
     justify-content: flex-start;
 }
 
-.middle-panel > .workarea {
-    flex: 1;
-}
-
 
 .mainmenu {
     text-align: left;
@@ -417,7 +413,7 @@ export default {
 }
 
 .selfTable .header th {
-    background: #2281da;
+    background: #5470c6;
     color: #fff;
     height: 30px;
     line-height: 30px;

@@ -11,6 +11,17 @@
             </div>
 
         </div>
+        <div class="send-panel">
+            <el-input v-model="inputdata"
+                type="textarea"
+                style="margin-bottom:15px"
+                :rows="4"
+                resize="none"></el-input>
+            <el-button style="float:right"
+                size="mini"
+                type="primary"
+                @click="send">发送</el-button>
+        </div>
     </div>
 </template>
 
@@ -18,9 +29,16 @@
 export default {
     props: ["title", "messagelist"],
     data() {
-        return {};
+        return {
+            inputdata: "",
+        };
     },
-    methods: {},
+    methods: {
+        send() {
+            this.$emit('add',this.inputdata);
+            this.inputdata = "";
+        },
+    },
 };
 </script>
 
@@ -44,9 +62,9 @@ export default {
     overflow: auto;
     height: 100%;
     width: 100%;
-    background: #172230;
+    background: #1d1e39;
 }
-.message-list-item-panel{
+.message-list-item-panel {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -67,7 +85,7 @@ export default {
     color: #cecece;
     font-size: 1rem;
     text-align: left;
-    border:solid 1px #666;
+    border: solid 1px #666;
     border-radius: 5px;
 }
 .message-list-item > .name {
@@ -78,5 +96,13 @@ export default {
 .message-list-item > .time {
     color: #6db9f7;
     text-decoration: underline;
+}
+
+.send-panel {
+    border: solid #666 1px;
+    padding: 10px;
+    background: #1d1e39;
+    font-size: 1.1rem;
+    cursor: default;
 }
 </style>

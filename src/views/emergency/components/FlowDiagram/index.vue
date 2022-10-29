@@ -100,7 +100,7 @@ export default {
 <style scoped>
 #flow-panel {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: hidden;
     margin: 5px;
 }
 </style>
