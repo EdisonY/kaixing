@@ -77,12 +77,14 @@
                             v-if="currentView == '2D线网图'" />
                         <div style="height:100%;width:100%"
                             v-if="currentView == '客流监视及滚动预测'">
-                            <h1>两个ECHART控件</h1>
+                            <echarts1 style="height:50%" />
+                            <echarts2 style="height:50%" />
                         </div>
                         <div style="height:100%;width:100%; padding: 5px;"
                             v-if="currentView == '客流波动及处置措施'">
                             <div v-if="currentFlowModule=='left'">
-                                <p class="bluetitle" style="margin:10px 0">
+                                <p class="bluetitle"
+                                    style="margin:10px 0">
                                     客流分析
                                 </p>
                                 <table class="flowanalisys-table">
@@ -99,17 +101,21 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <p style="height:500px;text-align:center;background:lightseagreen">ECHART</p>
-                                <p style="margin:10px 0">
-                                    <span class="bluetitle" style="padding-top: 2px;">行车员执行级别</span>
+                                <p style="height:500px;text-align:center;padding: 10px;background: #2225;">
+                                    <echarts2 style="height:100%" />
+                                </p>
+                                <p style="margin:20px 0">
+                                    <span class="bluetitle"
+                                        style="padding-top: 2px;margin-right:30px">行车员执行级别</span>
                                     <el-radio-group v-model="oplevel"
                                         size="mini">
                                         <el-radio-button label="升级"></el-radio-button>
                                         <el-radio-button label="降级"></el-radio-button>
                                     </el-radio-group>
                                 </p>
-                                <p style="margin:10px 0">
-                                    <span class="bluetitle" style="padding-top: 2px;">建议处置措施</span>
+                                <p style="margin:20px 0">
+                                    <span class="bluetitle"
+                                        style="padding-top: 2px;margin-right:30px">建议处置措施</span>
                                     <el-radio-group v-model="adjuststep"
                                         size="mini">
                                         <el-radio-button label="行车"></el-radio-button>
@@ -165,11 +171,11 @@
                                 </div>
 
                                 <p style="margin:10px 0;float: right;">
-                                    <el-button type="primary">下发</el-button>
+                                    <el-button type="primary"
+                                        @click="btnClick('已下发')">下发</el-button>
                                 </p>
                             </div>
                             <div v-if="currentFlowModule=='right'">
-
                                 <p>
                                     <el-button type="primary"
                                         @click="currentFlowModule='left'">返回</el-button>
@@ -179,8 +185,9 @@
                         <div style="height:100%;width:100%"
                             v-if="currentView == '运行图调整'">
                             <iframe style="width: 100%;height: 33%;"
-                                src="http://172.51.216.72:41005/sample"
+                                src="http://172.51.216.64/sdss/tc2.html?name=7号线缩略图.png"
                                 frameborder="0"></iframe>
+                            <!-- <rungraph style="width:100%;height:66%"/> -->
                             <iframe style="width: 100%;height: 33%;"
                                 src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=计划运行图"
                                 frameborder="0"></iframe>
@@ -188,7 +195,7 @@
                                 src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
                                 frameborder="0"></iframe>
                         </div>
-                        <div style="height:100%;width:100%"
+                        <div style="height:100%;width:100%;padding:10px"
                             v-if="currentView == '数据简报'">
                             <table class="selfTable">
                                 <tbody>
@@ -277,8 +284,8 @@
 
                                 </tbody>
                             </table>
-                            <p>
-                                2022年12月24日保障环球影城夜场活动，7号线加开3列临客，八通线加开2列临客，涉及65个车站，处置时长2小时25分03秒，共服务旅客<span>56095</span>人，无人员伤亡，无设备损失。
+                            <p style="margin:10px 0;line-height:2rem;font-size:1.2rem">
+                                2022年12月24日保障环球影城夜场活动，7号线加开3列临客，八通线加开2列临客，涉及65个车站，处置时长2小时25分03秒，共服务旅客<span style="color:red">56095</span>人，无人员伤亡，无设备损失。
                             </p>
                         </div>
                         <div style="height:100%;width:100%"
@@ -302,8 +309,11 @@
 <script>
 import MessagePanel from "./components/MessagePanel";
 
+import rungraph from "./components/rungraph/rungraph";
 import FlowDiagram from "./components/FlowDiagram";
 import Comprehensive from "../line/comprehensive";
+import echarts1 from "../20221008/components/echarts1";
+import echarts2 from "../20221008/components/echarts2";
 import { getFlowData } from "./flowdata";
 import { mockMessage } from "./mockdata";
 
@@ -312,6 +322,9 @@ export default {
         MessagePanel,
         FlowDiagram,
         Comprehensive,
+        echarts1,
+        echarts2,
+        rungraph
     },
     created() {
         this.emergencyName = this.$route.meta.title;
@@ -373,25 +386,25 @@ export default {
                     adjustInterval: 0,
                 },
             ],
-            Risk:[
+            Risk: [
                 {
-                    aaa:'12:00',
-                    bbb:'阿斯顿',
-                    ccc:'发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的',
-                    ddd:'啊实打实的'
+                    aaa: "12:00",
+                    bbb: "阿斯顿",
+                    ccc: "发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的",
+                    ddd: "啊实打实的",
                 },
                 {
-                    aaa:'12:00',
-                    bbb:'阿斯顿',
-                    ccc:'发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的',
-                    ddd:'啊实打实的'
+                    aaa: "12:00",
+                    bbb: "阿斯顿",
+                    ccc: "发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的",
+                    ddd: "啊实打实的",
                 },
                 {
-                    aaa:'12:00',
-                    bbb:'阿斯顿',
-                    ccc:'发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的',
-                    ddd:'啊实打实的'
-                }
+                    aaa: "12:00",
+                    bbb: "阿斯顿",
+                    ccc: "发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的",
+                    ddd: "啊实打实的",
+                },
             ],
             oplevel: "升级",
             adjuststep: "行车",
@@ -415,39 +428,31 @@ export default {
             }
         },
         changeWorkArea(scene) {
-            let outaddress = "http://frp.funenc.xyz:7245/";
-
-            if (scene == "客流-网") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/iFDeE8us`;
-            } else if (scene === "客流-线") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/kdHtibMs`;
-            } else if (scene === "客流-站") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/DqAzVYn3`;
-            } else if (scene === "客流-车") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/V0sEA5CS`;
-            } else if (scene === "行车-运行图") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200`;
-            } else if (scene === "行车-正线") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://172.51.216.72:41005/sample`;
-            } else if (scene === "行车-段场") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-场.png`;
-            } else if (scene === "其他-车站平面图") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-站.png`;
-            } else if (scene === "其他-视频画面") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=视频画面.png`;
-            } else if (scene === "周边-天气" || scene === "周边-路况") {
-                this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
-            }
+            // let outaddress = "http://frp.funenc.xyz:7245/";
+            this.currentView = "外部URL";
+            this.$nextTick(() => {
+                if (scene == "客流-网") {
+                    this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/iFDeE8us`;
+                } else if (scene === "客流-线") {
+                    this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/kdHtibMs`;
+                } else if (scene === "客流-站") {
+                    this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/DqAzVYn3`;
+                } else if (scene === "客流-车") {
+                    this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/V0sEA5CS`;
+                } else if (scene === "行车-运行图") {
+                    this.$refs.outframe.src = `http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200`;
+                } else if (scene === "行车-正线") {
+                    this.$refs.outframe.src = `http://172.51.216.72:41005/sample`;
+                } else if (scene === "行车-段场") {
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-场.png`;
+                } else if (scene === "其他-车站平面图") {
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-站.png`;
+                } else if (scene === "其他-视频画面") {
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=视频画面.png`;
+                } else if (scene === "周边-天气" || scene === "周边-路况") {
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+                }
+            });
         },
         flowNext(model, cellview) {
             this.currentMainBtn = model.evt;
@@ -464,7 +469,9 @@ export default {
             } else if (this.currentMainBtn == "方案结束判断") {
                 // this.currentView='客流波动及处置措施';
                 this.currentView = "外部URL";
-                this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/2EUrUWHw`;
+                this.$nextTick(() => {
+                    this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/2EUrUWHw`;
+                });
             } else if (this.currentMainBtn == "统计数据\n撰写简报") {
                 this.currentView = "数据简报";
             } else if (this.currentMainBtn == "结束") {
@@ -475,6 +482,12 @@ export default {
 
             // TODO
             // this._mockMsg();
+        },
+        btnClick(msg) {
+            this.$message({
+                message: msg,
+                type: "success",
+            });
         },
     },
 };
@@ -626,7 +639,7 @@ div::-webkit-scrollbar {
     background: #0008;
 }
 
-.bluetitle{
+.bluetitle {
     color: #5470c6;
     font-size: 1.3rem;
     font-weight: bold;
