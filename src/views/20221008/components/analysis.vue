@@ -38,7 +38,7 @@
                     </div>
                     <div class="insideDiv">
                         <span class="inner-prop">地铁分担率</span><br/>
-                        <el-input class="inputS" v-model="fdl"></el-input>
+                        <el-input class="inputS inputSmall" v-model="fdl"></el-input> %
                     </div>
                 </el-col>
             </el-row>
@@ -48,6 +48,7 @@
             <el-radio-group v-model="selectedLine" @change="handleChnageLine">
                 <el-radio-button :key="index" v-for="(item,index) in lineList" :label="item.label"></el-radio-button>
             </el-radio-group>
+            <i class="el-icon-plus" @click="addTab()"></i>
         </el-row>
 
         <div class="bg">
@@ -58,7 +59,7 @@
                 <el-col :span="24">
                     <div class="insideDiv">
                         <span class="inner-prop">浮动系数</span><br/>
-                        <el-input class="inputS" v-model="fd"></el-input>
+                        <el-input class="inputS inputSmall" v-model="fd"></el-input> %
                     </div>
                     <div class="insideDiv">
                         <span class="inner-prop">疏散高峰时间</span><br/>
@@ -107,10 +108,11 @@
 
 <script>
 import echarts from "echarts";
+
 let xAxisData = [];
 let data1 = [];
 let data2 = [];
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 100; i++) {
   xAxisData.push('Class' + i);
   data1.push(+(Math.random() * 2).toFixed(2));
   data2.push(+(Math.random() * 5).toFixed(2));
@@ -161,26 +163,87 @@ const option = {
     {
             name: "bar",
             type: "bar",
-            data: [],
+            data: data2,
             itemStyle: {
                 color: "#3644e0",
-                barBorderRadius: [6, 6, 0, 0],
+                // barBorderRadius: [6, 6, 0, 0],
             },
             stack: 'one',
         },
         {
             name: "bar2",
             type: "bar",
-            data: [],
+            data: data1,
             itemStyle: {
                 color: "#f1696a",
-                barBorderRadius: [6, 6, 0, 0],
+                // barBorderRadius: [6, 6, 0, 0],
             },
             stack: 'one',
         },
     ],
 };
 
+const option1 = {
+    grid: {
+        left: 30,
+        top: 10,
+        right: 0,
+        bottom: 70,
+    },
+    title: {
+        text: "",
+        textStyle: {
+            color: "#fff",
+        },
+        left: -5,
+    },
+    backgroundColor: "",
+    tooltip: {},
+    xAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+            rotate: 45,
+        },
+        data: [],
+        axisLine: { onZero: true },
+        splitLine: { show: false },
+        splitArea: { show: false },
+    },
+    yAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+        },
+        splitLine: { show: false },
+        axisLine: { show: false },
+        axisTick: {show: false},
+        splitArea: {show: false}
+    },
+    series: [
+        {
+            name: "bar",
+            type: "bar",
+            barWidth:'50%',
+            data: [],
+            itemStyle: {
+                color: "#5470c6",
+                barBorderRadius: [6, 6, 0, 0],
+            },
+            showBackground: true,
+            backgroundStyle: {
+                color: 'rgba(48, 56, 69, 0.4)',
+                barBorderRadius: [6, 6, 0, 0],
+            },
+        },
+    ],
+};
+
+let tabIndex = 0
 export default {
     name: "nav01",
     data() {
@@ -189,17 +252,19 @@ export default {
             lineList: [{
                 value:'0',
                 label:'常规方案'
-            },{
-                value:'1',
-                label:'调整方案1'
-            }],
+            },
+                // {
+                //     value:'1',
+                //     label:'调整方案1'
+                // }
+            ],
             query: {
                 stationid: "",
                 ptype: "",
                 prange: "",
                 prange_date: "",
             },
-            selectedLine: "常规预测",
+            selectedLine: "常规方案",
             tableData: [
                 {
                     date: "2016-05-02",
@@ -226,18 +291,56 @@ export default {
             value1: new Date(2016, 9, 10, 18, 40),
             value2: new Date(2016, 9, 10, 18, 40),
             zrs:'60000',
-            fd:'20%',
-            fdl:"58%"
+            fd:'20',
+            fdl:"58"
         };
     },
-    created() {},
+    created() {
+        
+
+    },
     computed: {},
     mounted() {
         window.addEventListener("resize", this.resizefunc);
         this.$nextTick(() => {
-            this.getData();
+            // this.getData();
         });
-        this.handleClick()
+        // this.handleClick()
+
+        var self = this
+        var tmp = {
+            station_name:'环球度假区',
+            passenger_type:'workday',
+            passenger_filter:'max_value'
+        }
+        const charts1 = self.$echarts.init(self.$refs.echart1);
+        charts1.showLoading({ text: '正在加载数据' });
+        // this.$api.post2('/zbAPI/get_od_data/',tmp).then(res => {
+        //     if(res.data.code == 200){
+        //         const tmpEchartOption1 = JSON.parse(JSON.stringify(option))
+        //         tmpEchartOption1.title.text = '';
+        //         tmpEchartOption1.xAxis.data = res.data.x_station_name_list;
+        //         tmpEchartOption1.series[0].data = res.data.y_d_value_list;
+        //         charts1.hideLoading()
+        //         charts1.setOption(tmpEchartOption1, true);
+        //     }
+        // })
+        charts1.hideLoading()
+        charts1.setOption(option, true);
+
+        const charts2 = self.$echarts.init(self.$refs.echart2);
+        charts2.showLoading({ text: '正在加载数据' });
+        this.$api.post2('/zbAPI/get_od_data/',tmp).then(res => {
+            if(res.data.code == 200){
+                const tmpEchartOption2 = JSON.parse(JSON.stringify(option1))
+                tmpEchartOption2.title.text = '';
+                tmpEchartOption2.xAxis.data = res.data.x_station_name_list;
+                tmpEchartOption2.series[0].data = res.data.y_d_value_list;
+                charts2.hideLoading()
+                charts2.setOption(tmpEchartOption2, true);
+            }
+        })
+
     },
     //移除事件监听
     beforeDestroy() {
@@ -245,6 +348,20 @@ export default {
         this.resizefunc = null;
     },
     methods: {
+        addTab(){
+            tabIndex++
+            if(tabIndex > 3){
+                this.$message.error('超过最大限制！');
+            }else{
+                this.lineList.push({
+                    value:tabIndex,
+                    label:'调整方案' + tabIndex
+                })
+                this.selectedLine = '调整方案' + tabIndex
+            }
+            
+        },
+
         async handleClick() {
             console.log(this.query);
             let data = await this.mockData(1);
@@ -397,4 +514,5 @@ export default {
     padding: 5px;
 }
 .inputDiv .insideDiv{float: left;margin-right: 50px;}
+.el-icon-plus{cursor: pointer;}
 </style>

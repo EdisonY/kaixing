@@ -217,8 +217,10 @@ div:focus {
 
 .component-page {display: flex;color: #a1a2a3;flex-direction: column;height: calc(100vh - 80px);}
 .component-page .bg{background:#1d1e39;color: #b5b6b6;padding: 20px;color: #bfbfbf;}
+.component-page .inputS{width: auto;}
 .component-page .inputS input,.component-page .inputS.is-disabled .el-input__inner,.component-page .inputS .el-input.is-disabled .el-input__inner{background: #2c2f3e;color: #b0b3bf;border:none;height: 40px;line-height: 40px;width: 120px;}
 .component-page .inputS_B input{width: 200px;text-align: center;}
+.component-page .inputSmall input{width: 50px;text-align: center;}
 .component-page .el-radio-button:first-child .el-radio-button__inner,.component-page .el-radio-button:last-child .el-radio-button__inner{border-radius: 0;border: none;}
 .component-page .el-radio-button__inner{background: none;border:none;color: #898a8b;}
 .component-page .inner-prop{color: #ababab !important;}
@@ -254,3 +256,4 @@ div:focus {
 .component-page .organizeMain .xgplayer{border: 1px solid #f9c414;display: block;width: 180px !important;height: 140px !important;overflow: hidden;}
 .component-page .organizeMain .xgplayer-skin-default .xgplayer-error,.component-page .organizeMain .xgplayer-skin-default .xgplayer-enter{width: 99%;height: 99%;}
 // .component-page .organizeMain .preview .el-col{width: 180px;height: 140px;}
+.component-page .componentTable th .el-checkbox{display: none;}

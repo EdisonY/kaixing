@@ -30,7 +30,6 @@
                     <Analysis v-if="active=='2'" :key="active"  />
                     <Verify v-if="active=='3'" :key="active"  />
                     <Organize v-if="active=='4'" :key="active"  />
-                    <Organize1 style="height:600px;width:1000px"/>
                 </div>
             </el-col>
         </el-row>
@@ -189,7 +188,7 @@ export default {
 
 .rightside {padding: 20px 30px 0 30px;}
 .leftside {padding: 20px 0 0 0;position: relative;}
-.leftside::after{content: '';display: block;position: fixed;left: 0;bottom: 0px;width: 12.5%;height: 50%;background: #1d1e39;}
+.leftside::after{content: '';display: block;position: fixed;left: 0;bottom: 0px;width: 12.5%;height: calc(100vh - 80px);background: #1d1e39;}
 .leftside .el-menu{border:none;height: calc(100vh - 80px) !important;z-index: 2;}
 .leftside .el-menu .el-menu-item{font-size: 16px;}
 </style>

@@ -6,7 +6,7 @@
                 <el-radio-button :key="index" v-for="(item,index) in lineList" :label="item.label"></el-radio-button>
             </el-radio-group>
         </el-row>
-        <div class="bg">
+        <div class="bg" v-if="selectedLine == '环球度假区'">
             <el-row class="row">
                 <el-col :span="12">
                     <div class="chart" ref="echart1"></div>
@@ -21,24 +21,158 @@
                         class="componentTable"
                         style="width: 100%">
                         <el-table-column
-                            prop="date"
-                            label="线路名称"
+                            prop="cz"
+                            label="车站"
                             align="center">
                         </el-table-column>
                         <el-table-column
-                            prop="name"
-                            label="线路关系"
+                            prop="sj"
+                            label="时间"
                             align="center">
                         </el-table-column>
                         <el-table-column
-                            prop="address"
+                            prop="wz"
                             align="center"
-                            label="运行图名称">
+                            label="位置">
                         </el-table-column>
                         <el-table-column
-                            prop="xinxi"
+                            prop="fx"
                             align="center"
-                            label="是否调整">
+                            label="风险现象">
+                        </el-table-column>
+                        <el-table-column
+                            prop="jy"
+                            align="center"
+                            label="建议措施">
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+            </el-row>
+        </div>
+        <div class="bg" v-if="selectedLine == '双井'">
+            <el-row class="row">
+                <el-col :span="12">
+                    <div class="chart" ref="echart2"></div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="chart" ref="echart3"></div>
+                </el-col>
+                <el-col :span="24">&nbsp;</el-col>
+                <el-col :span="24">
+                    <el-table
+                        :data="tableData3"
+                        class="componentTable"
+                        style="width: 100%">
+                        <el-table-column
+                            prop="cz"
+                            label="车站"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="sj"
+                            label="时间"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="wz"
+                            align="center"
+                            label="位置">
+                        </el-table-column>
+                        <el-table-column
+                            prop="fx"
+                            align="center"
+                            label="风险现象">
+                        </el-table-column>
+                        <el-table-column
+                            prop="jy"
+                            align="center"
+                            label="建议措施">
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+            </el-row>
+        </div>
+        <div class="bg" v-if="selectedLine == '国贸'">
+            <el-row class="row">
+                <el-col :span="12">
+                    <div class="chart" ref="echart2"></div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="chart" ref="echart3"></div>
+                </el-col>
+                <el-col :span="24">&nbsp;</el-col>
+                <el-col :span="24">
+                    <el-table
+                        :data="tableData4"
+                        class="componentTable"
+                        style="width: 100%">
+                        <el-table-column
+                            prop="cz"
+                            label="车站"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="sj"
+                            label="时间"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="wz"
+                            align="center"
+                            label="位置">
+                        </el-table-column>
+                        <el-table-column
+                            prop="fx"
+                            align="center"
+                            label="风险现象">
+                        </el-table-column>
+                        <el-table-column
+                            prop="jy"
+                            align="center"
+                            label="建议措施">
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+            </el-row>
+        </div>
+        <div class="bg" v-if="selectedLine == '磁器口'">
+            <el-row class="row">
+                <el-col :span="12">
+                    <div class="chart" ref="echart2"></div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="chart" ref="echart3"></div>
+                </el-col>
+                <el-col :span="24">&nbsp;</el-col>
+                <el-col :span="24">
+                    <el-table
+                        :data="tableData5"
+                        class="componentTable"
+                        style="width: 100%">
+                        <el-table-column
+                            prop="cz"
+                            label="车站"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="sj"
+                            label="时间"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="wz"
+                            align="center"
+                            label="位置">
+                        </el-table-column>
+                        <el-table-column
+                            prop="fx"
+                            align="center"
+                            label="风险现象">
+                        </el-table-column>
+                        <el-table-column
+                            prop="jy"
+                            align="center"
+                            label="建议措施">
                         </el-table-column>
                     </el-table>
                 </el-col>
@@ -48,22 +182,15 @@
 </template>
 
 <script>
-let xAxisData = [];
-let data1 = [];
-for (let i = 0; i < 10; i++) {
-  xAxisData.push('Class' + i);
-  data1.push(+(Math.random() * 2).toFixed(2));
-}
 const option = {
     grid: {
         left: 30,
-        top: 10,
+        top: 50,
         right: 0,
-        bottom: 40,
+        bottom: 70,
     },
     title: {
-        show:false,
-        text: "2022年1月3日环球度假区站分时进站量",
+        text: "",
         textStyle: {
             color: "#fff",
         },
@@ -77,7 +204,7 @@ const option = {
             textStyle: {
                 color: "#fff",
             },
-            rotate: 90,
+            rotate: 45,
         },
         data: [],
         axisLine: { onZero: true },
@@ -97,25 +224,20 @@ const option = {
         splitArea: {show: false}
     },
     series: [
-    {
+        {
             name: "bar",
             type: "bar",
+            barWidth:'50%',
             data: [],
             itemStyle: {
-                color: "#3644e0",
+                color: "#5470c6",
                 barBorderRadius: [6, 6, 0, 0],
             },
-            stack: 'one',
-        },
-        {
-            name: "bar2",
-            type: "bar",
-            data: [],
-            itemStyle: {
-                color: "#f1696a",
+            showBackground: true,
+            backgroundStyle: {
+                color: 'rgba(48, 56, 69, 0.4)',
                 barBorderRadius: [6, 6, 0, 0],
             },
-            stack: 'one',
         },
     ],
 };
@@ -123,10 +245,10 @@ export default {
     name: "nav01",
     data() {
         return {
-            selectedLine: "环球度假区（本站）",
+            selectedLine: "环球度假区",
             lineList: [{
                 value:'0',
-                label:'环球度假区（本站）'
+                label:'环球度假区'
             },{
                 value:'1',
                 label:'双井'
@@ -138,53 +260,141 @@ export default {
                 label:'磁器口'
             }],
             tableData2: [{
-                date: '进站量告警',
-                name: '1',
-                address: '5min',
-                xinxi:'环球度假区站',
-                duishu:'22:53-22:58'
+                cz:'环球度假区',
+                sj:'17:00',
+                wz:'进站口',
+                fx:'陆续散场游客增多',
+                jy:'提前摆放铁马'
             },{
-                date: '站台滞留人数告警',
-                name: '2',
-                address: '9min',
-                xinxi:'环球度假区站',
-                duishu:'22:56-22:05'
+                cz:'环球度假区',
+                sj:'17:00',
+                wz:'进站口',
+                fx:'外阜游客未关联健康宝',
+                jy:'组织志愿者为游客提供帮助'
             },{
-                date: '站台滞留超过一次告警',
-                name: '17',
-                address: '5min',
-                xinxi:'环球度假区站',
-                duishu:'22:53-22:58'
+                cz:'环球度假区',
+                sj:'17:00',
+                wz:'进站口',
+                fx:'外阜游客未关联健康宝',
+                jy:'提前准备易拉宝提示关联流程'
             },{
-                date: '分方向换成预测预警',
-                name: '1',
-                address: '3min',
-                xinxi:'环球度假区站',
-                duishu:'22:53-22:56'
+                cz:'环球度假区',
+                sj:'19:00',
+                wz:'站厅',
+                fx:'外阜游客在扶梯前聚集',
+                jy:'组织志愿者引导7号线/八通线分流'
             },{
-                date: '区间满载率',
-                name: '1',
-                address: '5min',
-                xinxi:'环球度假区站',
-                duishu:'22:53-22:58'
+                cz:'环球度假区',
+                sj:'19:00',
+                wz:'扶梯',
+                fx:'站厅-站台进占人数持续减少，出站客流增多',
+                jy:'自动扶梯上行下行比例调整为1:3'
             },{
-                date: '列车满载率',
-                name: '1',
-                address: '5min',
-                xinxi:'环球度假区站',
-                duishu:'22:53-22:58'
+                cz:'环球度假区',
+                sj:'19:00',
+                wz:'售票',
+                fx:'外阜游客不熟悉自动售票机，造成聚集',
+                jy:'安排志愿者在TVM前协助乘客购票办理购票业务'
+            },{
+                cz:'环球度假区',
+                sj:'20:00',
+                wz:'售票',
+                fx:'外阜游客不熟悉自动售票机，造成聚集',
+                jy:'开启BOM人工售票'
+            },{
+                cz:'环球度假区',
+                sj:'20:00',
+                wz:'',
+                fx:'外阜游客不熟悉自动售票机，造成聚集',
+                jy:'启用移动售票机'
+            },{
+                cz:'环球度假区',
+                sj:'20:00',
+                wz:'',
+                fx:'一票通缺卡',
+                jy:'准备适量预销售常用票价的单程票，分别放置在分类票价盒内；'
+            },{
+                cz:'环球度假区',
+                sj:'20:00',
+                wz:'站台',
+                fx:'集中散场客流站台聚集',
+                jy:'根据预测性告警类型，提前调用专题视频监控方案，重点监视站台的客流情况，同时根据需要进行广播宣传，引导乘客乘降'
+            },{
+                cz:'环球度假区',
+                sj:'20:00',
+                wz:'站台',
+                fx:'集中散场客流站台聚集',
+                jy:'引导乘客分散候车，防止乘客聚集在某几个车门处'
+            },{
+                cz:'环球度假区',
+                sj:'20:00',
+                wz:'',
+                fx:'集中散场客流站台聚集',
+                jy:'提醒乘客远离屏蔽门，不要手扶或倚靠，以免夹伤，确保列车的正点运行和乘客的乘车安全'
+            }],
+            tableData3:[{
+                cz:'双井',
+                sj:'21:00',
+                wz:'换乘通道',
+                fx:'7号线换乘10号线乘客增多',
+                jy:'提前安放铁马，延长换乘走行距离'
+            },{
+                cz:'双井',
+                sj:'21:00',
+                wz:'站台',
+                fx:'10号线站台聚集',
+                jy:'引导乘客分散候车，防止乘客聚集在某几个车门处'
+            },{
+                cz:'双井',
+                sj:'21:00',
+                wz:'站台',
+                fx:'10号线站台聚集',
+                jy:'提醒乘客远离屏蔽门，不要手扶或倚靠，以免夹伤，确保列车的正点运行和乘客的乘车安全'
+            }],
+            tableData4:[{
+                cz:'国贸',
+                sj:'21:00',
+                wz:'换乘通道',
+                fx:'1-八通线号线换乘10号线乘客增多',
+                jy:'提前安放铁马，延长换乘走行距离'
+            },{
+                cz:'国贸',
+                sj:'21:00',
+                wz:'站台',
+                fx:'10号线站台聚集',
+                jy:'引导乘客分散候车，防止乘客聚集在某几个车门处'
+            },{
+                cz:'国贸',
+                sj:'21:00',
+                wz:'站台',
+                fx:'10号线站台聚集',
+                jy:'提醒乘客远离屏蔽门，不要手扶或倚靠，以免夹伤，确保列车的正点运行和乘客的乘车安全'
+            }],
+            tableData5:[{
+                cz:'磁器口',
+                sj:'21:00',
+                wz:'换乘通道',
+                fx:'7号线换乘5号线乘客增多',
+                jy:'提前安放铁马，延长换乘走行距离'
+            },{
+                cz:'磁器口',
+                sj:'21:00',
+                wz:'站台',
+                fx:'5号线站台聚集',
+                jy:'引导乘客分散候车，防止乘客聚集在某几个车门处'
+            },{
+                cz:'磁器口',
+                sj:'21:00',
+                wz:'站台',
+                fx:'5号线站台聚集',
+                jy:'提醒乘客远离屏蔽门，不要手扶或倚靠，以免夹伤，确保列车的正点运行和乘客的乘车安全'
             }],
         };
     },
     created() {},
     computed: {},
     mounted() {
-        window.addEventListener("resize", this.resizefunc);
-
-        this.$nextTick(() => {
-            this.getData();
-        });
-        this.handleClick()
+        this.handleChnageLine('环球度假区')
 
     },
     //移除事件监听
@@ -193,8 +403,61 @@ export default {
         this.resizefunc = null;
     },
     methods: {
-        async handleChnageLine(value) {
+        handleChnageLine(value) {
+            var self = this
             this.selectedLine = value;
+            var tmp = {
+                station_name:value,
+                passenger_type:'workday',
+                passenger_filter:'max_value'
+            }
+
+            console.log(this.$refs.echart1);
+
+            if(this.$refs.echart1){
+                const charts1 = this.$echarts.init(this.$refs.echart1);
+                charts1.showLoading({ text: '正在加载数据' });
+                this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
+                    if(res.data.code == 200){
+                        const tmpEchartOption1 = JSON.parse(JSON.stringify(option))
+                        tmpEchartOption1.title.text = res.data.station_name + " - 分时进站量";
+                        tmpEchartOption1.xAxis.data = res.data.time_x_list;
+                        tmpEchartOption1.series[0].data = res.data.count_y_list;
+                        charts1.hideLoading()
+                        charts1.setOption(tmpEchartOption1, true);
+                    }
+                })
+            }
+            const charts2 = self.$echarts.init(self.$refs.echart2);
+            charts2.showLoading({ text: '正在加载数据' });
+            if(this.$refs.echart3){
+                const charts3 = self.$echarts.init(self.$refs.echart3);
+                charts3.showLoading({ text: '正在加载数据' });
+                this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
+                    if(res.data.code == 200){
+                        const tmpEchartOption3 = JSON.parse(JSON.stringify(option))
+                        tmpEchartOption3.title.text = res.data.station_name + " - 站台候车人数";
+                        tmpEchartOption3.xAxis.data = res.data.time_x_list;
+                        tmpEchartOption3.series[0].data = res.data.count_y_list;
+                        charts3.hideLoading()
+                        charts3.setOption(tmpEchartOption3, true);
+                    }
+                })
+            }
+
+            this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
+                if(res.data.code == 200){
+                    const tmpEchartOption2 = JSON.parse(JSON.stringify(option))
+                    tmpEchartOption2.title.text = res.data.station_name + " - 分方向换乘人数";
+                    tmpEchartOption2.xAxis.data = res.data.time_x_list;
+                    tmpEchartOption2.series[0].data = res.data.count_y_list;
+                    charts2.hideLoading()
+                    charts2.setOption(tmpEchartOption2, true);
+                }
+            })
+
+            
+
         },
         async handleClick() {
             console.log(this.query);
