@@ -77,8 +77,10 @@
                             v-if="currentView == '2D线网图'" />
                         <div style="height:100%;width:100%"
                             v-if="currentView == '客流监视及滚动预测'">
-                            <echarts1 style="height:50%" />
-                            <echarts2 style="height:50%" />
+                            <echarts1 ref="chart1"
+                                style="height:50%" />
+                            <echarts2 ref="chart2"
+                                style="height:50%" />
                         </div>
                         <div style="height:100%;width:100%; padding: 5px;"
                             v-if="currentView == '客流波动及处置措施'">
@@ -102,7 +104,8 @@
                                     </tbody>
                                 </table>
                                 <p style="height:500px;text-align:center;padding: 10px;background: #2225;">
-                                    <echarts2 style="height:100%" />
+                                    <echarts2 ref="chart22"
+                                        style="height:100%" />
                                 </p>
                                 <p style="margin:20px 0">
                                     <span class="bluetitle"
@@ -161,10 +164,10 @@
                                             </tr>
                                             <tr v-for="(item,index) in Risk"
                                                 :key="index">
-                                                <th>{{item.aaa}}</th>
-                                                <th>{{item.bbb}}</th>
-                                                <th>{{item.ccc}}</th>
-                                                <th>{{item.ddd}}</th>
+                                                <th>{{item.timeRange}}</th>
+                                                <th>{{item.position}}</th>
+                                                <th>{{item.risk}}</th>
+                                                <th>{{item.measure}}</th>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -324,7 +327,7 @@ export default {
         Comprehensive,
         echarts1,
         echarts2,
-        rungraph
+        rungraph,
     },
     created() {
         this.emergencyName = this.$route.meta.title;
@@ -362,6 +365,8 @@ export default {
         if (this.messagelist.length == 0) {
             this._mockMsg();
         }
+
+        this.getRemoteData();
     },
     data() {
         return {
@@ -388,27 +393,22 @@ export default {
             ],
             Risk: [
                 {
-                    aaa: "12:00",
-                    bbb: "阿斯顿",
-                    ccc: "发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的",
-                    ddd: "啊实打实的",
+                    timeRange: "17:00",
+                    position: "进站口",
+                    risk: "陆续散场游客增多",
+                    measure: "提前摆放铁马",
                 },
                 {
-                    aaa: "12:00",
-                    bbb: "阿斯顿",
-                    ccc: "发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的",
-                    ddd: "啊实打实的",
-                },
-                {
-                    aaa: "12:00",
-                    bbb: "阿斯顿",
-                    ccc: "发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的",
-                    ddd: "啊实打实的",
+                    timeRange: "19:00",
+                    position: "站厅",
+                    risk: "外阜游客在扶梯前聚集",
+                    measure: "组织志愿者引导7号线/八通线分流",
                 },
             ],
             oplevel: "升级",
             adjuststep: "行车",
             currentFlowModule: "left",
+            remoteTimer: null,
         };
     },
     methods: {
@@ -460,12 +460,26 @@ export default {
                 this.currentView = "2D线网图";
             } else if (this.currentMainBtn == "客流监视及\n滚动预测") {
                 this.currentView = "客流监视及滚动预测";
+                this.$nextTick(()=>{
+                    // 获取图表数据
+                    this._getRemoteChart1Data();
+                    this._getRemoteChart2Data();
+                });
             } else if (this.currentMainBtn == "客流波动及\n处置措施") {
-                this.currentView = "客流波动及处置措施";
+                this.currentView = "客流波动及处置措施"; 
+                this.$nextTick(()=>{
+                    // 获取图表数据
+                    this._getRemoteChart2Data();
+                });
             } else if (this.currentMainBtn == "运行图调整") {
                 this.currentView = "运行图调整";
             } else if (this.currentMainBtn == "保障方案实施") {
-                this.currentView = "客流监视及滚动预测";
+                this.currentView = "客流监视及滚动预测";    
+                 this.$nextTick(()=>{
+                    // 获取图表数据
+                    this._getRemoteChart1Data();
+                    this._getRemoteChart2Data();
+                });
             } else if (this.currentMainBtn == "方案结束判断") {
                 // this.currentView='客流波动及处置措施';
                 this.currentView = "外部URL";
@@ -487,6 +501,140 @@ export default {
             this.$message({
                 message: msg,
                 type: "success",
+            });
+        },
+        getRemoteData() {
+            let self = this;
+            // 行车数据
+            this.$api.get("/Middle/Measure/Train").then((res) => {
+                console.log("(*^_^*) train data");
+                if (res.status == 200) {
+                    self.Train = res.data;
+                }
+            });
+
+            // 客流分析数据
+            this.$api.get("/Middle/FlowAnalysis/1").then((res) => {
+                console.log("(*^_^*) flowanalysis data");
+                if (res.status == 200) {
+                    self.FlowAnalysis = res.data;
+                }
+            });
+
+            // 车站数据
+            this.$api.get("/Middle/Measure/Station/环球度假区").then((res) => {
+                console.log("(*^_^*) station data");
+                if (res.status == 200) {
+                    self.Risk = res.data;
+                }
+            });
+            
+            // 周期获取图表数据
+            clearInterval(self.remoteTimer);
+            self.remoteTimer = setInterval(() => {
+                if (
+                    self.currentView == "保障方案实施" ||
+                    self.currentView == "客流波动及处置措施" ||
+                    self.currentView == "客流监视及滚动预测"
+                ) {
+                    this._getRemoteChart1Data();
+                    this._getRemoteChart2Data();
+                }
+            }, 5000);
+        },
+        _getRemoteChart1Data() {
+            let self = this;
+            this.$api.get("/Middle/FlowChart1/7号线").then((res) => {
+                console.log("(*^_^*) chart1 data");
+                if (res.status == 200) {
+                    if (res.data && res.data.length > 1) {
+                        let x, linered, lineyellow, linegreen, stackgreen;
+                        res.data.forEach((d) => {
+                            if (d.flowName == "实际断面客流") {
+                                stackgreen = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                            } else if (d.flowName == "预测断面客流") {
+                                linered = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                            } else if (d.flowName == "计划运力") {
+                                linegreen = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                                x = d.flowDetails.map((m) => {
+                                    return m.timeName;
+                                });
+                            } else if (d.flowName == "预测运力") {
+                                lineyellow = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                            }
+                        });
+
+                        if (self.$refs.chart1) {
+                            self.$refs.chart1.setData({
+                                x,
+                                linered,
+                                lineyellow,
+                                linegreen,
+                                stackgreen,
+                            });
+                        }
+                    }
+                }
+            });
+        },
+        _getRemoteChart2Data() {
+            let self = this;
+            this.$api.get("/Middle/FlowChart2/环球度假区").then((res) => {
+                console.log("(*^_^*) chart2 data");
+                if (res.status == 200) {
+                    if (res.data && res.data.length > 1) {
+                        let x, lineyellow, linered, bar, barblock;
+                        res.data.forEach((d) => {
+                            if (d.flowName == "已经发生的进站量") {
+                                bar = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                            } else if (d.flowName == "实际滚动预测进站量") {
+                                barblock = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                            } else if (d.flowName == "离线预测进站量") {
+                                lineyellow = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                            } else if (d.flowName == "历史峰值") {
+                                linered = d.flowDetails.map((m) => {
+                                    return m.value;
+                                });
+                                x = d.flowDetails.map((m) => {
+                                    return m.timeName;
+                                });
+                            }
+                        });
+
+                        if (self.$refs.chart2) {
+                            self.$refs.chart2.setData({
+                                x,
+                                lineyellow,
+                                linered,
+                                bar,
+                                barblock,
+                            });
+                        }
+                        if (self.$refs.chart22) {
+                            self.$refs.chart22.setData({
+                                x,
+                                lineyellow,
+                                linered,
+                                bar,
+                                barblock,
+                            });
+                        }
+                    }
+                }
             });
         },
     },

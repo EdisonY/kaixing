@@ -88,6 +88,14 @@ module.exports = {
                     '^/warning_manage': '/warning_manage'
                 }
             } , 
+            '/Middle': {
+                target: "http://172.51.216.75:9000",
+                // target: "http://172.18.39.165:10700/",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/Middle': '/Middle'
+                }
+            } , 
 
         },
         // after: require('./mock/mock-server.js')

@@ -22,13 +22,13 @@ const option = {
         },
         left: -5,
     },
-    color: ["#f5fc2a", "#00fa95", "#be1910", "#00fa95"],
+    color: ["#00fa95",  "#be1910","#f5fc2a", "#00fa95"],
     legend: {
         data: [
             { name: "实际断面客流", icon: "rect" },
             { name: "预测断面客流" ,icon:"line"},
-            { name: "实际运力" ,icon:"line"},
-            { name: "计划运力",icon:"line" }
+            { name: "预测运力",icon:"line" },
+            { name: "计划运力" ,icon:"line"},
         ],
         right: 20,
         textStyle: {
@@ -63,7 +63,45 @@ const option = {
     },
     series: [
         {
-            name: "实际运力",
+            name: "实际断面客流",
+            type: "line",
+            stack: "Total",
+            lineStyle: {
+                width: 0,
+            },
+            showSymbol: false,
+            areaStyle: {
+                opacity: 1,
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                    {
+                        offset: 1,
+                        color: "#00fa9500",
+                    },
+                    {
+                        offset: 0,
+                        color: "#00fa95",
+                    },
+                ]),
+            },
+            emphasis: {
+                focus: "series",
+            },
+            data: [],
+        },
+        {
+            name: "预测断面客流",
+            type: "line",
+            data: [],
+            showSymbol: false,
+            lineStyle: {
+                width: 2,
+                type: "dashed", //'dotted'点型虚线 'solid'实线 'dashed'线性虚线
+                color: "#be1910",
+                
+            },
+        },
+        {
+            name: "预测运力",
             type: "line",
             step: "end",
             showSymbol: false,
@@ -81,44 +119,6 @@ const option = {
             lineStyle: {
                 color: "#00fa95",
             },
-        },
-        {
-            name: "预测断面客流",
-            type: "line",
-            data: [],
-            showSymbol: false,
-            lineStyle: {
-                width: 2,
-                type: "dashed", //'dotted'点型虚线 'solid'实线 'dashed'线性虚线
-                color: "#be1910",
-                
-            },
-        },
-        {
-            name: "实际断面客流",
-            type: "line",
-            stack: "Total",
-            lineStyle: {
-                width: 0,
-            },
-            showSymbol: false,
-            areaStyle: {
-                opacity: 1,
-                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                    {
-                        offset: 1,
-                        color: "#000",
-                    },
-                    {
-                        offset: 0,
-                        color: "#00fa95",
-                    },
-                ]),
-            },
-            emphasis: {
-                focus: "series",
-            },
-            data: [],
         },
     ],
 };
