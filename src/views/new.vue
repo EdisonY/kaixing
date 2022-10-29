@@ -68,6 +68,9 @@
 </template>
 
 <script>
+
+import base from '@/utils/base64'
+
 export default {
     name: "new",
     data(){
@@ -227,8 +230,16 @@ export default {
                 $('#add').remove()
             }
 
+            var base64 = new base();
+            if(this.choseBtn1){
+                var str = '{' + '"line_name":"' + this.choseBtn0 + '","station_name":"' + this.choseBtn1 + '"}';
+            }else{
+                var str = '{' + '"line_name":"' + this.choseBtn0 + '"}';
+            }
+            console.log(base64.encode(str),base64.encode(str).replace("+","%2B"));
+
             var iframe = document.createElement('iframe'); 
-            iframe.src = this.jumpButton[index].url;
+            iframe.src = this.jumpButton[index].url + '?attachParams=' + base64.encode(str).replace("+","%2B");
             iframe.id = 'add'
             iframe.frameBorder = '0';
             iframe.width = '100%';  

@@ -2,7 +2,15 @@
     <div class="component-page">
         
         <el-row class="row hotarea">
-            <img src="@/assets/basie/hotarea.png" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea1.png" v-if="imgIndex == 1" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea2.png" v-if="imgIndex == 2" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea3.png" v-if="imgIndex == 3" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea4.png" v-if="imgIndex == 4" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea5.png" v-if="imgIndex == 5" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea6.png" v-if="imgIndex == 6" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea7.png" v-if="imgIndex == 7" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea8.png" v-if="imgIndex == 8" usemap="#planetmap"/>
+            <img src="@/assets/basie/hotarea9.png" v-if="imgIndex == 9" usemap="#planetmap"/>
             <map name="planetmap" id="planetmap">
                 <area shape="rect" href="javascript:void(0)" coords="740,180,827,220" @click="show(1)"/>
                 <area shape="rect" href="javascript:void(0)" coords="548,180,636,220" @click="show(2)"/>
@@ -38,7 +46,7 @@
             </div>
             <div class="bg organizeMain" v-if="selectedLine == '视频监控'">
                 <el-row class="row">
-                    <el-col :span="11" style="min-width:720px">
+                    <el-col :span="11" style="width:720px">
                         <el-col :span="24">
                             <el-col :span="12">
                                 <el-select 
@@ -204,7 +212,7 @@
                             </el-col>
                         </el-col>
                     </el-col>
-                    <el-col :span="11" style="min-width:720px" class="preview">
+                    <el-col :span="11" style="width:720px" class="preview">
                         <el-col :span="24">
                             <el-col :span="12">
                                 <div id="xg0"></div>
@@ -290,6 +298,7 @@ export default {
                 value:'3',
                 label:'措施'
             }],
+            imgIndex:1,
             selectedLine:'风险现象',
             sl1:1,
             sl2:2,
@@ -434,6 +443,7 @@ export default {
     },
     methods: {
         show(index){
+            this.imgIndex = index
             this.title = this.titleAll[index - 1]
         },
         async handleChnageLine(value) {

@@ -11,7 +11,7 @@
                     text-color="#fff"
                     active-text-color="#6eb5ff">
                     <el-menu-item index="1">
-                        <span slot="title">常态历史客流选择</span>
+                        <span slot="title">常态历史客流查询</span>
                     </el-menu-item>
                     <el-menu-item index="2">
                         <span slot="title">活动增量客流分析</span>
@@ -26,10 +26,11 @@
             </el-col>
             <el-col :span="21">
                 <div class="rightside">
-                    <History v-show="active=='1'" :key="active" />
-                    <Analysis v-show="active=='2'" :key="active"  />
-                    <Verify v-show="active=='3'" :key="active"  />
-                    <Organize v-show="active=='4'" :key="active"  />
+                    <History v-if="active=='1'" :key="active" />
+                    <Analysis v-if="active=='2'" :key="active"  />
+                    <Verify v-if="active=='3'" :key="active"  />
+                    <Organize v-if="active=='4'" :key="active"  />
+                    <Organize1 style="height:600px;width:1000px"/>
                 </div>
             </el-col>
         </el-row>
@@ -40,7 +41,7 @@
 import History from "./components/history.vue";
 import Analysis from "./components/analysis.vue";
 import Verify from "./components/verify.vue";
-import Organize from "./components/organize.vue";
+import Organize from "./components/organizeNew.vue";
 
 export default {
     components: { History, Analysis ,Verify,Organize },

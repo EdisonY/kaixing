@@ -52,7 +52,7 @@
                     :value="item.value">
                     </el-option>
                 </el-select>
-                <el-button class="yushu" @click="centerDialogVisible = true">线路约束</el-button>
+                <el-button class="yushu" @click="xlys()">线路约束</el-button>
             </el-col>
             <el-col :span="24">&nbsp;</el-col>
             <el-col :span="24">
@@ -65,7 +65,8 @@
             </el-col>
             <el-col :span="24">
                 <div class="yl">
-                    <iframe frameborder="0" width="100%" height="700" src="http://frp.funenc.xyz:7245/link/oTcnnEFV"></iframe>
+                    <!-- <iframe frameborder="0" width="100%" height="700" src="http://frp.funenc.xyz:7245/link/oTcnnEFV"></iframe> -->
+                    <div class="chart" ref="echart"></div>
                 </div>
             </el-col>
         </el-row>
@@ -79,12 +80,12 @@
                 :data="tableData"
                 class="componentTable"
                 style="width: 100%">
-                    <el-table-column
+                    <!-- <el-table-column
                         label="起止时间"
                         align="left"
                         width="240"
                         prop="id">
-                    </el-table-column>
+                    </el-table-column> -->
                     <el-table-column
                         label="交路方案"
                         header-align="left"
@@ -101,7 +102,7 @@
                         width="200">
                         <template slot-scope="scope">
                             <el-button type="primary" size="mini">方案选择</el-button>
-                            <el-button type="danger" size="mini">删除</el-button>
+                            <!-- <el-button type="danger" size="mini">删除</el-button> -->
                         </template>
                     </el-table-column>
                 </el-table>
@@ -113,11 +114,10 @@
             <div v-if="kxfa">
                 <el-col :span="24">&nbsp;</el-col>
                 <el-col :span="24">
-                    <span class="inner-title">开行方案</span>
+                    <span class="inner-title">开行方案 7号线2022年12月24日重大活动保障开行方案01</span>
                 </el-col>
                 <el-col :span="24">&nbsp;</el-col>
                 <el-col :span="24">
-
                     <el-table
                     :data="tableData1"
                     class="componentTable"
@@ -127,7 +127,6 @@
                             align="left"
                             width="240"
                             prop="id">
-                            <template slot="header" slot-scope="scope">起止时间</template>
                         </el-table-column>
                         <el-table-column
                             label="交路方案"
@@ -161,17 +160,21 @@
                             prop="bianzu">
                         </el-table-column>
                         <el-table-column
-                            label="开行对数"
-                            align="center"
-                            prop="kaixing">
-                        </el-table-column>
-                        <el-table-column
-                            label="需求对数"
+                            label="需求列数"
                             align="center"
                             prop="xuqiu">
                         </el-table-column>
+                        <el-table-column
+                            label="开行列数"
+                            align="center"
+                            prop="kaixing">
+                            <template slot-scope="scope">
+                                <el-input class="inputS" v-model="scope.row.kaixing"></el-input>
+                            </template>
+                        </el-table-column>
                     </el-table>
-
+                    </br>
+                    <el-button size="mini" type="primary" class="rightConfig" >保存</el-button>
                 </el-col>
             </div>
 
@@ -220,7 +223,8 @@
             </el-col>
         </el-row>
         <el-row class="row steps steps1" v-if="step == 4">
-            <el-col :span="11">
+            
+            <!-- <el-col :span="11">
                 <span class="inner-title">客流预测方案</span>
                 <el-select v-model="query.stationid" class="inputS" placeholder="请选择" style="margin-right:50px">
                     <el-option v-for="item in stations"
@@ -260,7 +264,7 @@
                     </el-option>
                 </el-select>
 
-                <el-button size="mini" type="primary" style="float:right;" class="rightConfig" @click="qwyz = true">启动全网验证</el-button>
+                
 
                 <ul>
                     <li>
@@ -281,7 +285,36 @@
                     <li>10号线工作日运行图</li>
                     <li>11号线工作日运行图</li>
                 </ul>
+            </el-col> -->
+            <el-col :span="24">&nbsp;</el-col>
+            <el-col :span="24">
+                <el-table
+                    :data="tableData2"
+                    class="componentTable"
+                    style="width: 100%">
+                    <el-table-column
+                        prop="date"
+                        label="线路名称"
+                        align="center">
+                    </el-table-column>
+                    <el-table-column
+                        prop="name"
+                        label="线路关系"
+                        align="center">
+                    </el-table-column>
+                    <el-table-column
+                        prop="address"
+                        align="center"
+                        label="运行图名称">
+                    </el-table-column>
+                    <el-table-column
+                        prop="xinxi"
+                        align="center"
+                        label="是否调整">
+                    </el-table-column>
+                </el-table>
             </el-col>
+            <el-button size="mini" type="primary" style="float:right;" class="rightConfig" @click="qwyz = true">启动全网验证</el-button>
             <el-col :span="24">&nbsp;</el-col>
             <el-col :span="24" v-if="qwyz">
                 <el-table
@@ -320,14 +353,24 @@
                         label="告警持续时间">
                     </el-table-column>
                 </el-table>
+                
+                <el-col :span="24" style="text-align:right;padding: 20px 0;">
+                    
+                </el-col>
+                
             </el-col>
+
+            
+
         </el-row>
 
         <el-row class="row steps final">
             <el-col :span="24">
                 <el-button type="primary" class="rightConfig" @click="stepNext(0)" v-if="step > 1">上一步</el-button>
                 <el-button type="primary" class="rightConfig" @click="stepNext(1)" v-if="step > 0 && step < 4">下一步</el-button>
-                <el-button type="primary" class="rightConfig" v-if="step == 4">客运组织方案设计</el-button>
+                <el-button size="mini" type="primary" v-if="step == 4">导出全部线路</el-button>
+                <el-button size="mini" type="primary" v-if="step == 4">导出调整线路</el-button>
+                <!-- <el-button type="primary" class="rightConfig" v-if="step == 4">客运组织方案设计</el-button> -->
             </el-col>
         </el-row>
         <el-dialog
@@ -337,19 +380,19 @@
             center>
             <ul>
                 <li>
-                    <span>系统设计最小运营间隔(s)</span>90
+                    <span>系统设计最小运营间隔(s)</span>{{xlys.minSpanDesign}}
                 </li>
                 <li>
-                    <span>实际最小运营间隔(s)</span>120
+                    <span>实际最小运营间隔(s)</span>{{xlys.minSpanActual}}
                 </li>
                 <li>
-                    <span>编组</span>8B
+                    <span>编组</span>{{xlys.groupType}}
                 </li>
                 <li>
-                    <span>全周转时长</span>1‘13’02
+                    <span>全周转时长</span>{{xlys.cycleTime}}
                 </li>
                 <li>
-                    <span>备车数量(列)</span>4
+                    <span>备车数量(列)</span>{{xlys.trainNum}}
                 </li>
             </ul>
         </el-dialog>
@@ -358,11 +401,68 @@
 </template>
 
 <script>
+import echarts from "echarts";
 
+const option = { grid: {
+        left: 30,
+        top: 50,
+        right: 0,
+        bottom: 40,
+    },
+    title: {
+        text: "环球度假区-分时进站量",
+        textStyle: {
+            color: "#fff",
+        },
+        left: -5,
+    },
+    backgroundColor: "",
+    tooltip: {},
+    xAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+            rotate: 90,
+        },
+        data: [],
+        axisLine: { onZero: true },
+        splitLine: { show: false },
+        splitArea: { show: false },
+    },
+    yAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+        },
+        splitLine: { show: false },
+        axisLine: { show: false },
+        axisTick: {show: false},
+        splitArea: {show: false}
+    },
+    series: [
+        {
+        name: 'Step End',
+        type: 'line',
+        step: 'end',
+        data: [450, 432, 401, 454, 590, 530, 510]
+        }
+    ]
+};
 export default {
     name: "nav01",
     data() {
         return {
+            xlys:{
+                minSpanDesign:'',
+                minSpanActual:'',
+                groupType:'',
+                cycleTime:'',
+                trainNum:''
+            },
             qwyz:false,
             kxfa:false,
             centerDialogVisible:false,
@@ -378,6 +478,15 @@ export default {
             options: [{
                 value: '选项1',
                 label: '常规预测'
+            },{
+                value: '选项2',
+                label: '备用预测1'
+            },{
+                value: '选项3',
+                label: '备用预测2'
+            },{
+                value: '选项4',
+                label: '备用预测3'
             }],
             options1:[{
                 label:'环球度假区-北京西站',
@@ -403,31 +512,31 @@ export default {
                 value:1
             },{
                 label:'达官营站',
-                value:1
+                value:2
             },{
                 label:'广安门内站',
-                value:1
+                value:3
             },{
                 label:'菜市口站',
-                value:1
+                value:4
             },{
                 label:'虎坊桥站',
-                value:1
+                value:5
             },{
                 label:'珠市口站',
-                value:1
+                value:6
             },{
                 label:'桥湾站',
-                value:1
+                value:7
             },{
                 label:'磁器口站',
-                value:1
+                value:8
             },{
                 label:'广渠门内站',
-                value:1
+                value:9
             },{
                 label:'广渠门外站',
-                value:1
+                value:10
             }],
             value: '选项1',
             step:1,
@@ -539,13 +648,17 @@ export default {
             }],
         };
     },
-    created() {},
+    created() {
+        
+    },
     computed: {},
     mounted() {
         window.addEventListener("resize", this.resizefunc);
         this.$nextTick(() => {
             this.getData();
         });
+        let charts1 = this.$echarts.init(this.$refs.echart, "dark");
+        charts1.setOption(option, true);
     },
     //移除事件监听
     beforeDestroy() {
@@ -677,6 +790,14 @@ export default {
                 }
             });
         },
+        xlys(){
+            this.centerDialogVisible = true 
+            var self = this
+            this.$api.get('/verAPI/op/constraint?lineId=70').then(res => {             
+                self.xlys = res.data
+            })
+            console.log(this.xlys);
+        }
     },
 };
 </script>
@@ -702,4 +823,6 @@ export default {
 .steps1 ul li span{color: #f9ce4c;}
 .steps1 ul li button{position: absolute;right:10px;top:5px}
 
+.steps1 .yl{background: transparent;}
+.chart {height: 400px;padding: 5px;width:400px}
 </style>

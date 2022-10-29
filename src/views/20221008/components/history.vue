@@ -2,8 +2,18 @@
     <div class="component-page">
         <el-row class="row">
             <el-col :span="24">
-                <span class="inner-title">目标车站</span>
+                <span class="inner-title">目标线路</span>
                 <el-select v-model="query.stationid" class="inputS"
+                    placeholder="请选择">
+                    <el-option v-for="item in stations"
+                        :key="item.stationid"
+                        :label="item.stationname"
+                        :value="item.stationid">
+                    </el-option>
+                </el-select>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="inner-title">目标车站</span>
+                <el-select v-model="query.station_name" class="inputS"
                     placeholder="请选择">
                     <el-option v-for="item in stations"
                         :key="item.stationid"
@@ -15,22 +25,22 @@
         </el-row>
         <el-row class="row">
             <el-col :span="24">
-                <span class="inner-title">客流类型</span>
-                <el-radio-group v-model="query.ptype" class="inputS">
-                    <el-radio label="工作日">工作日</el-radio>
-                    <el-radio label="休息日">休息日</el-radio>
-                    <el-radio label="节假日">节假日</el-radio>
-                    <el-radio label="活动日">活动日</el-radio>
+                <span class="inner-title">典型日</span>
+                <el-radio-group v-model="query.passenger_type" class="inputS">
+                    <el-radio label="workday">工作日</el-radio>
+                    <el-radio label="day_off">休息日</el-radio>
+                    <el-radio label="festival">节假日</el-radio>
+                    <el-radio label="activity">活动日</el-radio>
                 </el-radio-group>
             </el-col>
         </el-row>
         <el-row class="row">
             <el-col :span="22">
-                <span class="inner-title">客流选择</span>
-                <el-radio-group v-model="query.prange" class="inputS">
-                    <el-radio label="最大值">最大值</el-radio>
-                    <el-radio label="60天均值">60天均值</el-radio>
-                    <el-radio label="特定日">特定日</el-radio>
+                <span class="inner-title">查看方式</span>
+                <el-radio-group v-model="query.passenger_filter" class="inputS">
+                    <el-radio label="max_value">最大值</el-radio>
+                    <el-radio label="mean_value">平均值</el-radio>
+                    <el-radio label="specific_day">特定日</el-radio>
                     <el-date-picker :disabled="query.prange!='特定日'"
                         v-model="query.prange_date"
                         value-format="yyyy-MM-DD HH:mm:ss"
@@ -51,10 +61,8 @@
                 <div class="chart"
                     ref="echart1"></div>
             </el-col>
-            <el-col class="chart"
-                :span="12">
-                <div class="chart"
-                    ref="echart2"></div>
+            <el-col class="chart" :span="12">
+                <div class="chart" ref="echart2"></div>
             </el-col>
         </el-row>
         <!-- echart -->
@@ -90,7 +98,7 @@ const option = {
         bottom: 40,
     },
     title: {
-        text: "2022年1月3日环球度假区站分时进站量",
+        text: "环球度假区-分时进站量",
         textStyle: {
             color: "#fff",
         },
@@ -131,7 +139,6 @@ const option = {
             itemStyle: {
                 color: "#5470c6",
                 barBorderRadius: [6, 6, 0, 0],
-                
             },
             showBackground: true,
             backgroundStyle: {
@@ -149,15 +156,19 @@ export default {
             stations: [],
             lineList: [],
             query: {
-                stationid: "花乡东桥",
-                ptype: "60天均值",
-                prange: "最大值",
-                prange_date: "",
+                station_name: "丰台科技园",
+                passenger_type: "workday",
+                passenger_filter: "max_value",
             },
             selectedLine: "",
         };
     },
-    created() {},
+    created() {
+        
+        // this.$api.post2('/zbAPI/get_passenger_data/',this.query).then(res => {             
+        //     console.log(res);
+        // })
+    },
     computed: {},
     mounted() {
         window.addEventListener("resize", this.resizefunc);
@@ -165,7 +176,7 @@ export default {
             this.getData();
         });
         this.handleClick()
-        this.handleChnageLine('1号线')
+        this.handleChnageLine('1-八通线')
     },
     //移除事件监听
     beforeDestroy() {
@@ -213,10 +224,10 @@ export default {
         getOptions(chartnum, data) {
             if (chartnum == 1) {
                 option.xAxis.axisLabel.rotate = 90;
-                option.title.text = "分时进站量";
+                option.title.text = "环球度假区-分时进站量";
             } else if (chartnum == 2) {
                 option.xAxis.axisLabel.rotate = 45;
-                option.title.text = "OD量";
+                option.title.text = "环球度假区目的车站客流量";
             } else if (chartnum == 3) {
                 option.xAxis.axisLabel.rotate = 90;
                 option.title.text = "分时最大断面客流";
@@ -275,7 +286,7 @@ export default {
                 } else {
                     resolve({
                         stations: [
-                            {
+                        {
                                 stationid: "花乡东桥",
                                 stationname: "花乡东桥",
                             },
@@ -297,12 +308,8 @@ export default {
                             },
                         ],
                         lineList: [
-                            "1号线",
-                            "2号线",
-                            "4号线",
-                            "9号线",
-                            "10号线",
-                            "13号线",
+                            "1-八通线",
+                            "7号线",
                         ],
                     });
                 }
