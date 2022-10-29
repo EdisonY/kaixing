@@ -11,7 +11,7 @@
                 <el-switch
                     v-model="hotMap"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="hot">
                 </el-switch>
                 <br/>
@@ -20,7 +20,7 @@
                 <el-switch
                     v-model="fullload"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="full">
                 </el-switch>
                 <br/>
@@ -29,7 +29,7 @@
                 <el-switch
                     v-model="passenger"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="passengerflow">
                 </el-switch>
                 <br/>
@@ -38,7 +38,7 @@
                 <el-switch
                     v-model="alarm"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="stationAlarm">
                 </el-switch>
                 <br/>
@@ -48,7 +48,7 @@
                 <el-switch
                     v-model="realtime"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="realtimeSimulation">
                 </el-switch>
                 <br/>
@@ -57,7 +57,7 @@
                 <el-switch
                     v-model="lineState"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="lineStateChange">
                 </el-switch>
                 <br/>
@@ -66,7 +66,7 @@
                 <el-switch
                     v-model="lateState"
                     active-color="#13ce66"
-                    inactive-color="#ff4949"
+                    inactive-color="#959595"
                     @change="lateStateChange">
                 </el-switch>
                 <br/>
@@ -76,7 +76,7 @@
                 <el-switch
                     v-model="historyrealtime"
                     active-color="#13ce66"
-                    inactive-color="#ff4949">
+                    inactive-color="#959595">
                 </el-switch>
                 <div class="wirenetElement" v-if="historyrealtime">
                     <el-time-picker
@@ -147,7 +147,7 @@
             </ul>
             <ul>
                 <li class="title_p"><span>图标</span>站控措施</li>
-                <li><span><img src="http/subway/3.png" /></span>封站</li>
+                <li><span><img src="http://172.51.216.72:41004/subway/3.png" /></span>封站</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/4.png" /></span>安检减缓速度</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/5.png" /></span>分批放行乘客</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/6.png" /></span>设立导流围栏</li>
@@ -157,7 +157,6 @@
                 <li><span><img src="http://172.51.216.72:41004/subway/10.png" /></span>TVM减缓售票速度</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/11.png" /></span>改变电扶梯运行方向</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/12.png" /></span>引导乘客经楼梯分流</li>
-
             </ul>
         </div>
         <div class="alarm">
@@ -170,7 +169,6 @@
                 <li><span><img src="http://172.51.216.72:41004/subway/17.png" /></span>机电故障</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/18.png" /></span>自然灾害</li>
                 <li><span><img src="http://172.51.216.72:41004/subway/19.png" /></span>突发事件</li>
-
             </ul>
         </div>
         <div class="lineState">
@@ -235,6 +233,7 @@
         :append-to-body="true"
         :visible.sync="zkDialog">
         <img class="szk" src="http://172.51.216.72:41004/subway/szk.jpg" />
+
         </el-dialog>
 
     </div>

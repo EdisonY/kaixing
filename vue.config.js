@@ -66,6 +66,20 @@ module.exports = {
                     '^/api': '/'
                 }
             } ,
+            '/zbAPI': {
+                target: "http://172.16.222.166:5000/",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/zbAPI': '/'
+                }
+            } ,
+            '/verAPI': {
+                target: "http://172.51.216.75:8088/",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/verAPI': '/'
+                }
+            } ,
             '/warning_manage': {
                 target: "http://172.51.216.75:8090",
                 // target: "http://172.18.39.165:10700/",

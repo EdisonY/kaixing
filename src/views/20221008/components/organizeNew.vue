@@ -1,119 +1,58 @@
 <template>
     <div class="component-page">
-        <div class="bg">
-            <el-row class="row">
-                <span class="inner-title">需求输入</span>
-            </el-row>
-            <el-row class="row inputDiv">
-                <el-col :span="24">
-                    <div class="insideDiv">
-                        <span class="inner-prop">总人数</span><br/>
-                        <el-input class="inputS" v-model="zrs"></el-input>
-                    </div>
-                    <div class="insideDiv">
-                        <span class="inner-prop">活动日期</span><br/>
-                        <el-date-picker
-                            v-model="value0"
-                            type="date"
-                            class="inputS"
-                            placeholder="选择日期">
-                        </el-date-picker>
-                    </div>
-                    <div class="insideDiv">
-                        <span class="inner-prop">活动时间</span><br/>
-                        <el-time-picker
-                            v-model="value1"
-                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
-                            class="inputS"
-                            placeholder="任意时间点">
-                        </el-time-picker>
-                        至
-                        <el-time-picker
-                            arrow-control
-                            v-model="value2"
-                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
-                            class="inputS"
-                            placeholder="任意时间点">
-                        </el-time-picker>
-                    </div>
-                    <div class="insideDiv">
-                        <span class="inner-prop">地铁分担率</span><br/>
-                        <el-input class="inputS" v-model="fdl"></el-input>
-                    </div>
-                </el-col>
-            </el-row>
-        </div>
-
-        <el-row style="padding:40px 0 0 0">
+        
+        <el-row>
             <el-radio-group v-model="selectedLine" @change="handleChnageLine">
                 <el-radio-button :key="index" v-for="(item,index) in lineList" :label="item.label"></el-radio-button>
             </el-radio-group>
         </el-row>
-
         <div class="bg">
             <el-row class="row">
-                <span class="inner-title">参数设置</span>
-            </el-row>
-            <el-row class="row inputDiv">
-                <el-col :span="24">
-                    <div class="insideDiv">
-                        <span class="inner-prop">浮动系数</span><br/>
-                        <el-input class="inputS" v-model="fd"></el-input>
-                    </div>
-                    <div class="insideDiv">
-                        <span class="inner-prop">疏散高峰时间</span><br/>
-                        <el-time-picker
-                            v-model="value1"
-                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
-                            class="inputS"
-                            placeholder="任意时间点">
-                        </el-time-picker>
-                        至
-                        <el-time-picker
-                            arrow-control
-                            v-model="value2"
-                            :picker-options="{selectableRange: '18:30:00 - 20:30:00'}"
-                            class="inputS"
-                            placeholder="任意时间点">
-                        </el-time-picker>
-                    </div>
-                    <div class="insideDiv">
-                        <span class="inner-prop">&nbsp;</span><br/>
-                        <el-button size="mini" type="primary" @click="handleClick" class="rightConfig">开始客流预测</el-button>
-                    </div>
-                </el-col>
-            </el-row>
-            </br>
-            <el-row>
                 <el-col :span="12">
-                    <el-row class="row">
-                        <span class="inner-title">活动目的车站排名</span>
-                    </el-row>
+                    <div class="chart" ref="echart1"></div>
+                </el-col>
+                <el-col :span="12">
                     <div class="chart" ref="echart2"></div>
                 </el-col>
-                <el-col :span="1">&nbsp;</el-col>
-                <el-col :span="11">
-                    <el-row class="row">
-                        <span class="inner-title">分时进站量</span>
-                    </el-row>
-                    <div class="chart" ref="echart1"></div>
-                    <el-button style="margin:10px;float:right" type="primary" class="rightConfig">保存</el-button>
+                <el-col :span="24">&nbsp;</el-col>
+                <el-col :span="24">
+                    <el-table
+                        :data="tableData2"
+                        class="componentTable"
+                        style="width: 100%">
+                        <el-table-column
+                            prop="date"
+                            label="线路名称"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="name"
+                            label="线路关系"
+                            align="center">
+                        </el-table-column>
+                        <el-table-column
+                            prop="address"
+                            align="center"
+                            label="运行图名称">
+                        </el-table-column>
+                        <el-table-column
+                            prop="xinxi"
+                            align="center"
+                            label="是否调整">
+                        </el-table-column>
+                    </el-table>
                 </el-col>
             </el-row>
         </div>
-        
     </div>
 </template>
 
 <script>
-import echarts from "echarts";
 let xAxisData = [];
 let data1 = [];
-let data2 = [];
 for (let i = 0; i < 10; i++) {
   xAxisData.push('Class' + i);
   data1.push(+(Math.random() * 2).toFixed(2));
-  data2.push(+(Math.random() * 5).toFixed(2));
 }
 const option = {
     grid: {
@@ -180,64 +119,73 @@ const option = {
         },
     ],
 };
-
 export default {
     name: "nav01",
     data() {
         return {
-            stations: [],
+            selectedLine: "环球度假区（本站）",
             lineList: [{
                 value:'0',
-                label:'常规方案'
+                label:'环球度假区（本站）'
             },{
                 value:'1',
-                label:'调整方案1'
+                label:'双井'
+            },{
+                value:'2',
+                label:'国贸'
+            },{
+                value:'3',
+                label:'磁器口'
             }],
-            query: {
-                stationid: "",
-                ptype: "",
-                prange: "",
-                prange_date: "",
-            },
-            selectedLine: "常规预测",
-            tableData: [
-                {
-                    date: "2016-05-02",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1518 弄",
-                },
-                {
-                    date: "2016-05-04",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1517 弄",
-                },
-                {
-                    date: "2016-05-01",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1519 弄",
-                },
-                {
-                    date: "2016-05-03",
-                    name: "王小虎",
-                    address: "上海市普陀区金沙江路 1516 弄",
-                },
-            ],
-            value0:'',
-            value1: new Date(2016, 9, 10, 18, 40),
-            value2: new Date(2016, 9, 10, 18, 40),
-            zrs:'60000',
-            fd:'20%',
-            fdl:"58%"
+            tableData2: [{
+                date: '进站量告警',
+                name: '1',
+                address: '5min',
+                xinxi:'环球度假区站',
+                duishu:'22:53-22:58'
+            },{
+                date: '站台滞留人数告警',
+                name: '2',
+                address: '9min',
+                xinxi:'环球度假区站',
+                duishu:'22:56-22:05'
+            },{
+                date: '站台滞留超过一次告警',
+                name: '17',
+                address: '5min',
+                xinxi:'环球度假区站',
+                duishu:'22:53-22:58'
+            },{
+                date: '分方向换成预测预警',
+                name: '1',
+                address: '3min',
+                xinxi:'环球度假区站',
+                duishu:'22:53-22:56'
+            },{
+                date: '区间满载率',
+                name: '1',
+                address: '5min',
+                xinxi:'环球度假区站',
+                duishu:'22:53-22:58'
+            },{
+                date: '列车满载率',
+                name: '1',
+                address: '5min',
+                xinxi:'环球度假区站',
+                duishu:'22:53-22:58'
+            }],
         };
     },
     created() {},
     computed: {},
     mounted() {
         window.addEventListener("resize", this.resizefunc);
+
         this.$nextTick(() => {
             this.getData();
         });
         this.handleClick()
+
     },
     //移除事件监听
     beforeDestroy() {
@@ -245,6 +193,9 @@ export default {
         this.resizefunc = null;
     },
     methods: {
+        async handleChnageLine(value) {
+            this.selectedLine = value;
+        },
         async handleClick() {
             console.log(this.query);
             let data = await this.mockData(1);
@@ -256,28 +207,6 @@ export default {
             let opt2 = this.getOptions(2, data);
             let charts2 = this.$echarts.init(this.$refs.echart2, "dark");
             charts2.setOption(opt2, true);
-        },
-        async handleChnageLine(value) {
-            console.log(value);
-
-            // for (let index = 0; index < this.lineList.length; index++) {
-            //     if(value == this.lineList[index].label){
-            //         this.selectedLine = this.lineList[index].value
-            //     }
-                
-            // }
-
-            this.selectedLine = value;
-
-            // let data = await this.mockData(3);
-            // let opt3 = this.getOptions(3, data);
-            // let charts3 = this.$echarts.init(this.$refs.echart3, "dark");
-            // charts3.setOption(opt3, true);
-
-            // data = await this.mockData(4);
-            // let opt4 = this.getOptions(4, data);
-            // let charts4 = this.$echarts.init(this.$refs.echart4, "dark");
-            // charts4.setOption(opt4, true);
         },
         async getData() {
             let data = await this.mockData();
@@ -377,24 +306,5 @@ export default {
 </script>
 
 <style scoped>
-.inner-prop {
-    color: #606266;
-    margin-left: 5px;
-    margin-right: 20px;
-}
-.row {
-    margin: 10px 0;
-}
-.flex6 {
-    flex: 6;
-}
-.flex7 {
-    flex: 7;
-}
-.chart {
-    height: 100%;
-    min-height: 300px;
-    padding: 5px;
-}
-.inputDiv .insideDiv{float: left;margin-right: 50px;}
+.chart {height: 300px;padding: 5px;width: 100%;}
 </style>
