@@ -292,13 +292,16 @@
                             <iframe style="width: 100%;height: 33%;"
                                 src="http://172.51.216.64/sdss/tc2.html?name=7号线缩略图.png"
                                 frameborder="0"></iframe>
-                            <!-- <rungraph style="width:100%;height:66%"/> -->
-                            <iframe style="width: 100%;height: 33%;"
+
+
+                            <rungraph style="width:100%;height:66%"/>
+
+                            <!-- <iframe style="width: 100%;height: 33%;"
                                 src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=计划运行图"
                                 frameborder="0"></iframe>
                             <iframe style="width: 100%;height: 33%;"
                                 src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
-                                frameborder="0"></iframe>
+                                frameborder="0"></iframe> -->
                         </div>
                         <div style="height:100%;width:100%;padding:10px"
                             v-if="currentView == '数据简报'">
@@ -466,7 +469,7 @@ export default {
         }
 
         if (this.messagelist.length == 0) {
-            this._mockMsg('开始');
+            this._mockMsg("开始");
         }
 
         this.getRemoteData();
@@ -682,9 +685,11 @@ export default {
                 } else if (scene === "客流-车") {
                     this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/V0sEA5CS`;
                 } else if (scene === "行车-运行图") {
-                    this.$refs.outframe.src = `http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200`;
+                    // this.$refs.outframe.src = `http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200`;
+                    this.$refs.outframe.src=`http://172.51.216.64/sdss/tc.html?name=2-平行推演.png`;
                 } else if (scene === "行车-正线") {
-                    this.$refs.outframe.src = `http://172.51.216.72:41005/sample`;
+                    // this.$refs.outframe.src = `http://172.51.216.72:41005/sample`;
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc2.html?name=7号线缩略图.png`;
                 } else if (scene === "行车-段场") {
                     this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-场.png`;
                 } else if (scene === "其他-车站平面图") {

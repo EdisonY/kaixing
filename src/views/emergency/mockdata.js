@@ -13,15 +13,15 @@ export const mockMessage = {
     }],
     "运行图调整": [
         {
-            name: "机场",
-            content: "降落航班C2009次，到港旅客600人",
+            name: "环球影城",
+            content: "观众已散场,大批人流接近环球影城出口",
             time: "",
             right: false,
         },
         {
             name: "行调",
             content:
-                "首都机场线可使用列车数为8，10号线可使用列车数为16",
+                "7号线可使用列车数为8, 1-八通线可使用列车数为16",
             time: "",
             right: false,
         }
