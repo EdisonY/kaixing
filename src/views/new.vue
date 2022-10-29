@@ -185,7 +185,6 @@ export default {
                     })
                 }
             }
-
             for (let index = 0; index < this.options[0].options.length; index++) {
                 if(this.choseBtn0 == this.options[0].options[index].label){
                     this.options[0].options[index].chose = true
@@ -193,9 +192,7 @@ export default {
                     this.options[0].options[index].chose = false
                 }
             }
-
             this.showButton('line')
-
         },
         choseStation(item){
             this.choseBtn1 = item.label

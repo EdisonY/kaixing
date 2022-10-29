@@ -3,29 +3,31 @@
         <el-row class="row">
             <el-col :span="24">
                 <span class="inner-title">目标线路</span>
-                <el-select v-model="query.stationid" class="inputS"
+                <el-select v-model="query.line_id" class="inputS"
                     placeholder="请选择">
-                    <el-option v-for="item in stations"
-                        :key="item.stationid"
-                        :label="item.stationname"
-                        :value="item.stationid">
+                    <el-option
+                        v-for="(item,index) in options[0].options"
+                        :change="choseLine(item)"
+                        :key="index"
+                        :label="item.label"
+                        :value="item.value">
                     </el-option>
                 </el-select>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <span class="inner-title">目标车站</span>
                 <el-select v-model="query.station_name" class="inputS"
                     placeholder="请选择">
-                    <el-option v-for="item in stations"
-                        :key="item.stationid"
-                        :label="item.stationname"
-                        :value="item.stationid">
+                    <el-option v-for="item in stationList"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
                     </el-option>
                 </el-select>
             </el-col>
         </el-row>
         <el-row class="row">
             <el-col :span="24">
-                <span class="inner-title">典型日</span>
+                <span class="inner-title">&nbsp;&nbsp;&nbsp;典型日</span>
                 <el-radio-group v-model="query.passenger_type" class="inputS">
                     <el-radio label="workday">工作日</el-radio>
                     <el-radio label="day_off">休息日</el-radio>
@@ -41,9 +43,9 @@
                     <el-radio label="max_value">最大值</el-radio>
                     <el-radio label="mean_value">平均值</el-radio>
                     <el-radio label="specific_day">特定日</el-radio>
-                    <el-date-picker :disabled="query.prange!='特定日'"
+                    <el-date-picker :disabled="query.passenger_filter!='specific_day'"
                         v-model="query.prange_date"
-                        value-format="yyyy-MM-DD HH:mm:ss"
+                        value-format="yyyy-MM-DD"
                         type="date"
                         class="inputS"
                         placeholder="选择日期">
@@ -51,15 +53,14 @@
                 </el-radio-group>
             </el-col>
             <el-col :span="2">
-                <el-button size="mini" type="primary" @click="handleClick" class="rightConfig">确认</el-button>
+                <el-button size="mini" type="primary" @click="search()" class="rightConfig">确认</el-button>
             </el-col>
         </el-row>
         <!-- echart -->
+
         <el-row class="flex6">
-            <el-col class="chart"
-                :span="12">
-                <div class="chart"
-                    ref="echart1"></div>
+            <el-col class="chart" :span="12">
+                <div class="chart" ref="echart1"></div>
             </el-col>
             <el-col class="chart" :span="12">
                 <div class="chart" ref="echart2"></div>
@@ -67,23 +68,23 @@
         </el-row>
         <!-- echart -->
         <el-row style="padding:10px 0 0 0">
-            <el-radio-group v-model="selectedLine"
-                @change="handleChnageLine">
-                <el-radio-button :key="index"
+            <el-radio-group v-model="selectedLine" @change="search(0)">
+                <el-radio-button 
+                    :key="index"
                     v-for="(item,index) in lineList"
-                    :label="item"></el-radio-button>
+                    :label="item">
+                </el-radio-button>
             </el-radio-group>
         </el-row>
         <el-row class="flex7 linbottom">
-            <el-col class="chart"
-                :span="12">
+            <el-col class="chart" :span="12">
                 <div class="chart" ref="echart3"></div>
             </el-col>
-            <el-col class="chart"
-                :span="12">
+            <el-col class="chart" :span="12">
                 <div class="chart" ref="echart4"></div>
             </el-col>
         </el-row>
+
     </div>
 </template>
 
@@ -95,10 +96,10 @@ const option = {
         left: 30,
         top: 50,
         right: 0,
-        bottom: 40,
+        bottom: 70,
     },
     title: {
-        text: "环球度假区-分时进站量",
+        text: "",
         textStyle: {
             color: "#fff",
         },
@@ -112,7 +113,7 @@ const option = {
             textStyle: {
                 color: "#fff",
             },
-            rotate: 90,
+            rotate: 45,
         },
         data: [],
         axisLine: { onZero: true },
@@ -135,6 +136,7 @@ const option = {
         {
             name: "bar",
             type: "bar",
+            barWidth:'50%',
             data: [],
             itemStyle: {
                 color: "#5470c6",
@@ -153,30 +155,48 @@ export default {
     name: "nav01",
     data() {
         return {
+            loading:false,
             stations: [],
-            lineList: [],
+            lineList: ["7号线"],
             query: {
-                station_name: "丰台科技园",
+                station_name: "S07030",
                 passenger_type: "workday",
                 passenger_filter: "max_value",
+                line_id:'L070'
             },
-            selectedLine: "",
+            options: [{
+                label: '线路',
+                options: []
+                }, {
+                label: '车站',
+                options: []}
+            ],
+            selectedLine: "7号线",
         };
     },
     created() {
-        
-        // this.$api.post2('/zbAPI/get_passenger_data/',this.query).then(res => {             
-        //     console.log(res);
-        // })
+        var self = this
+        for (let index = 0; index < LINETRAIN.length; index++) {
+            if(this.options[0].options.length == 0 || this.options[0].options[this.options[0].options.length - 1].value != LINETRAIN[index].LineID){
+                this.options[0].options.push({
+                    value:LINETRAIN[index].LineID,
+                    label:LINETRAIN[index].LineName,
+                    chose:false
+                })
+            }
+            this.options[1].options.push({
+                value:LINETRAIN[index].StationID,
+                label:LINETRAIN[index].LineName + ' - ' + LINETRAIN[index].StationName,
+                chose:false
+            })
+        }
+
     },
     computed: {},
     mounted() {
         window.addEventListener("resize", this.resizefunc);
-        this.$nextTick(() => {
-            this.getData();
-        });
-        this.handleClick()
-        this.handleChnageLine('1-八通线')
+        this.search()
+
     },
     //移除事件监听
     beforeDestroy() {
@@ -184,136 +204,102 @@ export default {
         this.resizefunc = null;
     },
     methods: {
-        async handleClick() {
-            if (this.query.stationid && this.query.prange && this.query.ptype) {
-                let data = await this.mockData(1);
-                let opt1 = this.getOptions(1, data);
-                let charts1 = this.$echarts.init(this.$refs.echart1, "dark");
-                charts1.setOption(opt1, true);
-
-                data = await this.mockData(2);
-                let opt2 = this.getOptions(2, data);
-                let charts2 = this.$echarts.init(this.$refs.echart2, "dark");
-                charts2.setOption(opt2, true);
-            } else {
-                this.$message({
-                    message: "请选择条件",
-                    type: "warning",
-                });
-            }
-
-       
-        },
-        async handleChnageLine(value) {
-            this.selectedLine = value;
-            let data = await this.mockData(3);
-            let opt3 = this.getOptions(3, data);
-            let charts3 = this.$echarts.init(this.$refs.echart3, "dark");
-            charts3.setOption(opt3, true);
-
-            data = await this.mockData(4);
-            let opt4 = this.getOptions(4, data);
-            let charts4 = this.$echarts.init(this.$refs.echart4, "dark");
-            charts4.setOption(opt4, true);
-        },
-        async getData() {
-            let data = await this.mockData();
-            this.stations = data.stations;
-            this.lineList = data.lineList;
-        },
-        getOptions(chartnum, data) {
-            if (chartnum == 1) {
-                option.xAxis.axisLabel.rotate = 90;
-                option.title.text = "环球度假区-分时进站量";
-            } else if (chartnum == 2) {
-                option.xAxis.axisLabel.rotate = 45;
-                option.title.text = "环球度假区目的车站客流量";
-            } else if (chartnum == 3) {
-                option.xAxis.axisLabel.rotate = 90;
-                option.title.text = "分时最大断面客流";
-            } else if (chartnum == 4) {
-                option.xAxis.axisLabel.rotate = 45;
-                option.title.text = "各个断面最大客流量";
-            }
-            option.xAxis.data = data.x;
-            option.series[0].data = data.y;
-            return option;
-        },
-        resizefunc() {
-            this.$echarts.init(this.$refs.echart1).resize(); //多个echarts则在此处添加
-            this.$echarts.init(this.$refs.echart2).resize(); //多个echarts则在此处添加
-            this.$echarts.init(this.$refs.echart3).resize(); //多个echarts则在此处添加
-            this.$echarts.init(this.$refs.echart4).resize(); //多个echarts则在此处添加
-        },
-        mockData(chartnum, exdata) {
-            return new Promise((resolve, reject) => {
-                if (chartnum === 1 || chartnum === 3) {
-                    let x = [];
-                    let y = [];
-                    for (let i = 5; i < 23; i++) {
-                        x.push(`${i}:00`);
-                        x.push(`${i}:15`);
-                        x.push(`${i}:30`);
-                        x.push(`${i}:45`);
-                        y.push(parseInt(Math.random() * 3000));
-                        y.push(parseInt(Math.random() * 3000));
-                        y.push(parseInt(Math.random() * 3000));
-                        y.push(parseInt(Math.random() * 3000));
-                    }
-                    resolve({ x, y });
-                } else if (chartnum === 2) {
-                    let x = [];
-                    let y = [];
-                    for (let i = 1; i < 23; i++) {
-                        x.push(`随机${i}车站`);
-                        y.push(parseInt(Math.random() * 800));
-                    }
-                    resolve({ x, y });
-                } else if (chartnum === 4) {
-                    let x = [];
-                    let y = [];
-                    for (let i = 5; i < 23; i++) {
-                        x.push(`${i}:00`);
-                        x.push(`${i}:15`);
-                        x.push(`${i}:30`);
-                        x.push(`${i}:45`);
-                        y.push(parseInt(Math.random() * 1600));
-                        y.push(parseInt(Math.random() * 1600));
-                        y.push(parseInt(Math.random() * 1600));
-                        y.push(parseInt(Math.random() * 1600));
-                    }
-                    resolve({ x, y });
-                } else {
-                    resolve({
-                        stations: [
-                        {
-                                stationid: "花乡东桥",
-                                stationname: "花乡东桥",
-                            },
-                            {
-                                stationid: "北京西",
-                                stationname: "北京西",
-                            },
-                            {
-                                stationid: "西直门",
-                                stationname: "西直门",
-                            },
-                            {
-                                stationid: "国贸",
-                                stationname: "国贸",
-                            },
-                            {
-                                stationid: "六里桥",
-                                stationname: "六里桥",
-                            },
-                        ],
-                        lineList: [
-                            "1-八通线",
-                            "7号线",
-                        ],
-                    });
+        search(){
+            const self = this
+            const tmp = JSON.parse(JSON.stringify(this.query))
+            for (let index = 0; index < LINETRAIN.length; index++) {
+                if(LINETRAIN[index].StationID == tmp.station_name){
+                    tmp.station_name = LINETRAIN[index].StationName
                 }
-            });
+            }
+            for (let index = 0; index < LINETRAIN.length; index++) {
+                if(LINETRAIN[index].LineID == tmp.line_id){
+                    tmp.line_name = LINETRAIN[index].LineName
+                    this.lineList[0] = LINETRAIN[index].LineName
+                    this.selectedLine = LINETRAIN[index].LineName
+                }
+            }
+
+            if(tmp.passenger_filter == 'specific_day' && tmp.prange_date != ''){
+                tmp.passenger_filter = tmp.prange_date
+            }
+            
+            const charts1 = self.$echarts.init(self.$refs.echart1);
+            charts1.showLoading({ text: '正在加载数据' });
+            const charts2 = self.$echarts.init(self.$refs.echart2);
+            charts2.showLoading({ text: '正在加载数据' });
+            const charts3 = self.$echarts.init(self.$refs.echart3);
+            charts3.showLoading({ text: '正在加载数据' });
+            const charts4 = self.$echarts.init(self.$refs.echart4);
+            charts4.showLoading({ text: '正在加载数据' });
+
+            // delete tmp.stationid;
+
+            this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
+                if(res.data.code == 200){
+                    const tmpEchartOption1 = JSON.parse(JSON.stringify(option))
+                    tmpEchartOption1.title.text = res.data.station_name + " - 分时进站量";
+                    tmpEchartOption1.xAxis.data = res.data.time_x_list;
+                    tmpEchartOption1.series[0].data = res.data.count_y_list;
+                    charts1.hideLoading()
+                    charts1.setOption(tmpEchartOption1, true);
+                    
+                }
+            })
+
+            this.$api.post2('/zbAPI/get_od_data/',tmp).then(res => {
+                if(res.data.code == 200){
+                    const tmpEchartOption2 = JSON.parse(JSON.stringify(option))
+                    tmpEchartOption2.title.text = res.data.station_name + " - OD量";
+                    tmpEchartOption2.xAxis.data = res.data.x_station_name_list;
+                    tmpEchartOption2.series[0].data = res.data.y_d_value_list;
+                    charts2.hideLoading()
+                    charts2.setOption(tmpEchartOption2, true);
+                }
+            })
+            
+
+            
+            this.$api.get('/zbAPI/cross_section_passenger_flow/',{line_id:tmp.line_id}).then(res => {
+                if(res.data.code == 200){
+                    const tmpEchartOption3 = JSON.parse(JSON.stringify(option))
+                    tmpEchartOption3.title.text = tmp.line_name + " - 分时最大断面客流";
+                    tmpEchartOption3.xAxis.data = res.data.time_x_list;
+                    tmpEchartOption3.series[0].data = res.data.count_y_list;
+                    charts3.hideLoading()
+                    charts3.setOption(tmpEchartOption3, true);
+                }
+            })
+
+            this.$api.get('/zbAPI/get_line_section_data/',{line_id:tmp.line_id}).then(res => {
+                if(res.data.code == 200){
+                    const tmpEchartOption4 = JSON.parse(JSON.stringify(option))
+                    tmpEchartOption4.title.text = tmp.line_name + " - 各个断面最大客流量";
+                    tmpEchartOption4.xAxis.data = res.data.x_section_name_list;
+                    tmpEchartOption4.series[0].data = res.data.y_count_list;
+                    charts4.hideLoading()
+                    charts4.setOption(tmpEchartOption4, true);
+                }
+            })
+            
+
+        },
+        choseLine(){
+            this.stationList = []
+            for (let index = 0; index < LINETRAIN.length; index++) {
+                if(LINETRAIN[index].LineID == this.query.line_id){
+                    this.stationList.push({
+                        value:LINETRAIN[index].StationID,
+                        label:LINETRAIN[index].StationName,
+                        chose:false
+                    })
+                }
+            }
+            if(this.query.line_id == 'L070'){
+                this.query.station_name = '环球度假区'
+            }else{
+                this.query.station_name = this.stationList[0].label
+            }
         },
     },
 };
