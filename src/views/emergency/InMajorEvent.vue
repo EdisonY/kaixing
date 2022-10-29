@@ -75,13 +75,106 @@
                     <div class="middle-panel">
                         <Comprehensive style="height:calc(100vh - 150px);"
                             v-if="currentView == '2D线网图'" />
-                        <div  style="height:100%;width:100%"
+                        <div style="height:100%;width:100%"
                             v-if="currentView == '客流监视及滚动预测'">
                             <h1>两个ECHART控件</h1>
                         </div>
-                        <div  style="height:100%;width:100%"
+                        <div style="height:100%;width:100%; padding: 5px;"
                             v-if="currentView == '客流波动及处置措施'">
-                            <h1>客流波动及处置措施 ...</h1>
+                            <div v-if="currentFlowModule=='left'">
+                                <p class="bluetitle" style="margin:10px 0">
+                                    客流分析
+                                </p>
+                                <table class="flowanalisys-table">
+                                    <tbody>
+                                        <tr class="header">
+                                            <th>实际进站量</th>
+                                            <th>实际疏散时间</th>
+                                            <th>所需列车数</th>
+                                        </tr>
+                                        <tr>
+                                            <th>{{FlowAnalysis.actualNum}}人</th>
+                                            <th>{{FlowAnalysis.actualTimeRange}}</th>
+                                            <th>{{FlowAnalysis.trainNum}}</th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <p style="height:500px;text-align:center;background:lightseagreen">ECHART</p>
+                                <p style="margin:10px 0">
+                                    <span class="bluetitle" style="padding-top: 2px;">行车员执行级别</span>
+                                    <el-radio-group v-model="oplevel"
+                                        size="mini">
+                                        <el-radio-button label="升级"></el-radio-button>
+                                        <el-radio-button label="降级"></el-radio-button>
+                                    </el-radio-group>
+                                </p>
+                                <p style="margin:10px 0">
+                                    <span class="bluetitle" style="padding-top: 2px;">建议处置措施</span>
+                                    <el-radio-group v-model="adjuststep"
+                                        size="mini">
+                                        <el-radio-button label="行车"></el-radio-button>
+                                        <el-radio-button label="车站"></el-radio-button>
+                                    </el-radio-group>
+                                </p>
+                                <div v-if="adjuststep=='行车'">
+                                    <table class="flowanalisys-table">
+                                        <tbody>
+                                            <tr class="header">
+                                                <th :rowspan="Train.length+1">行车</th>
+                                                <th>起止时间</th>
+                                                <th>计划间隔(s)</th>
+                                                <th>系统建议间隔(s)</th>
+                                                <th>线路能力(s)</th>
+                                                <th>调整时间(s)</th>
+                                            </tr>
+                                            <tr v-for="(item,index) in Train"
+                                                :key="index">
+                                                <th>{{item.timeRange}}</th>
+                                                <th>{{item.planInterval}}</th>
+                                                <th>{{item.suggestInterval}}</th>
+                                                <th>{{item.lineAbility}}</th>
+                                                <th><input type="text"
+                                                        class="innerinput"
+                                                        :value="item.adjustInterval"></th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <p style="margin:10px 0">
+                                        <el-button type="primary"
+                                            @click="currentFlowModule='right'">详细调整</el-button>
+                                    </p>
+                                </div>
+                                <div v-if="adjuststep=='车站'">
+                                    <table class="flowanalisys-table">
+                                        <tbody>
+                                            <tr class="header">
+                                                <th>时间</th>
+                                                <th>位置</th>
+                                                <th>风险现象</th>
+                                                <th>建议措施</th>
+                                            </tr>
+                                            <tr v-for="(item,index) in Risk"
+                                                :key="index">
+                                                <th>{{item.aaa}}</th>
+                                                <th>{{item.bbb}}</th>
+                                                <th>{{item.ccc}}</th>
+                                                <th>{{item.ddd}}</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <p style="margin:10px 0;float: right;">
+                                    <el-button type="primary">下发</el-button>
+                                </p>
+                            </div>
+                            <div v-if="currentFlowModule=='right'">
+
+                                <p>
+                                    <el-button type="primary"
+                                        @click="currentFlowModule='left'">返回</el-button>
+                                </p>
+                            </div>
                         </div>
                         <div style="height:100%;width:100%"
                             v-if="currentView == '运行图调整'">
@@ -95,7 +188,7 @@
                                 src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=调整后运行图"
                                 frameborder="0"></iframe>
                         </div>
-                        <div  style="height:100%;width:100%"
+                        <div style="height:100%;width:100%"
                             v-if="currentView == '数据简报'">
                             <table class="selfTable">
                                 <tbody>
@@ -188,9 +281,10 @@
                                 2022年12月24日保障环球影城夜场活动，7号线加开3列临客，八通线加开2列临客，涉及65个车站，处置时长2小时25分03秒，共服务旅客<span>56095</span>人，无人员伤亡，无设备损失。
                             </p>
                         </div>
-                        <div  style="height:100%;width:100%"
+                        <div style="height:100%;width:100%"
                             v-if="currentView == '外部URL'">
-                            <iframe ref="outframe" style="height:100%;width:100%"
+                            <iframe ref="outframe"
+                                style="height:100%;width:100%"
                                 frameborder="0"></iframe>
                         </div>
                     </div>
@@ -264,6 +358,44 @@ export default {
             currentMainBtn: "",
             currentSubBtn: "",
             currentView: "2D线网图",
+            FlowAnalysis: {
+                actualTimeRange: "22:00-23:00",
+                actualNum: 25000,
+                trainNum: 14,
+            },
+            Train: [
+                {
+                    id: 0,
+                    timeRange: "string",
+                    planInterval: 0,
+                    suggestInterval: 0,
+                    lineAbility: 0,
+                    adjustInterval: 0,
+                },
+            ],
+            Risk:[
+                {
+                    aaa:'12:00',
+                    bbb:'阿斯顿',
+                    ccc:'发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的',
+                    ddd:'啊实打实的'
+                },
+                {
+                    aaa:'12:00',
+                    bbb:'阿斯顿',
+                    ccc:'发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的',
+                    ddd:'啊实打实的'
+                },
+                {
+                    aaa:'12:00',
+                    bbb:'阿斯顿',
+                    ccc:'发射点发射点犯得上房贷首付士大夫山豆根地方官梵蒂冈梵蒂冈的风格的',
+                    ddd:'啊实打实的'
+                }
+            ],
+            oplevel: "升级",
+            adjuststep: "行车",
+            currentFlowModule: "left",
         };
     },
     methods: {
@@ -312,7 +444,7 @@ export default {
             } else if (scene === "其他-视频画面") {
                 this.currentView = "外部URL";
                 this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=视频画面.png`;
-            } else if (scene === "周边-天气" || scene === "周边-路况"){
+            } else if (scene === "周边-天气" || scene === "周边-路况") {
                 this.currentView = "外部URL";
                 this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
             }
@@ -352,6 +484,7 @@ export default {
 <style scoped>
 .page {
     height: calc(100vh - 60px);
+    box-sizing: border-box;
 }
 
 .row-padding {
@@ -371,8 +504,8 @@ export default {
 }
 
 .flex-col > .innerpanel {
+    height: 100%;
     flex: 1;
-    overflow: hidden;
 }
 
 .innertitle {
@@ -393,6 +526,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow: hidden;
 }
 .divline {
     height: 3px;
@@ -400,16 +534,50 @@ export default {
     margin-bottom: 5px;
 }
 .middle-panel {
+    height: 100%;
     flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    overflow: scroll;
 }
-
 
 .mainmenu {
     text-align: left;
     line-height: 40px;
+}
+
+.flowanalisys-table {
+    width: 100%;
+    border-left: 1px solid #ebeef5;
+    border-bottom: 1px solid #ebeef5;
+    border-spacing: 0;
+}
+.flowanalisys-table tr {
+    line-height: 40px;
+}
+.flowanalisys-table tr:hover,
+.flowanalisys-table .thead {
+    background-color: #fff4;
+}
+.flowanalisys-table tr td,
+.flowanalisys-table tr th {
+    border-right: 1px solid #ebeef5;
+    border-top: 1px solid #ebeef5;
+    text-align: center;
+    position: relative;
+}
+.flowanalisys-table tr td label,
+.flowanalisys-table tr th label {
+    position: absolute;
+    left: 5px;
+}
+.flowanalisys-table .header th {
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .selfTable .header th {
@@ -443,5 +611,24 @@ export default {
 }
 .btn-panel .btn:hover {
     background: orange;
+}
+
+div::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+.innerinput {
+    color: #fff;
+    border: solid #333 1px;
+    width: 60%;
+    margin: 10px;
+    line-height: 30px;
+    background: #0008;
+}
+
+.bluetitle{
+    color: #5470c6;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 </style>
