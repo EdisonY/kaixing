@@ -1,5 +1,6 @@
 <template>
-    <div class="page">
+    <div class="component-page page"
+        style="color:#fff">
         <el-row class="row-padding">
             <el-col class="flex-col"
                 style="display:flex;flex-direction:column"
@@ -73,7 +74,7 @@
                     <p class="innertitle">应急预案</p>
                     <div class="divline"></div>
                     <div class="middle-panel">
-                        <Comprehensive style="height:calc(100vh - 150px);"
+                        <Comprehensive style="height:calc(100vh - 160px);"
                             v-if="currentView == '2D线网图'" />
                         <div style="height:100%;width:100%"
                             v-if="currentView == '客流监视及滚动预测'">
@@ -179,10 +180,111 @@
                                 </p>
                             </div>
                             <div v-if="currentFlowModule=='right'">
+
                                 <p>
                                     <el-button type="primary"
+                                        size="mini"
                                         @click="currentFlowModule='left'">返回</el-button>
                                 </p>
+                                <el-row class="row steps steps1">
+                                    <el-col :span="24">
+                                        <span class="inner-title">交路方案选择</span>
+                                    </el-col>
+                                    <el-col :span="24">&nbsp;</el-col>
+                                    <el-col :span="24">
+                                        <el-table ref="multipleTable"
+                                            :data="tableData"
+                                            class="componentTable"
+                                            @selection-change="handleSelectionChange"
+                                            style="width: 100%">
+                                            <el-table-column type="selection"
+                                                width="55">
+                                            </el-table-column>
+                                            <el-table-column label="交路方案"
+                                                header-align="left"
+                                                prop="name">
+                                                <template slot-scope="scope">
+                                                    <p>{{scope.row.name}}</p>
+                                                    <p>{{scope.row.name1}}</p>
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </el-col>
+                                    <el-col :span="24">&nbsp;</el-col>
+                                    <el-col :span="24">
+                                        <el-button size="mini"
+                                            type="primary"
+                                            class="rightConfig"
+                                            @click="kxfa = true"
+                                            style="float:right;"
+                                            v-if="multipleSelection.length > 0">生成开行方案</el-button>
+                                    </el-col>
+                                    <div v-if="kxfa">
+                                        <el-col :span="24">&nbsp;</el-col>
+                                        <el-col :span="24">
+                                            <span class="inner-title">开行方案 7号线2022年12月24日重大活动保障开行方案01</span>
+                                        </el-col>
+                                        <el-col :span="24">&nbsp;</el-col>
+                                        <el-col :span="24">
+                                            <el-table :data="tableData1"
+                                                class="componentTable"
+                                                style="width: 100%">
+                                                <el-table-column label="起止时间"
+                                                    align="left"
+                                                    width="240"
+                                                    prop="id">
+                                                </el-table-column>
+                                                <el-table-column label="交路方案"
+                                                    align="center">
+                                                    <template slot-scope="scope">
+                                                        <el-select v-model="scope.row.jiaolu"
+                                                            class="inputS inputS_B"
+                                                            placeholder="请选择"
+                                                            style="width:200px">
+                                                            <el-option v-for="item in options1"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column label="跳停车站"
+                                                    align="center">
+                                                    <template slot-scope="scope">
+                                                        <el-select v-model="scope.row.tiaoting"
+                                                            class="inputS"
+                                                            placeholder="请选择"
+                                                            style="text-align: center;">
+                                                            <el-option v-for="item in options2"
+                                                                :key="item.value"
+                                                                :label="item.label"
+                                                                :value="item.value">
+                                                            </el-option>
+                                                        </el-select>
+                                                    </template>
+                                                </el-table-column>
+                                                <el-table-column label="编组信息"
+                                                    align="center"
+                                                    prop="bianzu">
+                                                </el-table-column>
+                                                <el-table-column label="需求列数"
+                                                    align="center"
+                                                    prop="xuqiu">
+                                                </el-table-column>
+                                                <el-table-column label="开行列数"
+                                                    align="center"
+                                                    prop="kaixing">
+                                                    <template slot-scope="scope">
+                                                        <el-input class="inputS"
+                                                            v-model="scope.row.kaixing"></el-input>
+                                                    </template>
+                                                </el-table-column>
+                                            </el-table>
+                                        </el-col>
+                                    </div>
+
+                                </el-row>
                             </div>
                         </div>
                         <div style="height:100%;width:100%"
@@ -303,6 +405,7 @@
             <el-col class="flex-col"
                 :span="5">
                 <message-panel title="消息列表"
+                    v-on:add="_addMsg"
                     :messagelist="messagelist" />
             </el-col>
         </el-row>
@@ -363,7 +466,7 @@ export default {
         }
 
         if (this.messagelist.length == 0) {
-            this._mockMsg();
+            this._mockMsg('开始');
         }
 
         this.getRemoteData();
@@ -409,6 +512,136 @@ export default {
             adjuststep: "行车",
             currentFlowModule: "left",
             remoteTimer: null,
+            kxfa: false,
+            multipleSelection: [],
+            tableData: [
+                {
+                    id: "05:00:00 - 07:00:00",
+                    name: "环球度假区-北京西站 跳停车站：无 编组信息：8B 交路比例：无",
+                },
+                {
+                    id: "07:00:00 - 09:00:00",
+                    name: "交路1：环球度假区-北京西站 跳停车站：无 编组信息：8B",
+                    name1: "交路2：焦化厂-北京西站 跳停车站：无 编组信息：8B 交路比例：1：1",
+                },
+                {
+                    id: "09:00:00 - 11:00:00",
+                    name: "交路1：环球度假区-北京西站 跳停车站：无 编组信息：8B",
+                    name1: "交路2：高楼金-北京西站 跳停车站：无 编组信息：8B 交路比例：2：1",
+                },
+            ],
+            tableData1: [
+                {
+                    id: "05:00:00 - 07:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "07:00:00 - 09:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "09:00:00 - 11:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "11:00:00 - 13:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "13:00:00 - 15:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "15:00:00 - 17:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "17:00:00 - 19:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+                {
+                    id: "19:00:00 - 21:00:00",
+                    bianzu: "8B",
+                    kaixing: "20",
+                    xuqiu: 20,
+                    jiaolu: 0,
+                    tiaoting: 0,
+                },
+            ],
+            options2: [
+                {
+                    label: "北京西站",
+                    value: 0,
+                },
+                {
+                    label: "湾子站",
+                    value: 1,
+                },
+                {
+                    label: "达官营站",
+                    value: 2,
+                },
+                {
+                    label: "广安门内站",
+                    value: 3,
+                },
+                {
+                    label: "菜市口站",
+                    value: 4,
+                },
+                {
+                    label: "虎坊桥站",
+                    value: 5,
+                },
+                {
+                    label: "珠市口站",
+                    value: 6,
+                },
+                {
+                    label: "桥湾站",
+                    value: 7,
+                },
+                {
+                    label: "磁器口站",
+                    value: 8,
+                },
+                {
+                    label: "广渠门内站",
+                    value: 9,
+                },
+                {
+                    label: "广渠门外站",
+                    value: 10,
+                },
+            ],
         };
     },
     methods: {
@@ -426,6 +659,15 @@ export default {
                     this.messagelist.push(item);
                 });
             }
+        },
+        _addMsg(msg) {
+            let data = {
+                name: "总调",
+                content: msg,
+                time: this.$getCurrentDate2(),
+                right: true,
+            };
+            this.messagelist.push(data);
         },
         changeWorkArea(scene) {
             // let outaddress = "http://frp.funenc.xyz:7245/";
@@ -460,22 +702,22 @@ export default {
                 this.currentView = "2D线网图";
             } else if (this.currentMainBtn == "客流监视及\n滚动预测") {
                 this.currentView = "客流监视及滚动预测";
-                this.$nextTick(()=>{
+                this.$nextTick(() => {
                     // 获取图表数据
                     this._getRemoteChart1Data();
                     this._getRemoteChart2Data();
                 });
             } else if (this.currentMainBtn == "客流波动及\n处置措施") {
-                this.currentView = "客流波动及处置措施"; 
-                this.$nextTick(()=>{
+                this.currentView = "客流波动及处置措施";
+                this.$nextTick(() => {
                     // 获取图表数据
                     this._getRemoteChart2Data();
                 });
             } else if (this.currentMainBtn == "运行图调整") {
                 this.currentView = "运行图调整";
             } else if (this.currentMainBtn == "保障方案实施") {
-                this.currentView = "客流监视及滚动预测";    
-                 this.$nextTick(()=>{
+                this.currentView = "客流监视及滚动预测";
+                this.$nextTick(() => {
                     // 获取图表数据
                     this._getRemoteChart1Data();
                     this._getRemoteChart2Data();
@@ -494,8 +736,7 @@ export default {
                 sessionStorage.removeItem(`${this.emergencyName}-time`);
             }
 
-            // TODO
-            // this._mockMsg();
+            this._mockMsg(this.currentView);
         },
         btnClick(msg) {
             this.$message({
@@ -528,7 +769,7 @@ export default {
                     self.Risk = res.data;
                 }
             });
-            
+
             // 周期获取图表数据
             clearInterval(self.remoteTimer);
             self.remoteTimer = setInterval(() => {
@@ -545,7 +786,6 @@ export default {
         _getRemoteChart1Data() {
             let self = this;
             this.$api.get("/Middle/FlowChart1/7号线").then((res) => {
-                console.log("(*^_^*) chart1 data");
                 if (res.status == 200) {
                     if (res.data && res.data.length > 1) {
                         let x, linered, lineyellow, linegreen, stackgreen;
@@ -588,7 +828,6 @@ export default {
         _getRemoteChart2Data() {
             let self = this;
             this.$api.get("/Middle/FlowChart2/环球度假区").then((res) => {
-                console.log("(*^_^*) chart2 data");
                 if (res.status == 200) {
                     if (res.data && res.data.length > 1) {
                         let x, lineyellow, linered, bar, barblock;
@@ -636,6 +875,9 @@ export default {
                     }
                 }
             });
+        },
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
         },
     },
 };
@@ -791,5 +1033,153 @@ div::-webkit-scrollbar {
     color: #5470c6;
     font-size: 1.3rem;
     font-weight: bold;
+}
+
+.step {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 40px 0;
+}
+.step::before {
+    width: 100%;
+    height: 1px;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    background: #161e2e;
+}
+.step span {
+    position: relative;
+    z-index: 2;
+    background: #000;
+}
+.step span i {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 30px;
+    vertical-align: middle;
+    background: #000;
+    border: 2px solid #a1a2a3;
+    text-align: center;
+    line-height: 36px;
+    font-weight: bold;
+    margin-right: 6px;
+}
+.step span.active {
+    font-weight: bold;
+    color: #fff;
+}
+.step span.active i {
+    border-color: #f9ce4c;
+    background: #f9ce4c;
+    color: #000;
+}
+
+.step {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    padding: 40px 0;
+}
+.step::before {
+    width: 100%;
+    height: 1px;
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    background: #161e2e;
+}
+.step span {
+    position: relative;
+    z-index: 2;
+    background: #000;
+}
+.step span i {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 30px;
+    vertical-align: middle;
+    background: #000;
+    border: 2px solid #a1a2a3;
+    text-align: center;
+    line-height: 36px;
+    font-weight: bold;
+    margin-right: 6px;
+}
+.step span.active {
+    font-weight: bold;
+    color: #fff;
+}
+.step span.active i {
+    border-color: #f9ce4c;
+    background: #f9ce4c;
+    color: #000;
+}
+
+.steps {
+    width: 90%;
+    margin: 0 auto;
+}
+.final {
+    text-align: center;
+}
+
+.subwayLine {
+    width: 100%;
+    overflow: auto;
+}
+.subwayLine img {
+    height: 300px;
+}
+
+.steps1 {
+    overflow-y: auto;
+    height: calc(100vh - 260px);
+    margin-bottom: 10px;
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none;
+}
+.steps1::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}
+.steps1 ul {
+    padding: 20px 0;
+    text-align: center;
+}
+.steps1 ul li {
+    border-bottom: 1px solid #131d29;
+    height: 40px;
+    line-height: 40px;
+    position: relative;
+}
+.steps1 ul li span {
+    color: #f9ce4c;
+}
+.steps1 ul li button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.steps1 .yl {
+    background: transparent;
+}
+.chart {
+    height: 400px;
+    padding: 5px;
+    width: 100%;
 }
 </style>

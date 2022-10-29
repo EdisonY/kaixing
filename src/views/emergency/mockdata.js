@@ -1,7 +1,7 @@
 export const mockMessage = {
     "开始": [{
         name: "交委",
-        content: "航班大面积延误，首都机场地铁配合延长运营时间",
+        content: "环球影城表演即将结束，预计会有大客流，地铁配合延长运营时间",
         time: "",
         right: false,
     },
@@ -11,7 +11,7 @@ export const mockMessage = {
         time: "",
         right: true,
     }],
-    "信息监视": [
+    "运行图调整": [
         {
             name: "机场",
             content: "降落航班C2009次，到港旅客600人",
@@ -74,7 +74,7 @@ export const mockMessage = {
             right: true,
         }
     ],
-    "方案终止判断": [
+    "方案结束判断": [
         {
             name: "总调 -> 交委/各岗位",
             content: "恢复正常运营......",
@@ -82,7 +82,7 @@ export const mockMessage = {
             right: true,
         }
     ],
-    "统计数据\n撰写简报": [
+    "统计数据撰写简报": [
         {
             name: "总调 -> 各岗位",
             content: "统计数据，撰写运营简报......",
@@ -93,7 +93,7 @@ export const mockMessage = {
     "结束": [
         {
             name: "总调",
-            content: "暴雨场景大面积航班延误已结束",
+            content: "环球影城大客流应急结束",
             time: "",
             right: true,
         }
