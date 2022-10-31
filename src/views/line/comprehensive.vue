@@ -943,6 +943,8 @@ export default {
 
             clearTimeout(realtimeOut)
 
+            tctSubway.resetMultiply()
+            
             historyNum = 0
             this.historyState = 0
             this.historyTime = 0
@@ -984,7 +986,7 @@ export default {
             })
         },
         handleClickFun(info){
-            this.$confirm('点击确定将带您进入 ' + info.stationName + ' 站相关页面', '提示', {
+            this.$confirm('点击确定将带您进入 ' + (info.stationName ? info.stationName : info.sdata) + ' 站相关页面', '提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'info'

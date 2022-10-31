@@ -184,10 +184,10 @@
 <script>
 const option = {
     grid: {
-        left: 30,
+        left: 40,
         top: 50,
         right: 0,
-        bottom: 70,
+        bottom: 40,
     },
     title: {
         text: "",
@@ -225,7 +225,6 @@ const option = {
     },
     series: [
         {
-            name: "bar",
             type: "bar",
             barWidth:'50%',
             data: [],
@@ -238,6 +237,68 @@ const option = {
                 color: 'rgba(48, 56, 69, 0.4)',
                 barBorderRadius: [6, 6, 0, 0],
             },
+        },
+    ],
+};
+const option1 = {
+    grid: {
+        left: 40,
+        top: 50,
+        right: 0,
+        bottom: 40,
+    },
+    title: {
+        text: "2022年1月3日环球度假区站分时进站量",
+        textStyle: {
+            color: "#fff",
+        },
+        left: -5,
+    },
+    backgroundColor: "",
+    tooltip: {},
+    xAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+            rotate: 45,
+        },
+        data: [],
+        axisLine: { onZero: true },
+        splitLine: { show: false },
+        splitArea: { show: false },
+    },
+    yAxis: {
+        axisLabel: {
+            show: true,
+            textStyle: {
+                color: "#fff",
+            },
+        },
+        splitLine: { show: false },
+        axisLine: { show: false },
+        axisTick: {show: false},
+        splitArea: {show: false}
+    },
+    series: [
+    {
+            type: "bar",
+            data: '',
+            itemStyle: {
+                color: "#3644e0",
+                // barBorderRadius: [6, 6, 0, 0],
+            },
+            stack: 'one',
+        },
+        {
+            type: "bar",
+            data: '',
+            itemStyle: {
+                color: "#f1696a",
+                // barBorderRadius: [6, 6, 0, 0],
+            },
+            stack: 'one',
         },
     ],
 };
@@ -395,7 +456,6 @@ export default {
     computed: {},
     mounted() {
         this.handleChnageLine('环球度假区')
-
     },
     //移除事件监听
     beforeDestroy() {
@@ -420,7 +480,7 @@ export default {
                 this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
                     if(res.data.code == 200){
                         const tmpEchartOption1 = JSON.parse(JSON.stringify(option))
-                        tmpEchartOption1.title.text = res.data.station_name + " - 分时进站量";
+                        tmpEchartOption1.title.text = value + " - 分时进站量";
                         tmpEchartOption1.xAxis.data = res.data.time_x_list;
                         tmpEchartOption1.series[0].data = res.data.count_y_list;
                         charts1.hideLoading()
@@ -428,53 +488,34 @@ export default {
                     }
                 })
             }
-            const charts2 = self.$echarts.init(self.$refs.echart2);
-            charts2.showLoading({ text: '正在加载数据' });
+            
             if(this.$refs.echart3){
                 const charts3 = self.$echarts.init(self.$refs.echart3);
                 charts3.showLoading({ text: '正在加载数据' });
-                this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
-                    if(res.data.code == 200){
-                        const tmpEchartOption3 = JSON.parse(JSON.stringify(option))
-                        tmpEchartOption3.title.text = res.data.station_name + " - 站台候车人数";
-                        tmpEchartOption3.xAxis.data = res.data.time_x_list;
-                        tmpEchartOption3.series[0].data = res.data.count_y_list;
-                        charts3.hideLoading()
-                        charts3.setOption(tmpEchartOption3, true);
-                    }
+                this.$api.get('/zbAPI/directional_transfer_passengers/',tmp).then(res => {
+                    const tmpEchartOption3 = JSON.parse(JSON.stringify(option1))
+                    tmpEchartOption3.title.text = value + " - 分方向换乘人数";
+                    tmpEchartOption3.xAxis.data = res.data.time_list;
+                    tmpEchartOption3.series[0].data = res.data.down_dir_val_list;
+                    tmpEchartOption3.series[1].data = res.data.up_dir_val_list;
+                    charts3.hideLoading()
+                    console.log(tmpEchartOption3);
+                    charts3.setOption(tmpEchartOption3, true);
                 })
             }
-
-            this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
-                if(res.data.code == 200){
-                    const tmpEchartOption2 = JSON.parse(JSON.stringify(option))
-                    tmpEchartOption2.title.text = res.data.station_name + " - 分方向换乘人数";
-                    tmpEchartOption2.xAxis.data = res.data.time_x_list;
-                    tmpEchartOption2.series[0].data = res.data.count_y_list;
-                    charts2.hideLoading()
-                    charts2.setOption(tmpEchartOption2, true);
-                }
+            const charts2 = self.$echarts.init(self.$refs.echart2);
+            charts2.showLoading({ text: '正在加载数据' });
+            this.$api.get('/zbAPI/platform_passengers/',tmp).then(res => {
+                const tmpEchartOption2 = JSON.parse(JSON.stringify(option))
+                tmpEchartOption2.title.text = value + " - 站台候车人数";
+                tmpEchartOption2.xAxis.data = res.data.time_list;
+                tmpEchartOption2.series[0].data = res.data.platform_passengers_val_list;
+                charts2.hideLoading()
+                charts2.setOption(tmpEchartOption2, true);
             })
 
             
 
-        },
-        async handleClick() {
-            console.log(this.query);
-            let data = await this.mockData(1);
-            let opt1 = this.getOptions(1, data);
-            let charts1 = this.$echarts.init(this.$refs.echart1, "dark");
-            charts1.setOption(opt1, true);
-
-            let data2 = await this.mockData(2);
-            let opt2 = this.getOptions(2, data);
-            let charts2 = this.$echarts.init(this.$refs.echart2, "dark");
-            charts2.setOption(opt2, true);
-        },
-        async getData() {
-            let data = await this.mockData();
-            this.stations = data.stations;
-            // this.lineList = data.lineList;
         },
         getOptions(chartnum, data) {
             if (chartnum == 1) {

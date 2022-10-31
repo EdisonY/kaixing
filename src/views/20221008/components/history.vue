@@ -93,7 +93,7 @@ import echarts from "echarts";
 
 const option = {
     grid: {
-        left: 30,
+        left: 40,
         top: 50,
         right: 0,
         bottom: 70,
@@ -134,7 +134,6 @@ const option = {
     },
     series: [
         {
-            name: "bar",
             type: "bar",
             barWidth:'50%',
             data: [],

@@ -185,7 +185,7 @@
                         </el-table-column>
                     </el-table>
                     </br>
-                    <el-button size="mini" type="primary" class="rightConfig" >保存</el-button>
+                    <el-button size="mini" type="primary" class="rightConfig" @click="save()" >保存</el-button>
                 </el-col>
             </div>
 
@@ -416,7 +416,7 @@ import echarts from "echarts";
 
 const option1 = {
     grid: {
-        left: 30,
+        left: 40,
         top: 50,
         right: 0,
         bottom: 70,
@@ -457,7 +457,6 @@ const option1 = {
     },
     series: [
         {
-            name: "bar",
             type: "bar",
             barWidth:'50%',
             data: [],
@@ -506,7 +505,7 @@ export default {
             selectedLine: "",
             options: [{
                 value: '选项1',
-                label: '常规预测'
+                label: '常规方案'
             },{
                 value: '选项2',
                 label: '备用预测1'
@@ -807,91 +806,12 @@ export default {
         this.resizefunc = null;
     },
     methods: {
-        async getData() {
-            let data = await this.mockData();
-            this.stations = data.stations;
-            this.lineList = data.lineList;
-        },
         stepNext(value){
             if(value){
                 this.step++
             }else{
                 this.step--
             }
-        },
-        mockData(chartnum, exdata) {
-            return new Promise((resolve, reject) => {
-                if (chartnum === 1 || chartnum === 3) {
-                    let x = [];
-                    let y = [];
-                    for (let i = 5; i < 23; i++) {
-                        x.push(`${i}:00`);
-                        x.push(`${i}:15`);
-                        x.push(`${i}:30`);
-                        x.push(`${i}:45`);
-                        y.push(parseInt(Math.random() * 3000));
-                        y.push(parseInt(Math.random() * 3000));
-                        y.push(parseInt(Math.random() * 3000));
-                        y.push(parseInt(Math.random() * 3000));
-                    }
-                    resolve({ x, y });
-                } else if (chartnum === 2) {
-                    let x = [];
-                    let y = [];
-                    for (let i = 1; i < 23; i++) {
-                        x.push(`随机${i}车站`);
-                        y.push(parseInt(Math.random() * 800));
-                    }
-                    resolve({ x, y });
-                } else if (chartnum === 4) {
-                    let x = [];
-                    let y = [];
-                    for (let i = 5; i < 23; i++) {
-                        x.push(`${i}:00`);
-                        x.push(`${i}:15`);
-                        x.push(`${i}:30`);
-                        x.push(`${i}:45`);
-                        y.push(parseInt(Math.random() * 1600));
-                        y.push(parseInt(Math.random() * 1600));
-                        y.push(parseInt(Math.random() * 1600));
-                        y.push(parseInt(Math.random() * 1600));
-                    }
-                    resolve({ x, y });
-                } else {
-                    resolve({
-                        stations: [
-                            {
-                                stationid: "花乡东桥",
-                                stationname: "花乡东桥",
-                            },
-                            {
-                                stationid: "北京西",
-                                stationname: "北京西",
-                            },
-                            {
-                                stationid: "西直门",
-                                stationname: "西直门",
-                            },
-                            {
-                                stationid: "国贸",
-                                stationname: "国贸",
-                            },
-                            {
-                                stationid: "六里桥",
-                                stationname: "六里桥",
-                            },
-                        ],
-                        lineList: [
-                            "1号线",
-                            "2号线",
-                            "4号线",
-                            "9号线",
-                            "10号线",
-                            "13号线",
-                        ],
-                    });
-                }
-            });
         },
         xlysMain(){
             this.centerDialogVisible = true 
@@ -917,7 +837,12 @@ export default {
                 window.URL.revokeObjectURL(link.href);
                 document.body.removeChild(link);
             });
-
+        },
+        save(){
+            this.$message({
+                message: '保存成功！',
+                type: 'success'
+            });
         }
     },
 };
