@@ -4,7 +4,7 @@ let websock = null;
 let global_callback = {};
 let lock = 0
 let time = 0
-let wsuri = 'ws://172.51.216.62:42000/ws';
+let wsuri = 'ws://172.51.216.56:42000/ws';
 
 let APP_NAME = "appAbilityFore75";
 let APP_KEY = "default";

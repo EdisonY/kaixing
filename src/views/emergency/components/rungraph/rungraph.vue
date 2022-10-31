@@ -1,26 +1,94 @@
 <template>
-    <div class="dashboard-container">
-        <!-- <el-button @click="drewPlan()" style="position:absolute;z-index:99999">默认按钮</el-button> -->
-        <lib_common ref="grap"
+    <div>
+        <rungrap ref="grap" style="background:#FFF;"
             :rungrapData="rungrapData" />
     </div>
 </template>
 
 <script>
-import lib_common from "./lib_common";
-import { initWebSocket } from "@/utils/oldws";
+import rungrap from "./lib_common";
+import { getStations } from "@/utils/station";
+import {
+    initWebSocket
+} from "@/utils/oldws";
+
 export default {
     name: "Rungrap",
     data() {
         return {
-            rungrapData: {},
+            radio2: 1,
+            lineName: "北京燕房线",
+            currentTime: new Date().toLocaleString(),
+            startTime: 0,
+            endTime: 1020,
+            diagramConfig: {
+                stationHeight: 50,
+                bottomBlockHeight: 30,
+                topBlockHeight: 100,
+                sideWidth: 100,
+            },
+            first: true,
+            // stations: testStations,
+            planData: null,
+            realData: null,
+            forecastData: null,
+            solutions: ["方案一", "方案二", "方案三", "方案四", "方案五"],
+            listServeAndTrip: [
+                {
+                    serve: 112,
+                    trip: 1123,
+                },
+                {
+                    serve: 112,
+                    trip: 1123,
+                },
+                {
+                    serve: 112,
+                    trip: 1123,
+                },
+                {
+                    serve: 112,
+                    trip: 1123,
+                },
+                {
+                    serve: 112,
+                    trip: 1123,
+                },
+            ],
+            listRealMsg: [
+                {
+                    msg: "你好",
+                    type: "info",
+                },
+                {
+                    msg: "你好",
+                    type: "error",
+                },
+                {
+                    msg: "你好",
+                    type: "warning",
+                },
+            ],
         };
     },
     components: {
-        lib_common,
+        // DiagramReal
+        rungrap,
+    },
+    computed: {
+        currentTimeFormat() {
+            let h = parseInt(this.currentTime / 3600);
+            let m = parseInt((this.currentTime % 3600) / 60);
+            let s = parseInt((this.currentTime % 3600) % 60);
+            return `${parseInt(h / 10)}${h % 10}:${parseInt(m / 10)}${
+                m % 10
+            }:${parseInt(s / 10)}${s % 10}`;
+        },
     },
     created() {
+        initWebSocket();
         var self = this;
+        this.rungrapData = {};
         var data = {
             msgId: 1,
             msgType: 103,
@@ -29,54 +97,11 @@ export default {
             timestamp: this.$getCurrentDate(),
             data: 2,
         };
-        initWebSocket();
-        this.rungrapData.multiply = this.$route.meta.type;
-        self.rungrapData.station = [
-            [0, 0, "燕化站"],
-            [1, 1, "老城区站"],
-            [2, 1, "饶乐府站"],
-            [3, 1, "顾八路站"],
-            [4, 1, "阎富路站"],
-            [5, 1, "星城站"],
-            [6, 1, "阎村站"],
-            [7, 1, "大紫草坞"],
-            [8, 1, "阎村北站"]
-        ];
 
-        // self.rungrapData.station = [
-        // [0, 0, "北京西站"],
-        //     [1, 3.7, "湾子站"],
-        //     [2, 2.5, "达官营站"],
-        //     [3, 4.2, "广安门内站"],
-        //     [4, 3.5, "菜市口站"],
-        //     [5, 2.7, "虎坊桥站"],
-        //     [6, 3.1, "珠市口站"],
-        //     [7, 2.7, "桥湾站"],
-        //     [8, 2.8, "磁器口站"],
-        //     [9, 3.1, "广渠门内站"],
-        //     [10, 3.4, "广渠门外站"],
-        //     [11, 3.3, "双井站"],
-        //     [12, 3.4, "九龙山站"],
-        //     [13, 2.6, "大郊亭站"],
-        //     [14, 2.6, "百子湾站"],
-        //     [15, 2.8, "化工站"],
-        //     [16, 3.5, "南楼梓庄站"],
-        //     [17, 2.7, "欢乐谷景区站"],
-        //     [18, 3.9, "垡头站"],
-        //     [19, 3.2, "双合站"],
-        //     [20, 2, "焦化厂车辆段"],
-        //     [21, 2.8, "焦化厂站"],
-        //     [22, 4, "黄厂村站"],
-        //     [23, 4.2, "豆各庄站"],
-        //     [24, 5.2, "黑庄户站"],
-        //     [25, 5.9, "万盛南街西口站"],
-        //     [26, 4.6, "云景东路站"],
-        //     [27, 3, "小马庄站"],
-        //     [28, 3.1, "高楼金站"],
-        //     [29, 3.8, "张家湾停车场"],
-        //     [30, 4, "施园站"],
-        //     [31, 4, "环球影城站"],
-        // ];
+        this.rungrapData.multiply = true;
+        let currentLine = sessionStorage.getItem("currentLine");
+        this.rungrapData.station = getStations("北京轨道交通燕房线");
+        console.log(this.rungrapData);
 
         // *配置上下行线路及坐标主颜色，组件内已默认，可自定义设置
         this.rungrapData.colors = ["#5793f3", "#d14a61"];
@@ -89,7 +114,13 @@ export default {
             });
         }
     },
-    mounted() {},
+    mounted() {
+        // this.ws.registerCallback("mainPage", this.wsCallback);
+        // this.sendPackage("line-info");
+        // this.sendPackage("plan-diagram");
+        // this.sendPackage("scheme-diagram");
+        // this.getData();
+    },
     methods: {
         getRungrapClick(params) {
             console.log(params);
@@ -97,8 +128,337 @@ export default {
         drewPlan() {
             this.$refs.grap.drewPlan();
         },
+
+        getData() {
+            let planTripArr = [];
+            let planServes = testData[0].serveList;
+            planServes.forEach((serve) => {
+                serve.tripList.forEach((tripItem) => {
+                    let trip = {
+                        serveNo: serve.serveNo,
+                        tripNo: tripItem.tripNo,
+                        data: [],
+                        dir: tripItem.runDir,
+                    };
+                    tripItem.pathListStr.forEach((str) => {
+                        let strArr = str.split(",");
+                        trip.data.push({
+                            sid: parseInt(strArr[0]),
+                            arrive: parseInt(strArr[1]),
+                            depart: parseInt(strArr[2]),
+                        });
+                    });
+                    planTripArr.push(trip);
+                });
+            });
+
+            let realTripArr = [];
+            let realServes = testData[1].serveList;
+            realServes.forEach((serve) => {
+                serve.tripList.forEach((tripItem) => {
+                    let trip = {
+                        serveNo: serve.serveNo,
+                        tripNo: tripItem.tripNo,
+                        data: [],
+                        dir: tripItem.runDir,
+                    };
+                    tripItem.pathListStr.forEach((str) => {
+                        let strArr = str.split(",");
+                        trip.data.push({
+                            sid: parseInt(strArr[0]),
+                            arrive: parseInt(strArr[1]),
+                            depart: parseInt(strArr[2]),
+                            late: parseInt(strArr[3]),
+                        });
+                    });
+                    realTripArr.push(trip);
+                });
+            });
+
+            let forecastTripArr = [];
+            let forecastServes = testData[2].serveList;
+            forecastServes.forEach((serve) => {
+                serve.tripList.forEach((tripItem) => {
+                    let trip = {
+                        serveNo: serve.serveNo,
+                        tripNo: tripItem.tripNo,
+                        data: [],
+                        dir: tripItem.runDir,
+                    };
+                    tripItem.pathListStr.forEach((str) => {
+                        let strArr = str.split(",");
+                        trip.data.push({
+                            sid: parseInt(strArr[0]),
+                            arrive: parseInt(strArr[1]),
+                            depart: parseInt(strArr[2]),
+                            late: parseInt(strArr[3]),
+                        });
+                    });
+                    forecastTripArr.push(trip);
+                });
+            });
+
+            this.planData = planTripArr;
+            this.realData = realTripArr;
+            this.forecastData = forecastTripArr;
+        },
+
+        _setMsg(msg, type = "normal") {
+            if (this.listRealMsg.length >= 100) {
+                this.listRealMsg = [];
+            }
+            this.listRealMsg.unshift({
+                time: this.$getCurrentDate(),
+                msg: msg,
+                type: type,
+            });
+        },
+        wsCallback(data) {
+            return false;
+            if (data.msgType == 3003) {
+                // 线路车站信息
+                this.transAppInfo(JSON.parse(data.data));
+            } else if (data.msgType == 3002) {
+                // 计划运行图
+                this.transPlanData(JSON.parse(data.data));
+            } else if (data.msgType == 2002) {
+                // 【现场】故障信息
+                this.transFaultData(JSON.parse(data.data));
+            } else if (data.msgType == 2004) {
+                // 【现场】实时信息
+                this.transRealtimeData(JSON.parse(data.data));
+            } else if (data.msgType == 3004) {
+                // 【现场】预测信息
+                this.transForecastData(JSON.parse(data.data));
+            } else if (data.msgType == 4001) {
+                // TODO 运行指标信息
+                // 暂时没有接口
+            } else if (data.msgType == 4002) {
+                // 【方案】计划图
+                let d = JSON.parse(data.data);
+                let findP = this.solutions.find((s) => {
+                    return s.planNo == d.planNo;
+                });
+
+                let index = this.solutions.indexOf(findP);
+                if (index == -1) {
+                    this.solutions.push(d);
+                    index++;
+                }
+
+                this.$nextTick(() => {
+                    let component = this.$refs.PlanDiagram[index];
+                    if (component) {
+                        let planTripArr = [];
+                        console.log(d);
+                        let planServes = d.graphData.serveList;
+                        planServes.forEach((serve) => {
+                            serve.tripList.forEach((tripItem) => {
+                                let trip = {
+                                    serveNo: serve.serveNo,
+                                    tripNo: tripItem.tripNo,
+                                    data: [],
+                                    dir: tripItem.runDir,
+                                };
+                                tripItem.pathListStr.forEach((str) => {
+                                    let strArr = str.split(",");
+                                    trip.data.push({
+                                        sid: parseInt(strArr[0]),
+                                        arrive: parseInt(strArr[1]),
+                                        depart: parseInt(strArr[2]),
+                                        loadrate: parseInt(strArr[4]),
+                                        laterate: parseInt(strArr[5]),
+                                        late: parseInt(strArr[6]),
+                                    });
+                                });
+                                planTripArr.push(trip);
+                            });
+                        });
+                        component.setPlanData(planTripArr);
+                    }
+                });
+            } else if (data.msgType == 4003) {
+                // TODO 【方案】实际图
+                let d = JSON.parse(data.data);
+                let index = this.solutions.indexOf(d.planNo);
+                if (index == -1) {
+                    this.solutions.push(d.planNo);
+                    index++;
+                }
+
+                this.$nextTick(() => {
+                    let component = this.$refs.PlanDiagram[index];
+                    if (component) {
+                        let realTripArr = [];
+                        console.log(d);
+                        d.graphData.serveList.forEach((serve) => {
+                            serve.tripList.forEach((tripItem) => {
+                                let trip = {
+                                    serveNo: serve.serveNo,
+                                    tripNo: tripItem.tripNo,
+                                    data: [],
+                                    dir: tripItem.runDir,
+                                };
+                                tripItem.pathListStr.forEach((str) => {
+                                    let strArr = str.split(",");
+                                    trip.data.push({
+                                        sid: parseInt(strArr[0]),
+                                        arrive: parseInt(strArr[1]),
+                                        depart: parseInt(strArr[2]),
+                                        loadrate: parseInt(strArr[4]),
+                                        laterate: parseInt(strArr[5]),
+                                        late: parseInt(strArr[6]),
+                                    });
+                                });
+                                realTripArr.push(trip);
+                            });
+                        });
+                        component.setRealData(realTripArr);
+                    }
+                });
+            }
+        },
+        transAppInfo(d) {
+            this._setMsg(`收到 [${d.lineName}] 数据。`);
+            this.lineName = d.lineName;
+            this.stations = d.vecStation;
+        },
+        transPlanData(d) {
+            this._setMsg(`收到计划运行图 [${d.graphId}] 信息。`);
+            let planTripArr = [];
+            let planServes = d.serveList;
+            planServes.forEach((serve) => {
+                serve.tripList.forEach((tripItem) => {
+                    let trip = {
+                        serveNo: serve.serveNo,
+                        tripNo: tripItem.tripNo,
+                        data: [],
+                        dir: tripItem.runDir,
+                    };
+                    tripItem.pathListStr.forEach((str) => {
+                        let strArr = str.split(",");
+                        trip.data.push({
+                            sid: parseInt(strArr[0]),
+                            arrive: parseInt(strArr[1]),
+                            depart: parseInt(strArr[2]),
+                        });
+                    });
+                    planTripArr.push(trip);
+                });
+            });
+            this.planData = planTripArr;
+        },
+        transFaultData(d) {
+            this._setMsg(d.strFaultMsg, "fault");
+        },
+        transRealtimeData(d) {
+            this._setMsg(`收到实时运行图 [${d.graphId}] 信息。`);
+            let realTripArr = [];
+            let forecastServes = d.serveList;
+            forecastServes.forEach((serve) => {
+                serve.tripList.forEach((tripItem) => {
+                    let trip = {
+                        serveNo: serve.serveNo,
+                        tripNo: tripItem.tripNo,
+                        data: [],
+                        dir: tripItem.runDir,
+                    };
+                    tripItem.pathListStr.forEach((str) => {
+                        let strArr = str.split(",");
+                        trip.data.push({
+                            sid: parseInt(strArr[0]),
+                            arrive: parseInt(strArr[1]),
+                            depart: parseInt(strArr[2]),
+                            loadrate: parseInt(strArr[4]),
+                            laterate: parseInt(strArr[5]),
+                            late: parseInt(strArr[6]),
+                        });
+                        this.currentTime =
+                            this.currentTime > parseInt(strArr[2])
+                                ? this.currentTime
+                                : parseInt(strArr[2]);
+                    });
+                    realTripArr.push(trip);
+                });
+            });
+            this.realData = realTripArr;
+        },
+        transForecastData(d) {
+            this._setMsg(`收到预测 [${d.graphId}] 信息。`);
+            let forecastTripArr = [];
+            let realServes = d.serveList;
+            this.forcastTime = -2;
+            realServes.forEach((serve) => {
+                serve.tripList.forEach((tripItem) => {
+                    let trip = {
+                        serveNo: serve.serveNo,
+                        tripNo: tripItem.tripNo,
+                        data: [],
+                        dir: tripItem.runDir,
+                    };
+                    tripItem.pathListStr.forEach((str) => {
+                        let strArr = str.split(",");
+                        trip.data.push({
+                            sid: parseInt(strArr[0]),
+                            arrive: parseInt(strArr[1]),
+                            depart: parseInt(strArr[2]),
+                            loadrate: parseInt(strArr[4]),
+                            laterate: parseInt(strArr[5]),
+                            late: parseInt(strArr[6]),
+                        });
+
+                        this.forcastTime =
+                            this.forcastTime > parseInt(strArr[2])
+                                ? this.forcastTime
+                                : parseInt(strArr[2]);
+                    });
+                    forecastTripArr.push(trip);
+                });
+            });
+            this.forecastData = forecastTripArr;
+        },
+        sendPackage(handle) {
+            if (handle == "stop") {
+                let d = this.ws.getPackage("business.plan", 1001, "停止推演");
+                this.ws.sendSock(d);
+                console.log(d);
+            } else if (handle == "select-scheme") {
+                let d = this.ws.getPackage(
+                    "business.actual",
+                    1002,
+                    "更新运行图"
+                );
+                this.ws.sendSock(d);
+            } else if (handle == "line-info") {
+                let d = this.ws.getPackage(
+                    "business.actual",
+                    1003,
+                    "请求线路车站信息"
+                );
+                this.ws.sendSock(d);
+            } else if (handle == "plan-diagram") {
+                let d = this.ws.getPackage(
+                    "business.actual",
+                    1004,
+                    "请求计划运行图"
+                );
+                this.ws.sendSock(d);
+            } else if (handle == "scheme-diagram") {
+                let d = this.ws.getPackage(
+                    "business.plan",
+                    1005,
+                    "请求方案计划图"
+                );
+                this.ws.sendSock(d);
+            } else if (handle == "init") {
+                // this.$router.go(0);
+                location.reload();
+            }
+        },
     },
-    beforeDestroy() {},
+    beforeDestroy() {
+        this.rungrapData = {};
+    },
 };
 </script>
 
@@ -108,6 +468,21 @@ export default {
     width: 100%;
     position: relative;
     z-index: 99;
-    min-height: 953px;
+    min-height: 890px;
+}
+.left-panel {
+    width: 400px;
+    height: calc(100% - 62px);
+    float: left;
+    /* left: -50px; */
+}
+.shiji .el-card {
+    margin: 10px 0 0 10px;
+}
+.shiji .el-radio.is-bordered + .el-radio.is-bordered,
+.shiji .el-radio--medium.is-bordered,
+.shiji .el-radio.is-bordered + .el-radio.is-bordered {
+    margin: 0 5px;
+    padding: 10px 10px 0 5px;
 }
 </style>

@@ -4,124 +4,64 @@
         element-loading-text="拼命加载中"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(255, 255, 255, 1)">
-        <div class="left-panel"
-            :class="{'isHidden' : !openLeft}">
-            <svg viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                @click="openLeft = !openLeft;"
-                style="text-align:right"
-                :class="{'isAction' : openLeft}">
-                <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM142.4 642.1L298.7 519a8.84 8.84 0 0 0 0-13.9L142.4 381.9c-5.8-4.6-14.4-.5-14.4 6.9v246.3a8.9 8.9 0 0 0 14.4 7z" />
-            </svg>
-            <el-card class="box-card">
-                <div slot="header"
-                    class="clearfix">
-                    <span>操作</span>
-                    <el-button style="float: right; padding: 3px 0"
-                        type="text">暂停</el-button>
-                </div>
-                <div style="display:flex;justify-content:center">
-                    <el-radio v-model="radio2"
-                        label="1"
-                        border
-                        size="medium">1倍速</el-radio>
-                    <el-radio v-model="radio2"
-                        label="2"
-                        border
-                        size="medium">2倍速</el-radio>
-                    <el-radio v-model="radio2"
-                        label="3"
-                        border
-                        size="medium">4倍速</el-radio>
-                    <el-radio v-model="radio2"
-                        label="4"
-                        border
-                        size="medium">最高速</el-radio>
-                </div>
-            </el-card>
-            <el-card class="box-card">
-                <div slot="header"
-                    class="clearfix">
-                    <span>消息</span>
-                </div>
-                <div style="text-align:left">
-                    <ul>
-                        <li>打开运行图成功。。。。</li>
-                        <li>运行图名称：北京轨道交通验方线</li>
-                        <li>00:00:00 xx 发生紧急制动</li>
-                        <li>00:00:00 - 00:02:00 扣故障区外即将进入该控区相邻车站</li>
-                        <li>00:00:00 - 00:02:00 扣故障区外即将进入该控区相邻车站</li>
-                        <li>00:00:00 - 00:02:00 扣故障区外即将进入该控区相邻车站</li>
-                    </ul>
-                </div>
-            </el-card>
-
-            <div class="waring-panel"
-                v-if="warningList && warningList.length>0">
-                <p v-for="(msg,index) in warningList"
-                    :key="index">{{msg}}</p>
-            </div>
-        </div>
         <div class="all"
-            :class="{'isMove':openLeft}">
+            :class="{ isMove: openLeft }">
             <div class="all1">
                 <div class="calcH move1"
                     ref="aaa"
-                    :class="{ 'left' : loading}"
-                    style="z-index:10"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 10"></div>
                 <div class="calcH move"
                     ref="1"
-                    :class="{ 'left' : loading}"
-                    style="z-index:9"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 9"></div>
                 <div class="calcH move"
                     ref="2"
-                    :class="{ 'left' : loading}"
-                    style="z-index:8"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 8"></div>
                 <div class="calcH move"
                     ref="3"
-                    :class="{ 'left' : loading}"
-                    style="z-index:7"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 7"></div>
                 <div class="calcH move"
                     ref="4"
-                    :class="{ 'left' : loading}"
-                    style="z-index:6"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 6"></div>
                 <div class="calcH move"
                     ref="5"
-                    :class="{ 'left' : loading}"
-                    style="z-index:5"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 5"></div>
                 <div class="calcH move"
                     ref="6"
-                    :class="{ 'left' : loading}"
-                    style="z-index:4"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 4"></div>
                 <div class="calcH move"
                     ref="7"
-                    :class="{ 'left' : loading}"
-                    style="z-index:3"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 3"></div>
                 <div class="calcH move"
                     ref="8"
-                    :class="{ 'left' : loading}"
-                    style="z-index:2"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 2"></div>
                 <div class="calcH move"
                     ref="9"
-                    :class="{ 'left' : loading}"
-                    style="z-index:1"></div>
+                    :class="{ left: loading }"
+                    style="z-index: 1"></div>
                 <div class="calcH move"
                     ref="10"
-                    :class="{ 'left' : loading}"></div>
+                    :class="{ left: loading }"></div>
             </div>
         </div>
 
         <div class="tooltip"
             v-if="rungrapData.multiply">
             <el-radio v-model="loadRateMode"
-                :label='true'
-                style="margin:0 10px 0 10px"
+                :label="true"
+                style="margin: 0 10px 0 10px"
                 @change="changeMode">满载率</el-radio>
             <el-radio v-model="loadRateMode"
                 :label="false"
-                style="margin:0 10px 0 10px"
+                style="margin: 0 10px 0 10px"
                 @change="changeMode">晚点</el-radio>
 
             <span class="leave1 legend"
@@ -147,29 +87,22 @@
                 v-show="!loadRateMode">&gt;=600s</span>
 
             <el-button size="mini"
-                type='primary'
-                @click="importRungraph">导入</el-button>
-            <el-button size="mini"
-                type='primary'
-                @click="startStop">{{isRunning?'结束':'开始'}}</el-button>
-            <el-button size="mini"
-                type='primary'
-                @click="drawAllData">铺画</el-button>
-            <el-button size="mini"
-                type='danger'
-                @click="clearChartData">清除</el-button>
+                type="primary"
+                @click="drawAllData">刷新</el-button>
+
         </div>
         <el-dialog title="区段信息"
             :visible.sync="dialogVisible"
+            style="display: none"
             width="30%">
             <ul>
-                <li>车次号：{{clickData.seriesId}}</li>
-                <li>站台：{{clickData.name}}</li>
-                <li>时间：{{clickData.time}}</li>
-                <li>满载率：{{clickData.multiply}}</li>
-                <li>上下行：{{clickData.runDirect}}</li>
+                <li>车次号：{{ clickData.seriesId }}</li>
+                <li>站台：{{ clickData.name }}</li>
+                <li>时间：{{ clickData.time }}</li>
+                <li>满载率：{{ clickData.multiply }}</li>
+                <li>上下行：{{ clickData.runDirect }}</li>
                 <li>查看该车次此刻时间段的其他数据：</li>
-                <li style="text-align:center;">
+                <li style="text-align: center">
                     <el-button type="success">客流情况</el-button>
                     <el-button type="warning">指标查看</el-button>
                     <el-button type="danger">运行仿真</el-button>
@@ -183,8 +116,8 @@
             @change="selectFileFinish" />
     </div>
 </template>
-
-<script>
+  
+  <script>
 /**
  * 当前说明：20210420
  * 满载率和晚点信息分开显示，用按钮切换
@@ -426,12 +359,49 @@ export default {
             isRunning: false, // 当前是否运行
             openLeft: true,
             warningList: [],
-            radio2: "1",
+            tableData: [
+                {
+                    date: "工作日",
+                    name: "王小虎",
+                },
+                {
+                    date: "工作日",
+                    name: "张三",
+                },
+                {
+                    date: "工作日,节假日",
+                    name: "王小虎",
+                },
+                {
+                    date: "节假日",
+                    name: "作者",
+                },
+            ],
+            tableData1: [
+                {
+                    date: "科技园",
+                    name: "13:00:00",
+                    address: "13:02:00",
+                    shi: "否",
+                },
+                {
+                    date: "科技园",
+                    name: "13:00:00",
+                    address: "13:02:00",
+                    shi: "否",
+                },
+            ],
+            options: [
+                {
+                    value: "选项5",
+                    label: "交路AB",
+                },
+            ],
+            value: "选项5",
         };
     },
     props: ["rungrapData"],
     created() {
-        registerCallback("lib_common-33", this.wsCallback);
         var hours = 4;
         var min = 0;
         var second = -10;
@@ -444,6 +414,18 @@ export default {
         }
         for (let index = 0; index < this.subStation.length; index++) {
             this.subStation[index][1] = this.subStation[index][1] + 3;
+        }
+
+        //添加区间Y轴数据
+        var intervalTick = [];
+        for (let index = 0; index < this.subStation.length - 1; index++) {
+            const next = JSON.parse(JSON.stringify(this.subStation[index + 1]));
+            const current = JSON.parse(JSON.stringify(this.subStation[index]));
+            intervalTick.push([
+                this.subStation[index][0] + 0.5,
+                this.subStation[index][1] + 5,
+                "",
+            ]);
         }
 
         // 添加上下行折返轨刻度
@@ -461,6 +443,7 @@ export default {
                 "",
             ]);
         }
+        this.subStation.push(...intervalTick);
         this.subStation.push(...stationLowTick);
         this.subStation.push(...stationUpTick);
         // [注意] : 此时Y轴的刻度实际上是车站数量的3倍
@@ -498,6 +481,7 @@ export default {
         }
     },
     mounted() {
+        registerCallback("lib_common-33", this.wsCallback);
         this.currentLine = sessionStorage.getItem("currentLine");
         this.drawLine(); // 画坐标系
         // // 遍历每个图表，禁用系统滚动事件
@@ -520,7 +504,24 @@ export default {
         //     };
         // });
         this.initAxies();
-        this.drawAllData();
+        setTimeout(() => {
+            let res = sessionStorage.getItem("cache-shit");
+            let fromcache=false;
+            if (res) {
+                try {
+                    res = JSON.parse(res);
+                    fromcache=true;
+                } catch (err) {
+                    fromcache=false;
+                }
+            } 
+            
+            if(fromcache){
+                this.drawCacheData(res);
+            }else{
+                this.drawAllData();
+            }
+        }, 2000);
     },
     methods: {
         drawLine() {
@@ -620,14 +621,18 @@ export default {
             // 设置Y轴
             Option.yAxis.data = []; //修复切换数据源后Y轴数据清空
             let totalYTick = this.subStation[this.subStation.length - 1][1];
+            //Y轴数据初始化
             for (let i = 0; i < totalYTick; i++) {
                 Option.yAxis.data[i] = "";
             }
+
+            //Y轴数据
             for (let i = 0; i < this.subStation.length; i++) {
                 let stationName = this.subStation[i][2];
                 Option.yAxis.data[this.subStation[i][1]] = stationName;
             }
         },
+
         initData(services, mode) {
             let self = this;
             for (let i = 0; i < services.length; i++) {
@@ -690,7 +695,6 @@ export default {
                 for (let index = 0; index < data.pathListStr.length; index++) {
                     if (!data.pathListStr[index].stationId) {
                         let pathArr = data.pathListStr[index].split(",");
-
                         data.pathListStr[index] = {};
                         data.pathListStr[index].stationId = parseInt(
                             pathArr[0]
@@ -704,6 +708,39 @@ export default {
                         data.pathListStr[index].loadRate00 = pathArr[4];
                         data.pathListStr[index].diviationTime = pathArr[5];
                         data.pathListStr[index].lateTime = pathArr[6];
+                        //新增区间启停时间
+                        data.pathListStr[index].arriveTimeInterval =
+                            secondToDate(pathArr[7]);
+                        data.pathListStr[index].departTimeInterval =
+                            secondToDate(pathArr[8]);
+
+                        // 判断区间是否停车，插入区间停车数据
+                        if (
+                            (pathArr[7] != "0" || pathArr[8] != "0") &&
+                            mode &&
+                            index > 0
+                        ) {
+                            var preStationID =
+                                data.pathListStr[index - 1].stationId;
+                            let intervalTmp = {
+                                stationId:
+                                    (parseInt(pathArr[0]) + preStationID) / 2, //区间ID=（pre+cur）*5
+                                arriveTime: secondToDate(pathArr[7]),
+                                departTime: secondToDate(pathArr[8]),
+                                loadRate00: pathArr[4],
+                                diviationTime: pathArr[5],
+                                lateTime: pathArr[6],
+                                arriveTimeInterval: secondToDate("0"),
+                                departTimeInterval: secondToDate("0"),
+                            };
+                            //   console.log("intervalTmp");
+                            //   console.log(intervalTmp);
+                            //   console.log("-----------");
+                            data.pathListStr.splice(index, 0, intervalTmp);
+                            timeArr.push(getTime(intervalTmp.arriveTime));
+                            timeArr.push(getTime(intervalTmp.departTime));
+                            index++;
+                        }
                     }
 
                     // 如果数据中连续两个站id相同，则在转换轨上，需要改变位置
@@ -743,7 +780,6 @@ export default {
                             }
                         }
                     }
-
                     timeArr.push(getTime(data.pathListStr[index].arriveTime));
                     timeArr.push(getTime(data.pathListStr[index].departTime));
                 }
@@ -1092,6 +1128,17 @@ export default {
             console.log("send 103 data");
             sendSock(param);
         },
+        drawCacheData(res) {
+            this.clearChartData();
+            let planData = res.data[0].serveList;
+            let realData = res.data[1].serveList;
+            this.initData(planData, false);
+            this.initData(realData, true);
+            this.cacheData = {
+                planData,
+                realData,
+            };
+        },
         clearChartData() {
             this.main = [];
             this.initData([], false);
@@ -1108,6 +1155,7 @@ export default {
                 console.log("receive 203 data");
                 console.log(res);
                 if (res.data && res.data.length > 0) {
+                    sessionStorage.setItem("cache-shit", JSON.stringify(res));
                     this.clearChartData();
                     let planData = res.data[0].serveList;
                     let realData = res.data[1].serveList;
@@ -1119,26 +1167,9 @@ export default {
                     };
                 }
             } else if (res.msgType == 233) {
-                console.log("receive 233 package");
-                this.$message({
-                    message: "服务已成功接收运行图",
-                    type: "success",
-                });
+              
             } else if (res.msgType == 237) {
-                console.log("receive 237 package");
-                let infoType = res.status == 1 ? "success" : "warning";
-                let msg = res.msg;
-                if (res.data.operaType == 1 && res.status == 1) {
-                    this.isRunning = true;
-                } else if (res.data.operaType == 2 && res.status == 0) {
-                    this.isRunning = false;
-                } else if (res.data.operaType == 0) {
-                    this.isRunning = false;
-                }
-                this.$message({
-                    message: msg,
-                    type: infoType,
-                });
+               
             }
         },
     },
@@ -1176,8 +1207,8 @@ export default {
     },
 };
 </script>
-
-<style>
+  
+  <style>
 .dashboard-container {
     height: 100%;
     width: 100%;
@@ -1209,21 +1240,6 @@ export default {
     font-size: 12px;
     z-index: 999;
 }
-/* .tooltip span {
-    padding: 0 20px;
-    position: relative;
-    display: inline-block;
-}
-.tooltip span::after {
-    content: "";
-    width: 15px;
-    height: 2px;
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 50%;
-} */
-
 .legend {
     padding: 0 20px;
     position: relative;
@@ -1324,7 +1340,6 @@ export default {
     width: 400px;
     height: calc(100% - 62px);
     position: absolute;
-    padding-top: 10px;
     /* left: -50px; */
 }
 .waring-panel p {
@@ -1345,7 +1360,7 @@ export default {
     left: -400px;
 }
 .isMove {
-    margin-left: 420px;
+    margin-left: 0px;
 }
 
 .left-panel svg {
@@ -1354,14 +1369,14 @@ export default {
     top: 5px;
     cursor: pointer;
 }
-.el-card {
-    margin: 0 0 20px 10px;
+
+.left-panel .el-tab-pane ul {
+    padding: 0 0 15px 0;
+    line-height: 25px;
 }
-.el-card__body .el-radio--medium.is-bordered {
-    padding: 10px 10px 0 5px;
-    margin: 0 10px !important;
-}
-.el-card__header {
-    background: #eee;
+.left-panel .el-tab-pane ul span {
+    color: blue;
+    margin-left: 5px;
 }
 </style>
+  
