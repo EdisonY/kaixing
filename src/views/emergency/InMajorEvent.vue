@@ -1,5 +1,5 @@
 <template>
-    <div class="component-page page"
+    <div class="page"
         style="color:#fff">
         <el-row class="row-padding">
             <el-col class="flex-col"
@@ -179,7 +179,7 @@
                                         @click="btnClick('已下发')">下发</el-button>
                                 </p>
                             </div>
-                            <div v-if="currentFlowModule=='right'">
+                            <div class="component-page" v-if="currentFlowModule=='right'">
 
                                 <p>
                                     <el-button type="primary"
@@ -293,8 +293,11 @@
                                 src="http://172.51.216.64/sdss/tc2.html?name=7号线缩略图.png"
                                 frameborder="0"></iframe>
 
+                            <iframe style="width: 100%;height: 66%;"
+                                src="http://172.51.216.64/sdss/tc.html?name=2-平行推演.png"
+                                frameborder="0"></iframe>
 
-                            <rungraph style="width:100%;height:66%"/>
+                            <!-- <rungraph style="width:100%;height:66%"/> -->
 
                             <!-- <iframe style="width: 100%;height: 33%;"
                                 src="http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200&linename=计划运行图"
@@ -392,7 +395,7 @@
 
                                 </tbody>
                             </table>
-                            <p style="margin:10px 0;line-height:2rem;font-size:1.2rem">
+                            <p style="margin:50px 10px 0 10px;line-height:3rem;font-size:1.5rem">
                                 2022年12月24日保障环球影城夜场活动，7号线加开3列临客，八通线加开2列临客，涉及65个车站，处置时长2小时25分03秒，共服务旅客<span style="color:red">56095</span>人，无人员伤亡，无设备损失。
                             </p>
                         </div>
@@ -686,16 +689,16 @@ export default {
                     this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/V0sEA5CS`;
                 } else if (scene === "行车-运行图") {
                     // this.$refs.outframe.src = `http://172.51.216.72:41003/#/common?rowHeight=120&viewTime=25200`;
-                    this.$refs.outframe.src=`http://172.51.216.64/sdss/tc.html?name=2-平行推演.png`;
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=2-平行推演.png`;
                 } else if (scene === "行车-正线") {
                     // this.$refs.outframe.src = `http://172.51.216.72:41005/sample`;
                     this.$refs.outframe.src = `http://172.51.216.64/sdss/tc2.html?name=7号线缩略图.png`;
                 } else if (scene === "行车-段场") {
                     this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-场.png`;
                 } else if (scene === "其他-车站平面图") {
-                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=平面图-站.png`;
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=环球度假区平面图.png`;
                 } else if (scene === "其他-视频画面") {
-                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=视频画面.png`;
+                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=视频画面2.png`;
                 } else if (scene === "周边-天气" || scene === "周边-路况") {
                     this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
                 }
@@ -728,10 +731,11 @@ export default {
                     this._getRemoteChart2Data();
                 });
             } else if (this.currentMainBtn == "方案结束判断") {
-                // this.currentView='客流波动及处置措施';
-                this.currentView = "外部URL";
+                this.currentView = "客流监视及滚动预测";
                 this.$nextTick(() => {
-                    this.$refs.outframe.src = `http://frp.funenc.xyz:7245/link/2EUrUWHw`;
+                    // 获取图表数据
+                    this._getRemoteChart1Data();
+                    this._getRemoteChart2Data();
                 });
             } else if (this.currentMainBtn == "统计数据\n撰写简报") {
                 this.currentView = "数据简报";

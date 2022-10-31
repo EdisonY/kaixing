@@ -10,9 +10,9 @@ import echarts from "echarts";
 
 const option = {
     grid: {
-        left: 30,
+        left: 50,
         top: 40,
-        right: 0,
+        right: 20,
         bottom: 40,
     },
     title: {

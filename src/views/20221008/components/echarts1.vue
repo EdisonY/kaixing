@@ -10,9 +10,9 @@ import echarts from "echarts";
 
 const option = {
     grid: {
-        left: 30,
+        left: 70,
         top: 40,
-        right: 0,
+        right: 10,
         bottom: 40,
     },
     title: {
@@ -155,10 +155,10 @@ export default {
                 data = this.mock;
             }
             option.xAxis.data = data.x;
-            option.series[0].data = data.lineyellow;
-            option.series[1].data = data.linegreen;
-            option.series[2].data = data.linered;
-            option.series[3].data = data.stackgreen;
+            option.series[0].data = data.stackgreen;
+            option.series[1].data = data.linered;
+            option.series[2].data = data.lineyellow;
+            option.series[3].data = data.linegreen;
 
             this.charts.setOption(option, true);
         },
