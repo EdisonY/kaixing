@@ -89,14 +89,14 @@
             <el-row>
                 <el-col :span="12">
                     <el-row class="row">
-                        <span class="inner-title">活动目的车站排名</span>
+                        <span class="inner-title">环球度假区 - OD量（人次）</span>
                     </el-row>
                     <div class="chart" ref="echart2"></div>
                 </el-col>
                 <el-col :span="1">&nbsp;</el-col>
                 <el-col :span="11">
                     <el-row class="row">
-                        <span class="inner-title">分时进站量</span>
+                        <span class="inner-title">分时进站量（人次）</span>
                     </el-row>
                     <div class="chart" ref="echart1"></div>
                     <el-button style="margin:10px;float:right" type="primary" class="rightConfig" @click="save()">保存</el-button>
@@ -134,8 +134,10 @@ const option = {
         },
         left: -5,
     },
+    tooltip:{
+        trigger:'item'
+    },
     backgroundColor: "",
-    tooltip: {},
     xAxis: {
         axisLabel: {
             show: true,
@@ -169,6 +171,9 @@ const option = {
                 color: "#3644e0",
                 // barBorderRadius: [6, 6, 0, 0],
             },
+            tooltip:{
+                formatter:'历史分析结果 : {c}'
+            },
             stack: 'one',
         },
         {
@@ -177,6 +182,9 @@ const option = {
             itemStyle: {
                 color: "#f1696a",
                 // barBorderRadius: [6, 6, 0, 0],
+            },
+            tooltip:{
+                formatter:'活动增量 : {c}'
             },
             stack: 'one',
         },
