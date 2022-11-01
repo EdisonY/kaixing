@@ -71,7 +71,8 @@
                         round>客流监控</el-button>
                 </div>
                 <div class="innerpanel">
-                    <p class="innertitle">应急预案</p>
+                    <p class="innertitle" style="height:40px">
+                    </p>
                     <div class="divline"></div>
                     <div class="middle-panel">
                         <Comprehensive style="height:calc(100vh - 160px);"
