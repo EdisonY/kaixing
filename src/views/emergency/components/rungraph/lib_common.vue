@@ -54,7 +54,7 @@
         </div>
 
         <div class="tooltip"
-            v-if="rungrapData.multiply">
+            v-if="false">
             <el-radio v-model="loadRateMode"
                 :label="true"
                 style="margin: 0 10px 0 10px"
