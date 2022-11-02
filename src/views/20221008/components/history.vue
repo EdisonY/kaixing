@@ -7,7 +7,7 @@
                     placeholder="请选择">
                     <el-option
                         v-for="(item,index) in options[0].options"
-                        :change="choseLine(item)"
+                        @click.native="choseLine(item)"
                         :key="index"
                         :label="item.label"
                         :value="item.value">
@@ -171,9 +171,18 @@ export default {
                 options: []}
             ],
             selectedLine: "7号线",
+            stationList:[]
         };
     },
     created() {
+        
+
+    },
+    computed: {},
+    mounted() {
+        window.addEventListener("resize", this.resizefunc);
+        this.search()
+
         var self = this
         for (let index = 0; index < LINETRAIN.length; index++) {
             if(this.options[0].options.length == 0 || this.options[0].options[this.options[0].options.length - 1].value != LINETRAIN[index].LineID){
@@ -190,11 +199,7 @@ export default {
             })
         }
 
-    },
-    computed: {},
-    mounted() {
-        window.addEventListener("resize", this.resizefunc);
-        this.search()
+        this.choseLine()
 
     },
     //移除事件监听
@@ -284,6 +289,7 @@ export default {
 
         },
         choseLine(){
+            console.log(1);
             this.stationList = []
             for (let index = 0; index < LINETRAIN.length; index++) {
                 if(LINETRAIN[index].LineID == this.query.line_id){
