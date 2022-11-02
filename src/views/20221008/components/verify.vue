@@ -713,22 +713,127 @@ export default {
             tableData3: [{
                 date: '7号线',
                 name: '直接相关线路',
-                address: '7号线PR 2201',
+                address: '7号线PR2201',
                 xinxi:'是',
             },{
-                date: '八通线',
+                date: '1-八通线',
                 name: '直接相关线路',
-                address: '八通线线PR 2201',
-                xinxi:'是/否',
+                address: '1-八通线PR2201',
+                xinxi:'否',
+            },{
+                date: '2号线',
+                name: '一次换乘',
+                address: '2号线PR2201',
+                xinxi:'否',
+            },{
+                date: '4号线-大兴线',
+                name: '一次换乘',
+                address: '4号线-大兴线PR2201',
+                xinxi:'否',
+            },{
+                date: '5号线',
+                name: '一次换乘',
+                address: '5号线PR2201',
+                xinxi:'否',
+            },{
+                date: '6号线',
+                name: '一次换乘',
+                address: '6号线PR2201',
+                xinxi:'否',
+            },{
+                date: '8号线',
+                name: '一次换乘',
+                address: '8号线PR2201',
+                xinxi:'否',
+            },{
+                date: '9号线',
+                name: '一次换乘',
+                address: '9号线PR2201',
+                xinxi:'否',
             },{
                 date: '10号线',
                 name: '一次换乘',
-                address: '10号线PR 2201',
+                address: '10号线PR2201',
+                xinxi:'否',
+            },{
+                date: '14号线',
+                name: '一次换乘',
+                address: '14号线PR2201',
+                xinxi:'否',
+            },{
+                date: 'S1线',
+                name: '一次换乘',
+                address: 'S1线PR2201',
+                xinxi:'否',
+            },{
+                date: '11号线',
+                name: '多次换乘',
+                address: '11号线PR2201',
+                xinxi:'否',
+            },{
+                date: '13号线',
+                name: '多次换乘',
+                address: '13号线PR2201',
+                xinxi:'否',
+            },{
+                date: '15号线',
+                name: '多次换乘',
+                address: '15号线PR2201',
+                xinxi:'否',
+            },{
+                date: '16号线',
+                name: '多次换乘',
+                address: '16号线PR2201',
+                xinxi:'否',
+            },{
+                date: '17号线',
+                name: '多次换乘',
+                address: '17号线PR2201',
+                xinxi:'否',
+            },{
+                date: '19号线',
+                name: '多次换乘',
+                address: '19号线PR2201',
                 xinxi:'否',
             },{
                 date: '房山线',
                 name: '多次换乘',
-                address: '房山线PR 2201',
+                address: '房山线PR2201',
+                xinxi:'否',
+            },{
+                date: '昌平线',
+                name: '多次换乘',
+                address: '昌平线PR2201',
+                xinxi:'否',
+            },{
+                date: '亦庄线',
+                name: '多次换乘',
+                address: '亦庄线PR2201',
+                xinxi:'否',
+            },{
+                date: '燕房线',
+                name: '多次换乘',
+                address: '燕房线PR2201',
+                xinxi:'否',
+            },{
+                date: '首都机场线',
+                name: '多次换乘',
+                address: '首都机场线PR2201',
+                xinxi:'否',
+            },{
+                date: '西郊线',
+                name: '多次换乘',
+                address: '西郊线PR2201',
+                xinxi:'否',
+            },{
+                date: '大兴机场线',
+                name: '多次换乘',
+                address: '大兴机场线PR2201',
+                xinxi:'否',
+            },{
+                date: '亦庄T1线',
+                name: '多次换乘',
+                address: '亦庄T1线PR2201',
                 xinxi:'否',
             }],
             multipleSelection:[]
@@ -765,7 +870,7 @@ export default {
         this.$api.get('/zbAPI/cross_section_passenger_flow/',{line_id:'L070'}).then(res => {
             if(res.data.code == 200){
                 const tmpEchartOption3 = JSON.parse(JSON.stringify(option1))
-                tmpEchartOption3.title.text = "7号线 - 分时最大断面客流";
+                tmpEchartOption3.title.text = "7号线 - 分时最大断面客流（人次）";
                 tmpEchartOption3.xAxis.data = res.data.time_x_list;
                 tmpEchartOption3.series[0].data = res.data.count_y_list;
                 charts1.hideLoading()
@@ -779,8 +884,8 @@ export default {
         this.$api.post2('/zbAPI/get_od_data/',tmp).then(res => {
             if(res.data.code == 200){
                 const tmpEchartOption2 = JSON.parse(JSON.stringify(option1))
-                tmpEchartOption2.title.text = res.data.station_name + " - OD Top5";
-                tmpEchartOption2.xAxis.data = res.data.x_station_name_list.slice(0,5);
+                tmpEchartOption2.title.text = res.data.station_name + " - OD Top10（人次）";
+                tmpEchartOption2.xAxis.data = res.data.x_station_name_list.slice(0,10);
                 tmpEchartOption2.series[0].data = res.data.y_d_value_list;
                 charts2.hideLoading()
                 charts2.setOption(tmpEchartOption2, true);
@@ -792,8 +897,8 @@ export default {
         this.$api.get('/zbAPI/get_line_section_data/',{line_id:'L070'}).then(res => {
             if(res.data.code == 200){
                 const tmpEchartOption4 = JSON.parse(JSON.stringify(option1))
-                tmpEchartOption4.title.text = "7号线 - 各个断面最大 Top5 客流量";
-                tmpEchartOption4.xAxis.data = res.data.x_section_name_list.slice(0,5);
+                tmpEchartOption4.title.text = "7号线 - 各个断面最大 Top10 客流量（人次）";
+                tmpEchartOption4.xAxis.data = res.data.x_section_name_list.slice(0,10);
                 tmpEchartOption4.series[0].data = res.data.y_count_list;
                 charts3.hideLoading()
                 charts3.setOption(tmpEchartOption4, true);

@@ -237,7 +237,7 @@ export default {
             this.$api.post2('/zbAPI/get_passenger_data/',tmp).then(res => {
                 if(res.data.code == 200){
                     const tmpEchartOption1 = JSON.parse(JSON.stringify(option))
-                    tmpEchartOption1.title.text = res.data.station_name + " - 分时进站量";
+                    tmpEchartOption1.title.text = res.data.station_name + " - 分时进站量（人次）";
                     tmpEchartOption1.xAxis.data = res.data.time_x_list;
                     tmpEchartOption1.series[0].data = res.data.count_y_list;
                     charts1.hideLoading()
@@ -249,7 +249,7 @@ export default {
             this.$api.post2('/zbAPI/get_od_data/',tmp).then(res => {
                 if(res.data.code == 200){
                     const tmpEchartOption2 = JSON.parse(JSON.stringify(option))
-                    tmpEchartOption2.title.text = res.data.station_name + " - OD量";
+                    tmpEchartOption2.title.text = res.data.station_name + " - OD量（人次）";
                     tmpEchartOption2.xAxis.data = res.data.x_station_name_list;
                     tmpEchartOption2.series[0].data = res.data.y_d_value_list;
                     charts2.hideLoading()
@@ -262,7 +262,7 @@ export default {
             this.$api.get('/zbAPI/cross_section_passenger_flow/',{line_id:tmp.line_id}).then(res => {
                 if(res.data.code == 200){
                     const tmpEchartOption3 = JSON.parse(JSON.stringify(option))
-                    tmpEchartOption3.title.text = tmp.line_name + " - 分时最大断面客流";
+                    tmpEchartOption3.title.text = tmp.line_name + " - 分时最大断面客流（人次）";
                     tmpEchartOption3.xAxis.data = res.data.time_x_list;
                     tmpEchartOption3.series[0].data = res.data.count_y_list;
                     charts3.hideLoading()
@@ -273,7 +273,7 @@ export default {
             this.$api.get('/zbAPI/get_line_section_data/',{line_id:tmp.line_id}).then(res => {
                 if(res.data.code == 200){
                     const tmpEchartOption4 = JSON.parse(JSON.stringify(option))
-                    tmpEchartOption4.title.text = tmp.line_name + " - 各个断面最大客流量";
+                    tmpEchartOption4.title.text = tmp.line_name + " - 各个断面最大客流量（人次）";
                     tmpEchartOption4.xAxis.data = res.data.x_section_name_list;
                     tmpEchartOption4.series[0].data = res.data.y_count_list;
                     charts4.hideLoading()
