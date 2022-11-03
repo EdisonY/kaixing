@@ -16,6 +16,7 @@
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "axios": "0.18.1",
     "core-js": "^2.6.11",
     "d3": "^5.15.1",

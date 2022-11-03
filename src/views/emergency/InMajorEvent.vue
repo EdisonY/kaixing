@@ -48,6 +48,9 @@
                             @click="changeWorkArea('周边-天气')">天气</span>
                         <span class="btn"
                             @click="changeWorkArea('周边-路况')">路况</span>
+                        <span class="btn"
+                            v-if="false"
+                            @click="changeWorkArea('周边-换乘')">换乘</span>
                     </div>
                 </div>
             </el-col>
@@ -71,7 +74,8 @@
                         round>客流监控</el-button>
                 </div>
                 <div class="innerpanel">
-                    <p class="innertitle" style="height:40px">
+                    <p class="innertitle"
+                        style="height:40px">
                     </p>
                     <div class="divline"></div>
                     <div class="middle-panel">
@@ -120,7 +124,7 @@
                                 </p>
                                 <p style="margin:20px 0">
                                     <span class="bluetitle"
-                                        style="padding-top: 2px;margin-right:30px">建议处置措施</span>
+                                        style="padding-top: 2px;margin-right:48px">建议处置措施</span>
                                     <el-radio-group v-model="adjuststep"
                                         size="mini">
                                         <el-radio-button label="行车"></el-radio-button>
@@ -180,7 +184,8 @@
                                         @click="btnClick('已下发')">下发</el-button>
                                 </p>
                             </div>
-                            <div class="component-page" v-if="currentFlowModule=='right'">
+                            <div class="component-page"
+                                v-if="currentFlowModule=='right'">
 
                                 <p>
                                     <el-button type="primary"
@@ -284,7 +289,9 @@
                                             </el-table>
                                         </el-col>
                                     </div>
-
+                                    <el-button style="margin-top:20px; width:150px;float: right;"
+                                        type="primary"
+                                        @click="btnClick('已下发')">下发</el-button>
                                 </el-row>
                             </div>
                         </div>
@@ -294,11 +301,11 @@
                                 src="http://172.51.216.64/sdss/tc2.html?name=7号线缩略图.png"
                                 frameborder="0"></iframe>
 
-                            <rungraph style="width:100%;height:66%"/>
+                            <rungraph style="width:100%;height:66%" />
                         </div>
                         <div style="height:100%;width:100%"
                             v-if="currentView == '行车-运行图'">
-                            <rungraph style="width:100%;height:100%"/>
+                            <rungraph style="width:100%;height:100%" />
                         </div>
                         <div style="height:100%;width:100%;padding:10px"
                             v-if="currentView == '数据简报'">
@@ -399,6 +406,10 @@
                                 style="height:100%;width:100%"
                                 frameborder="0"></iframe>
                         </div>
+                        <div style="height:100%;width:100%"
+                            v-if="currentView == '热力图'">
+                            <HeatMap />
+                        </div>
                     </div>
                 </div>
             </el-col>
@@ -416,6 +427,7 @@
 import MessagePanel from "./components/MessagePanel";
 
 import rungraph from "./components/rungraph/rungraph";
+import HeatMap from "./components/HeatMap";
 import FlowDiagram from "./components/FlowDiagram";
 import Comprehensive from "../line/comprehensive";
 import echarts1 from "../20221008/components/echarts1";
@@ -431,6 +443,7 @@ export default {
         echarts1,
         echarts2,
         rungraph,
+        HeatMap,
     },
     created() {
         this.emergencyName = this.$route.meta.title;
@@ -692,8 +705,13 @@ export default {
                     this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=环球度假区平面图.png`;
                 } else if (scene === "其他-视频画面") {
                     this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=视频画面2.png`;
-                } else if (scene === "周边-天气" || scene === "周边-路况") {
-                    this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+                } else if (scene === "周边-天气") {
+                    // this.$refs.outframe.src = `http://172.51.216.64/sdss/tc.html?name=${scene}.png`;
+                    this.$refs.outframe.src = `http://www.weather.com.cn/radar/`;
+                } else if (scene === "周边-路况") {
+                    this.$refs.outframe.src = `https://map.baidu.com/search/%E7%8E%AF%E7%90%83%E5%BA%A6%E5%81%87%E5%8C%BA/@12988397.985685129,4818986.547274241,14z/maplayer%3Dtrafficrealtime?querytype=s&da_src=shareurl&wd=%E7%8E%AF%E7%90%83%E5%BA%A6%E5%81%87%E5%8C%BA&c=131&src=0&pn=0&sug=0&l=13&b=(12917175,4799597;12986935,4835053)&from=webmap&biz_forward=%7B%22scaler%22:2,%22styles%22:%22pl%22%7D&device_ratio=2`;
+                } else if (scene === "周边-换乘") {
+                    this.currentView = "热力图";
                 }
             });
         },
@@ -1183,5 +1201,14 @@ div::-webkit-scrollbar {
     height: 400px;
     padding: 5px;
     width: 100%;
+}
+
+/deep/ .el-radio-button__inner {
+    background: #aaa;
+}
+
+/deep/ .el-textarea__inner {
+    background: #000;
+    color: #eee;
 }
 </style>

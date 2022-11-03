@@ -96,6 +96,13 @@ module.exports = {
                     '^/Middle': '/Middle'
                 }
             } , 
+            '/gaode':{
+                target:"http://restapi.amap.com",
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/gaode': '/'
+                }
+            }
 
         },
         // after: require('./mock/mock-server.js')
