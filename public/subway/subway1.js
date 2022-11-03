@@ -213,8 +213,8 @@
                 var arr = data[index].attributes.arc.value.split(',')[0].split(':')
                 var urc = data[index].attributes.uoarc.value.split(',')[0].split(':')
                 var drc = data[index].attributes.doarc.value.split(',')[0].split(':')
-                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + double * _dox) + ' ' + (_y + double * _doy) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
+                this._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + double * _dox) + ' ' + (_y + double * _doy) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value)) + ' ' + (Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
 
                 stationPath[stationPath.length - 1].station.push({
                     'sId':data[index].attributes.acc.value,
@@ -231,8 +231,8 @@
                 })
 
             }else{
-                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + double * _uox,'y1':_y + double * _uoy,'x2':Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + double * _dox,'y1':_y + double * _doy,'x2':Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + double * _uox,'y1':_y + double * _uoy,'x2':Number(data[next].attributes.x.value) + double * Number(data[next].attributes.uox.value),'y2':Number(data[next].attributes.y.value) + double * Number(data[next].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
+                this._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + double * _dox,'y1':_y + double * _doy,'x2':Number(data[next].attributes.x.value) + double * Number(data[next].attributes.dox.value),'y2':Number(data[next].attributes.y.value) + double * Number(data[next].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
 
                 stationPath[stationPath.length - 1].station.push({
                     'sId':data[index].attributes.acc.value,
@@ -261,8 +261,8 @@
                         var arr = data[i].attributes.arc.value.split(',')[0].split(':')
                         var urc = data[i].attributes.uoarc.value.split(',')[0].split(':')
                         var drc = data[i].attributes.doarc.value.split(',')[0].split(':')
-                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + double * _dox) + ' ' + (_y + double * _doy) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'up','d':'M' + (_x + double * _uox) + ' ' + (_y + double * _uoy) + ' Q' + (Number(arr[0]) + double * urc[0]) + ' ' + (Number(arr[1]) + double * urc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.uox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.uoy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
+                        self._generate('path',{'sId':data[index].attributes.acc.value,'id':'down','d':'M' + (_x + double * _dox) + ' ' + (_y + double * _doy) + ' Q' + (Number(arr[0]) + double * drc[0]) + ' ' + (Number(arr[1]) + double * drc[1]) + ' ' + (Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.dox.value)) + ' ' + (Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.doy.value)),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round','fill':'none',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
                         
                         stationPath[stationPath.length - 1].station.push({
                             'sId':data[index].attributes.acc.value,
@@ -279,8 +279,8 @@
                         })
 
                     }else{
-                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + double * _uox,'y1':_y + double * _uoy,'x2':Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
-                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + double * _dox,'y1':_y + double * _doy,'x2':Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value)},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'up','x1':_x + double * _uox,'y1':_y + double * _uoy,'x2':Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.uox.value),'y2':Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.uoy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
+                        self._generate('line',{'sId':data[index].attributes.acc.value,'id':'down','x1':_x + double * _dox,'y1':_y + double * _doy,'x2':Number(data[i + 1].attributes.x.value) + double * Number(data[i + 1].attributes.dox.value),'y2':Number(data[i + 1].attributes.y.value) + double * Number(data[i + 1].attributes.doy.value),'stroke':'#79be85','stroke-width':2,'stroke-linejoin':'round','stroke-linecap':'round',lineId:Number(parent.lcode.value),class:'cluster ' + Number(parent.lcode.value),'type':'fullload','fullload':''},data[index].attributes.acc.value + 'full')
 
                         stationPath[stationPath.length - 1].station.push({
                             'sId':data[index].attributes.acc.value,
@@ -311,6 +311,7 @@
             }
             if(inner)
                 dom.innerHTML = inner
+
             dom.onmousedown = function(){
                 xx = panZoom.getPan().x
             }
@@ -810,6 +811,9 @@
         stationNameJump(info){
             window.handleClickFun(info)
         },
+        FullLoaddigo(info){
+            window.FullLoadDigo(info)
+        },
         zkJump(info){
             window.handleClickZKFun(info)
         },
@@ -826,7 +830,6 @@
         },
         loadRateMultiply:function(from,to,num){
             if(from == undefined || to == undefined || from.line == undefined || to.line == undefined) return;  
-            console.log(from,to,num);
 
             var self = this
 
@@ -911,7 +914,9 @@
                     if(tagId){
                         $(tagId).children().each(function(e,i){
                             i.attributes.stroke.value = getColor(num)
+                            i.attributes.fullload.value = num
                             // pushArrow(i)
+                            bind(i)
                         })
                     }else{
                         $('#subwayMain #fullLoad').children().each(function(e,i){
@@ -919,9 +924,13 @@
                                 for (let index = 0; index < i.childNodes.length; index++) {
                                     if(i.childNodes[index].id == 'down' && next){
                                         i.childNodes[index].attributes.stroke.value = getColor(num)
+                                        i.childNodes[index].attributes.fullload.value = num
+                                        bind(i.childNodes[index])
                                         // pushArrow(i.childNodes[index],'down',lineid)
                                     }else if(i.childNodes[index].id == 'up' && !next){
                                         i.childNodes[index].attributes.stroke.value = getColor(num)
+                                        i.childNodes[index].attributes.fullload.value = num
+                                        bind(i.childNodes[index])
                                         // pushArrow(i.childNodes[index],'up',lineid)
                                     }
                                     
@@ -929,6 +938,15 @@
                             }
                         })
                     }
+
+                    function bind(dom){
+                        dom.onmouseover = function(){
+                            self.FullLoaddigo(dom)
+                        }
+                    }
+
+                    
+
                 }
             }
             function pushArrow(params,direction,lineid) {

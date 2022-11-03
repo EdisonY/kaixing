@@ -247,6 +247,13 @@ const option1 = {
         right: 0,
         bottom: 40,
     },
+    legend: {
+        data: ['', ''],
+        right: '0%',
+        textStyle:{
+            color:'#fff'
+        }
+    },
     title: {
         text: "2022年1月3日环球度假区站分时进站量",
         textStyle: {
@@ -287,6 +294,7 @@ const option1 = {
     {
             type: "bar",
             data: '',
+            name:'',
             itemStyle: {
                 color: "#3644e0",
                 // barBorderRadius: [6, 6, 0, 0],
@@ -299,6 +307,7 @@ const option1 = {
         {
             type: "bar",
             data: '',
+            name:'',
             itemStyle: {
                 color: "#f1696a",
                 // barBorderRadius: [6, 6, 0, 0],
@@ -510,14 +519,32 @@ export default {
                         case '双井':
                             tmpEchartOption3.series[0].tooltip.formatter = '7号线下-10号线下 : {c}'
                             tmpEchartOption3.series[1].tooltip.formatter = '7号线下-10号线上 : {c}'
+
+                            tmpEchartOption3.series[0].name = '7号线下-10号线下'
+                            tmpEchartOption3.series[1].name = '7号线下-10号线上'
+
+                            tmpEchartOption3.legend.data[0] = '7号线下-10号线下'
+                            tmpEchartOption3.legend.data[1] = '7号线下-10号线上'
                         break;
                         case '国贸':
                             tmpEchartOption3.series[0].tooltip.formatter = '1-八通线下-10号线下 : {c}'
                             tmpEchartOption3.series[1].tooltip.formatter = '1-八通线下-10号线上 : {c}'
+
+                            tmpEchartOption3.series[0].name = '1-八通线下-10号线下'
+                            tmpEchartOption3.series[1].name = '1-八通线下-10号线上'
+
+                            tmpEchartOption3.legend.data[0] = '1-八通线下-10号线下'
+                            tmpEchartOption3.legend.data[1] = '1-八通线下-10号线上'
                         break;
                         case '磁器口':
                             tmpEchartOption3.series[0].tooltip.formatter = '7号线下-5号线下 : {c}'
                             tmpEchartOption3.series[1].tooltip.formatter = '7号线下-5号线上 : {c}'
+
+                            tmpEchartOption3.series[0].name = '7号线下-5号线下'
+                            tmpEchartOption3.series[1].name = '7号线下-5号线上'
+
+                            tmpEchartOption3.legend.data[0] = '7号线下-5号线下'
+                            tmpEchartOption3.legend.data[1] = '7号线下-5号线上'
                         break;
                     }
                     charts3.hideLoading()

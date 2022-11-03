@@ -44,12 +44,12 @@
             <el-col :span="24">&nbsp;</el-col>
             <el-col :span="24">
                 <span class="inner-title">客流预测方案</span>
-                <el-select v-model="value" placeholder="请选择" class="inputS">
+                <el-select v-model="value" placeholder="请选择" class="inputS inputS_B">
                     <el-option
                     v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    :key="item.plan_id"
+                    :label="item.plan_name"
+                    :value="item.plan_name">
                     </el-option>
                 </el-select>
                 <el-button class="yushu" @click="xlysMain()">线路约束</el-button>
@@ -92,11 +92,36 @@
                 ref="multipleTable"
                 :data="tableData"
                 class="componentTable"
-                @selection-change="handleSelectionChange"
                 style="width: 100%">
+                    
                     <el-table-column
-                    type="selection"
-                    width="55">
+                        label="起止时间"
+                        header-align="left">
+                        <template slot-scope="scope">
+                            <el-time-select
+                                class="inputS" 
+                                placeholder="起始时间"
+                                v-model="scope.row.startTime"
+                                @change="scope.row.endTime = ''"
+                                :picker-options="{
+                                    start: '05:00',
+                                    step: '00:15',
+                                    end: '18:30'
+                                }">
+                            </el-time-select>
+                            <el-time-select
+                                class="inputS" 
+                                placeholder="结束时间"
+                                v-model="scope.row.endTime"
+                                :picker-options="{
+                                    start: '05:00',
+                                    step: '00:15',
+                                    end: '18:30',
+                                    minTime: scope.row.startTime
+                                }">
+                            </el-time-select>
+
+                        </template>
                     </el-table-column>
                     <el-table-column
                         label="交路方案"
@@ -107,22 +132,22 @@
                             <p>{{scope.row.name1}}</p>
                         </template>
                     </el-table-column>
-                    <!-- <el-table-column
+                    <el-table-column
                         fixed="right"
                         label="操作"
                         align="center"
                         width="200">
                         <template slot-scope="scope">
-                            <el-button type="primary" size="mini">方案选择</el-button>
+                            <el-button type="primary" size="mini" @click="dialogVisible1 = true">方案选择</el-button>
                         </template>
-                    </el-table-column> -->
+                    </el-table-column>
                 </el-table>
             </el-col>
             <el-col :span="24">&nbsp;</el-col>
             <el-col :span="24">
-                <el-button size="mini" type="primary" class="rightConfig" @click="kxfa = true" style="float:right;" v-if="multipleSelection.length > 0">生成开行方案</el-button>
+                <el-button size="mini" type="primary" class="rightConfig" @click="suiji()" style="float:right;">生成开行方案</el-button>
             </el-col>
-            <div v-if="kxfa">
+            <div>
                 <el-col :span="24">&nbsp;</el-col>
                 <el-col :span="24">
                     <span class="inner-title">开行方案 7号线2022年12月24日重大活动保障开行方案01</span>
@@ -184,8 +209,10 @@
                             </template>
                         </el-table-column>
                     </el-table>
-                    </br>
-                    <el-button size="mini" type="primary" class="rightConfig" @click="save()" >保存</el-button>
+                    <el-col :span="24">&nbsp;</el-col>
+                    <el-col :span="24" style="text-align:right;">
+                        <el-button size="mini" type="success" class="rightConfig" @click="save()" >保存</el-button>
+                    </el-col>
                 </el-col>
             </div>
 
@@ -274,9 +301,6 @@
                         :value="item.stationid">
                     </el-option>
                 </el-select>
-
-                
-
                 <ul>
                     <li>
                         <span>1-八通线开行方案-常规预测</span>
@@ -316,6 +340,17 @@
                         prop="address"
                         align="center"
                         label="运行图名称">
+                        <template slot-scope="scope">
+
+                            <el-select v-model="scope.row.address" class="inputS inputS_B" placeholder="请选择" style="width:200px">
+                                <el-option v-for="item in scope.row.option"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                                </el-option>
+                            </el-select>
+
+                        </template>
                     </el-table-column>
                     <el-table-column
                         prop="xinxi"
@@ -325,7 +360,11 @@
                 </el-table>
             </el-col>
             <el-col :span="24">&nbsp;</el-col>
-            <el-button size="mini" type="primary" style="float:right;" class="rightConfig" @click="centerDialogVisible1 = true">启动全网验证</el-button>
+            <el-col :span="24" style="text-align:right;">
+                <el-button type="primary" v-if="step == 4" @click="download()">导出全部线路</el-button>
+                <el-button type="primary" v-if="step == 4" @click="download()">导出调整线路</el-button>
+                <el-button size="mini" type="success" class="rightConfig" @click="centerDialogVisible1 = true">启动全网验证</el-button>
+            </el-col>
             
         </el-row>
 
@@ -333,8 +372,6 @@
             <el-col :span="24">
                 <el-button type="primary" class="rightConfig" @click="stepNext(0)" v-if="step > 1">上一步</el-button>
                 <el-button type="primary" class="rightConfig" @click="stepNext(1)" v-if="step > 0 && step < 4">下一步</el-button>
-                <el-button type="primary" v-if="step == 4" @click="download()">导出全部线路</el-button>
-                <el-button type="primary" v-if="step == 4" @click="download()">导出调整线路</el-button>
                 <!-- <el-button type="primary" class="rightConfig" v-if="step == 4">客运组织方案设计</el-button> -->
             </el-col>
         </el-row>
@@ -408,12 +445,68 @@
             </el-row>
         </el-dialog>
 
+        <el-dialog
+        title="选择交路方案详情"
+        :visible.sync="dialogVisible1"
+        width="60%"
+        class="detailDia"
+        center
+        :before-close="handleClose">
+            <div class="imitate">
+                <h2>
+                    <strong>方案单选</strong>
+                    <strong>序号</strong>
+                    <strong style="width:28%">交路选择</strong>
+                    <strong>跳停车站</strong>
+                    <strong>编组信息</strong>
+                    <strong>交路比例</strong>
+                </h2>
+
+                <p v-for="item in detailsData" :key="item.data">
+                    <strong v-if="item.name">
+                        <el-radio v-model="radio" :label="item.date"></el-radio>
+                        <!-- {{item.date}} -->
+                    </strong>
+                    <strong v-if="item.name">{{item.name}}</strong>
+                    <strong v-if="item.name">{{item.address}}</strong>
+                    <strong v-if="item.name">{{item.station}}</strong>
+                    <strong v-if="item.name">{{item.message}}</strong>
+                    <strong v-if="item.name" style="width:28%">
+                        <el-input class="inputS inputS_B" v-model="item.bili"></el-input>
+                    </strong>
+
+                    <strong v-if="item.children">
+                        <el-radio v-model="radio" :label="item.date"></el-radio>
+                        <!-- {{item.date}} -->
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.name}}</b>
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.address}}</b>
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.station}}</b>
+                    </strong>
+                    <strong v-if="item.children">
+                        <b v-for="items in item.children" :key="items">{{items.message}}</b>
+                    </strong>
+                    <strong v-if="item.children" style="width:28%">
+                        <el-input class="inputS inputS_B" v-model="item.bili"></el-input>
+                    </strong>
+                </p>
+            </div>
+
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible1 = false">取 消</el-button>
+                <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+            </span>
+        </el-dialog>
+
     </div>
 </template>
 
 <script>
-import echarts from "echarts";
-
 const option1 = {
     grid: {
         left: 40,
@@ -494,6 +587,7 @@ export default {
             kxfa:false,
             centerDialogVisible:false,
             centerDialogVisible1:false,
+            dialogVisible1:false,
             stations: [],
             lineList: [],
             query: {
@@ -503,19 +597,7 @@ export default {
                 prange_date: "",
             },
             selectedLine: "",
-            options: [{
-                value: '选项1',
-                label: '常规方案'
-            },{
-                value: '选项2',
-                label: '备用预测1'
-            },{
-                value: '选项3',
-                label: '备用预测2'
-            },{
-                value: '选项4',
-                label: '备用预测3'
-            }],
+            options: [],
             options1:[{
                 label:'环球度假区-北京西站',
                 value:0
@@ -566,17 +648,20 @@ export default {
                 label:'广渠门外站',
                 value:10
             }],
-            value: '选项1',
+            value: '',
             step:1,
             tableData: [{
-                id: '05:00:00 - 07:00:00',
+                startTime:'05:00',
+                endTime:'07:00',
                 name: '环球度假区-北京西站 跳停车站：无 编组信息：8B 交路比例：无',
             }, {
-                id: '07:00:00 - 09:00:00',
+                startTime:'05:00',
+                endTime:'07:00',
                 name: '交路1：环球度假区-北京西站 跳停车站：无 编组信息：8B',
                 name1:'交路2：焦化厂-北京西站 跳停车站：无 编组信息：8B 交路比例：1：1'
             }, {
-                id: '09:00:00 - 11:00:00',
+                startTime:'05:00',
+                endTime:'07:00',
                 name: '交路1：环球度假区-北京西站 跳停车站：无 编组信息：8B',
                 name1:'交路2：高楼金-北京西站 跳停车站：无 编组信息：8B 交路比例：2：1'
             }],
@@ -715,128 +800,344 @@ export default {
                 name: '直接相关线路',
                 address: '7号线PR2201',
                 xinxi:'是',
+                option:[{
+                    label:'7号线PR2201',
+                    value:'7号线PR2201'
+                },{
+                    label:'7号线PR2202',
+                    value:'7号线PR2202'
+                }]
             },{
                 date: '1-八通线',
                 name: '直接相关线路',
                 address: '1-八通线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'1-八通线PR2201',
+                    value:'1-八通线PR2201'
+                },{
+                    label:'1-八通线PR2202',
+                    value:'1-八通线PR2202'
+                }]
             },{
                 date: '2号线',
                 name: '一次换乘',
                 address: '2号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'2号线PR2201',
+                    value:'2号线PR2201'
+                },{
+                    label:'2号线PR2202',
+                    value:'2号线PR2202'
+                }]
             },{
                 date: '4号线-大兴线',
                 name: '一次换乘',
                 address: '4号线-大兴线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'4号线-大兴线PR2201',
+                    value:'4号线-大兴线PR2201'
+                },{
+                    label:'4号线-大兴线PR2202',
+                    value:'4号线-大兴线PR2202'
+                }]
             },{
                 date: '5号线',
                 name: '一次换乘',
                 address: '5号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'5号线PR2201',
+                    value:'5号线PR2201'
+                },{
+                    label:'5号线PR2202',
+                    value:'5号线PR2202'
+                }]
             },{
                 date: '6号线',
                 name: '一次换乘',
                 address: '6号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'6号线PR2201',
+                    value:'6号线PR2201'
+                },{
+                    label:'6号线PR2202',
+                    value:'6号线PR2202'
+                }]
             },{
                 date: '8号线',
                 name: '一次换乘',
                 address: '8号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'8号线PR2201',
+                    value:'8号线PR2201'
+                },{
+                    label:'8号线PR2202',
+                    value:'8号线PR2202'
+                }]
             },{
                 date: '9号线',
                 name: '一次换乘',
                 address: '9号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'9号线PR2201',
+                    value:'9号线PR2201'
+                },{
+                    label:'9号线PR2202',
+                    value:'9号线PR2202'
+                }]
             },{
                 date: '10号线',
                 name: '一次换乘',
                 address: '10号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'10号线PR2201',
+                    value:'10号线PR2201'
+                },{
+                    label:'10号线PR2202',
+                    value:'10号线PR2202'
+                }]
             },{
                 date: '14号线',
                 name: '一次换乘',
                 address: '14号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'14号线PR2201',
+                    value:'14号线PR2201'
+                },{
+                    label:'14号线PR2202',
+                    value:'14号线PR2202'
+                }]
             },{
                 date: 'S1线',
                 name: '一次换乘',
                 address: 'S1线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'S1线PR2201',
+                    value:'S1线PR2201'
+                },{
+                    label:'S1线PR2202',
+                    value:'S1线PR2202'
+                }]
             },{
                 date: '11号线',
                 name: '多次换乘',
                 address: '11号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'11号线PR2201',
+                    value:'11号线PR2201'
+                },{
+                    label:'11号线PR2202',
+                    value:'11号线PR2202'
+                }]
             },{
                 date: '13号线',
                 name: '多次换乘',
                 address: '13号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'13号线PR2201',
+                    value:'13号线PR2201'
+                },{
+                    label:'13号线PR2202',
+                    value:'13号线PR2202'
+                }]
             },{
                 date: '15号线',
                 name: '多次换乘',
                 address: '15号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'15号线PR2201',
+                    value:'15号线PR2201'
+                },{
+                    label:'15号线PR2202',
+                    value:'15号线PR2202'
+                }]
             },{
                 date: '16号线',
                 name: '多次换乘',
                 address: '16号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'16号线PR2201',
+                    value:'16号线PR2201'
+                },{
+                    label:'16号线PR2202',
+                    value:'16号线PR2202'
+                }]
             },{
                 date: '17号线',
                 name: '多次换乘',
                 address: '17号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'17号线PR2201',
+                    value:'17号线PR2201'
+                },{
+                    label:'17号线PR2202',
+                    value:'17号线PR2202'
+                }]
             },{
                 date: '19号线',
                 name: '多次换乘',
                 address: '19号线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'19号线PR2201',
+                    value:'19号线PR2201'
+                },{
+                    label:'19号线PR2202',
+                    value:'19号线PR2202'
+                }]
             },{
                 date: '房山线',
                 name: '多次换乘',
                 address: '房山线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'房山线PR2201',
+                    value:'房山线PR2201'
+                },{
+                    label:'房山线PR2202',
+                    value:'房山线PR2202'
+                }]
             },{
                 date: '昌平线',
                 name: '多次换乘',
                 address: '昌平线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'昌平线PR2201',
+                    value:'昌平线PR2201'
+                },{
+                    label:'昌平线PR2202',
+                    value:'昌平线PR2202'
+                }]
             },{
                 date: '亦庄线',
                 name: '多次换乘',
                 address: '亦庄线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'亦庄线PR2201',
+                    value:'亦庄线PR2201'
+                },{
+                    label:'亦庄线PR2202',
+                    value:'亦庄线PR2202'
+                }]
             },{
                 date: '燕房线',
                 name: '多次换乘',
                 address: '燕房线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'燕房线PR2201',
+                    value:'燕房线PR2201'
+                },{
+                    label:'燕房线PR2202',
+                    value:'燕房线PR2202'
+                }]
             },{
                 date: '首都机场线',
                 name: '多次换乘',
                 address: '首都机场线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'首都机场线PR2201',
+                    value:'首都机场线PR2201'
+                },{
+                    label:'首都机场线PR2202',
+                    value:'首都机场线PR2202'
+                }]
             },{
                 date: '西郊线',
                 name: '多次换乘',
                 address: '西郊线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'西郊线PR2201',
+                    value:'西郊线PR2201'
+                },{
+                    label:'西郊线PR2202',
+                    value:'西郊线PR2202'
+                }]
             },{
                 date: '大兴机场线',
                 name: '多次换乘',
                 address: '大兴机场线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'大兴机场线PR2201',
+                    value:'大兴机场线PR2201'
+                },{
+                    label:'大兴机场线PR2202',
+                    value:'大兴机场线PR2202'
+                }]
             },{
                 date: '亦庄T1线',
                 name: '多次换乘',
                 address: '亦庄T1线PR2201',
                 xinxi:'否',
+                option:[{
+                    label:'亦庄T1线PR2201',
+                    value:'亦庄T1线PR2201'
+                },{
+                    label:'亦庄T1线PR2202',
+                    value:'亦庄T1线PR2202'
+                }]
             }],
-            multipleSelection:[]
+            multipleSelection:[],
+            startTime: '',
+            endTime: '',
+            detailsData:[{
+                date:'方案一',
+                name:'1',
+                address:'3号航站楼-东直门',
+                station:'无',
+                message:'4L',
+                bili:'无'
+            },{
+                date:'方案二',
+                children:[{
+                    name:'1',
+                    address:'3号航站楼-东直门',
+                    station:'三元桥',
+                    message:'4L'
+                },{
+                    name:'2',
+                    address:'2号航站楼-东直门',
+                    station:'无',
+                    message:'4L',
+                    
+                }],
+                bili:'交路1：交路2 3:1',
+            },{
+                date:'方案三',
+                children:[{
+                    name:'1',
+                    address:'3号航站楼-东直门',
+                    station:'三元桥',
+                    message:'4L'
+                },{
+                    name:'2',
+                    address:'2号航站楼-东直门',
+                    station:'无',
+                    message:'4L',
+                    
+                }],
+                bili:'交路1：交路2 3:1',
+            }],
+            radio:'',
         };
     },
     created() {
@@ -850,6 +1151,12 @@ export default {
                 })
             }
         }
+
+        this.$api.get('/zbAPI/traffic_plan/').then(res => {            
+            self.options = res.data.plan_data
+            self.value = res.data.plan_data[0].plan_name
+        })
+
     },
     computed: {},
     mounted() {
@@ -948,6 +1255,18 @@ export default {
                 message: '保存成功！',
                 type: 'success'
             });
+        },
+        suiji(){
+            this.$message({
+                message: '生成成功！',
+                type: 'success'
+            });
+            for (let index = 0; index < this.tableData1.length; index++) {
+                this.tableData1[index].bianzu = '8A'
+                this.tableData1[index].xuqiu = Math.floor(Math.random()*30) + 1; 
+                this.tableData1[index].kaixing = Math.floor(Math.random()*30) + 1; 
+                
+            }
         }
     },
 };
@@ -963,9 +1282,12 @@ export default {
 .step span.active i{border-color: #f9ce4c;background: #f9ce4c;color: #000;}
 
 .steps{width: 90%;margin: 0 auto;}
-.final{text-align: center;}
+.final{text-align: right;}
 
-.subwayLine{width: 100%;overflow: auto;}
+.subwayLine{width: 100%;overflow-y: auto;}
+.subwayLine::-webkit-scrollbar {width: 10px;height: 10px;}
+.subwayLine::-webkit-scrollbar-thumb { -webkit-box-shadow: inset 0 0 5px rgba(9, 74, 238, 0.7);background: rgba(32, 50, 96, .7);}
+.subwayLine::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 5px rgba(9, 74, 238, 0.7);background: rgba(0, 0, 0, 0.1);}
 .subwayLine img{height: 300px;}
 
 .steps1{overflow-y:auto;height: calc(100vh - 260px);margin-bottom: 10px;scrollbar-width: none; /* firefox */   -ms-overflow-style: none; }
@@ -977,4 +1299,14 @@ export default {
 
 .steps1 .yl{background: transparent;}
 .chart {height: 400px;padding: 5px;width:100%}
+
+.imitate{border-top: 1px solid #4c506c;text-align: center;color: #a8a8a8;}
+.imitate h2{background: #363851;font-weight: bold;}
+.imitate p,.imitate h2{width: 100%;min-height: 81px;display: block;}
+.imitate p{cursor: pointer;}
+.imitate p:hover{background-color: #363851;}
+.imitate strong{display: inline-block;border-bottom: 1px solid #4c506c;width: 14.4%;line-height: 80px;float: left;}
+.imitate strong b{height: 40px;line-height: 40px;width: 100%;display: block;border-bottom: 1px solid #4c506c;font-weight: normal;}
+.imitate strong b:last-child{border:none}
+.imitate h2,.imitate h2 strong{height: 50px;line-height: 50px;min-height: 50px;}
 </style>

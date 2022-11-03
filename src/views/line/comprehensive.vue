@@ -130,6 +130,7 @@
             
         </div>
         <div class="Line" v-loading="loading">
+            <!-- <i class="fullloadDigo">111</i> -->
             <svg id="subway" xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
         </div>
 
@@ -555,6 +556,7 @@ export default {
         })
         window.handleClickFun= this.handleClickFun;
         window.handleClickZKFun= this.handleClickZKFun;
+        window.FullLoadDigo= this.FullLoadDigo;
     },
     methods:{
         realtimeFormat(){
@@ -620,7 +622,7 @@ export default {
                             }
                         }
                     })
-                    fullRealt = setTimeout(getFull,30000)
+                    fullRealt = setTimeout(getFull,40000)
                 }
                 getFull()
             }else{
@@ -1002,6 +1004,9 @@ export default {
                 });          
             });
         },
+        FullLoadDigo(info){
+            console.log(info.attributes.fullload.value);
+        },
         handleClickZKFun(info){
             this.zkDialog = true
         },
@@ -1085,5 +1090,7 @@ export default {
 .leftBtn:hover{background: #273a50;}
 
 .szk{width: 100%;}
+
+
 
 </style>

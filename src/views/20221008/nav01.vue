@@ -47,7 +47,7 @@ export default {
     name: "nav01",
     data() {
         return {
-            active: "1",
+            active: "2",
             options: [
                 {
                     label: "线路",
